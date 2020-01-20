@@ -226,9 +226,9 @@ public class XoSingleController implements Initializable {
     public void recordPressed(ActionEvent e) {
         Date date = new Date();
         Instant instant = date.toInstant();
-        StringTokenizer inst=new StringTokenizer(instant.toString(),".");
+        StringTokenizer inst = new StringTokenizer(instant.toString(), ".");
         String name = "username";
-        File file = new File("C:\\records\\" + name +inst.nextToken().replace(":","-") + ".txt");
+        File file = new File("C:\\records\\" + name + inst.nextToken().replace(":", "-") + ".txt");
         Path records = Paths.get("C:\\records");
         if (file != null) {
             byte[] b2 = recordd.getBytes();
@@ -248,8 +248,7 @@ public class XoSingleController implements Initializable {
     }
 
     private void xWon() {
-        PauseTransition pause = new PauseTransition(Duration.millis(100));
-
+        PauseTransition pause = new PauseTransition(Duration.millis(20));
         pause.setOnFinished(event
                 -> {
             JOptionPane.showMessageDialog(null, xwin);
@@ -260,8 +259,7 @@ public class XoSingleController implements Initializable {
     }
 
     private void oWon() {
-        PauseTransition pause = new PauseTransition(Duration.millis(100));
-
+        PauseTransition pause = new PauseTransition(Duration.millis(20));
         pause.setOnFinished(event
                 -> {
             JOptionPane.showMessageDialog(null, owin);
