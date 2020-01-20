@@ -198,35 +198,48 @@ public class GameController implements Initializable {
     }
 
     @FXML
-    private void inLoginPressed(ActionEvent event) throws IOException, InterruptedException {
-        if(player==null){
-        socket = new Socket("127.0.0.1", 5005);
-        player = new TicTacTocClient(socket, event);}
-        
-        player.login(usernameTextField.getText().toString(), passwordTextField.getText().toString(), event);
-        myname = usernameTextField.getText().toString();
-        Thread.sleep(3000);
-        if ("success".equals(player.response)) {
-            root = FXMLLoader.load(getClass().getResource("ProfilePage.fxml"));
-            Scene ProfileScene = new Scene(root);
-            window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            window.setScene(ProfileScene);
-            window.show();
-            player.passStage(window);
-        } else if ("failure".equals(player.response)) {
-            Alert alert;
-            alert = new Alert(Alert.AlertType.ERROR, "Please try again with a valid"
-                    + " username and password! ", ButtonType.OK);
-            alert.show();
+    private void inLoginPressed(ActionEvent event){
+        try {
+            if (player == null) {
+                try {
+                    socket = new Socket("10.140.200.195", 5005);
+                    player = new TicTacTocClient(socket, event);
+                } catch (IOException ex) {
+                    Alert a= new Alert(Alert.AlertType.ERROR, "the server is disconnected"
+                            + " please try again later!", ButtonType.OK);
+                    a.show();
+                    return;
+                }
+            }
+            player.login(usernameTextField.getText().toString(), passwordTextField.getText().toString(), event);
+            myname = usernameTextField.getText().toString();
+            Thread.sleep(3000);
+            if ("success".equals(player.response)) {
+                root = FXMLLoader.load(getClass().getResource("ProfilePage.fxml"));
+                Scene ProfileScene = new Scene(root);
+                window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                window.setScene(ProfileScene);
+                window.show();
+                player.passStage(window);
+            } else if ("failure".equals(player.response)) {
+                Alert alert;
+                alert = new Alert(Alert.AlertType.ERROR, "Please try again with a valid"
+                        + " username and password! ", ButtonType.OK);
+                alert.show();
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(GameController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InterruptedException ex) {
+        Logger.getLogger(GameController.class.getName()).log(Level.SEVERE, null, ex);
         }
-
     }
 
     @FXML
     private void registrationConfirmPressed(ActionEvent event) throws IOException, InterruptedException {
-        if(player==null){
-        socket = new Socket("127.0.0.1", 5005);
-        player = new TicTacTocClient(socket, event);}
+        if (player == null) {
+            socket = new Socket("127.0.0.1", 5005);
+            player = new TicTacTocClient(socket, event);
+        }
         String fullname = fullNameTextField.getText().toString();
         String age = ageTextField.getText().toString();
         String username = registerUsernameTextField.getText().toString();
@@ -242,7 +255,7 @@ public class GameController implements Initializable {
         } else if ("failure".equals(player.response)) {
             Alert alert;
             alert = new Alert(Alert.AlertType.ERROR, "Please try again with  valid"
-                    + "values ", ButtonType.OK);
+                    + " values ", ButtonType.OK);
             alert.show();
         }
     }
@@ -312,7 +325,6 @@ public class GameController implements Initializable {
     mapper={
     "1":
     }*/
-
     public void PlayBtnPressed(ActionEvent e) {
         for (int i = 1; i < player.viewRes.size(); i++) {
             System.out.println(player.viewRes.get(i));

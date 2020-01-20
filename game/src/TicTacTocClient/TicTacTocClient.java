@@ -43,7 +43,7 @@ public class TicTacTocClient extends Thread {
     public ObjectInputStream comingStream;
     public ObjectOutputStream goingStream;
     Request request;
-    public String response;
+    public static String response;
 
     //ramy
     static Parent root;
@@ -97,9 +97,11 @@ public class TicTacTocClient extends Thread {
         switch (req.getType()) {
             case LOGIN_SUCCESS:
                 response = "success";
+              
                 break;
             case LOGIN_FAILURE:
                 response = "failure";
+                
                 break;
             case REGISTER_SUCCESS:
                 response = "success";
@@ -197,6 +199,7 @@ public class TicTacTocClient extends Thread {
     }
 
     public void login(String username, String password, ActionEvent _event) throws IOException {
+        
         event = _event;
         Request loginRequest = new Request(RequestType.LOGIN);
         loginRequest.setData("username", username);

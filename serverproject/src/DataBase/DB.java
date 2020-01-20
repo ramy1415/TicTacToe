@@ -28,7 +28,7 @@ public class DB {
         try {
             DriverManager.registerDriver(new Driver());
             con = DriverManager.getConnection(
-                    "jdbc:mysql://127.0.0.1:3306/xogame", "root", "12345");
+                    "jdbc:mysql://127.0.0.1:3306/xogame", "root", "mnwraea");
         } catch (SQLException ex) {
             System.out.println(ex);
             ex.printStackTrace();
@@ -54,7 +54,7 @@ public class DB {
         int val;
         boolean valid=true;
         System.out.println(fullname+age+username+password);
-        if (Integer.parseInt(age) < 100 && Integer.parseInt(age) > 0 && password.length() > 6) {
+        if (Integer.parseInt(age) < 100 && Integer.parseInt(age) > 0 && password.length() > 6 ) {
             pst = con.prepareStatement("insert into player values(?,?,?,?)");
             pst.setString(1, username);
             pst.setString(2, fullname);

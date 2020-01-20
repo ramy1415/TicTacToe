@@ -61,8 +61,9 @@ public class TicTacToeServer extends Thread {
                 requestHandler(request);
             } catch (IOException ex) {
                 clientslist.remove(this);
-                if(this.name!=null)
-                    System.err.println("client "+this.name+" left");
+                if (this.name != null) {
+                    System.err.println("client " + this.name + " left");
+                }
                 return;
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(TicTacToeServer.class.getName()).log(Level.SEVERE, null, ex);
@@ -118,10 +119,15 @@ public class TicTacToeServer extends Thread {
         String age = req.getData("age");
         String username = req.getData("username");
         String password = req.getData("password");
-        boolean valid = dataBase.checkForValidation(fullname, age, username, password);
-        if (valid == true) {
-            Request r = new Request(RequestType.REGISTER_SUCCESS);
-            goingStream.writeObject(r);
+        if (fullname == null || age == null || username == null || password == null) {
+            boolean valid = dataBase.checkForValidation(fullname, age, username, password);
+            if (valid == true) {
+                Request r = new Request(RequestType.REGISTER_SUCCESS);
+                goingStream.writeObject(r);
+            } else {
+                Request r = new Request(RequestType.REGISTER_FAILURE);
+                goingStream.writeObject(r);
+            }
         } else {
             Request r = new Request(RequestType.REGISTER_FAILURE);
             goingStream.writeObject(r);
@@ -186,7 +192,7 @@ public class TicTacToeServer extends Thread {
     }
 
     //ramy
-    private void askfornamesHandler(Request req) {
+    synchronized private void askfornamesHandler(Request req) {
         List<String> names = Collections.synchronizedList(new ArrayList<String>());
         for (TicTacToeServer t1 : clientslist) {
             if (t1.name != null) {
@@ -214,15 +220,15 @@ public class TicTacToeServer extends Thread {
             System.err.println("hi");
             System.err.println(t1.name);
             System.err.println(req.getData("oponent"));
-            if (t1.name != null)
-            if (t1.name.equals(req.getData("oponent"))) {
-                try {
-                    t1.goingStream.writeObject(req);
-                } catch (IOException ex) {
-                    Logger.getLogger(TicTacToeServer.class.getName()).log(Level.SEVERE, null, ex);
+            if (t1.name != null) {
+                if (t1.name.equals(req.getData("oponent"))) {
+                    try {
+                        t1.goingStream.writeObject(req);
+                    } catch (IOException ex) {
+                        Logger.getLogger(TicTacToeServer.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 }
             }
         }
     }
-
 }
