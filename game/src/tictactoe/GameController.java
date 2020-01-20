@@ -202,6 +202,7 @@ public class GameController implements Initializable {
         if(player==null){
         socket = new Socket("127.0.0.1", 5005);
         player = new TicTacTocClient(socket, event);}
+        
         player.login(usernameTextField.getText().toString(), passwordTextField.getText().toString(), event);
         myname = usernameTextField.getText().toString();
         Thread.sleep(3000);

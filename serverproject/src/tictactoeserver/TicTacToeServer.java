@@ -35,7 +35,7 @@ public class TicTacToeServer extends Thread {
     //passed ip and vector
     String ip;
     String name;
-    static List<TicTacToeServer> clientslist=Collections.synchronizedList(new ArrayList<TicTacToeServer>());
+    static List<TicTacToeServer> clientslist = Collections.synchronizedList(new ArrayList<TicTacToeServer>());
     //static Vector<TicTacToeServer> clientsvector = new Vector<TicTacToeServer>();
 
     public TicTacToeServer(Socket s, ObjectOutputStream oos, ObjectInputStream ois, String _ip) throws IOException {
@@ -47,7 +47,7 @@ public class TicTacToeServer extends Thread {
         System.err.println("");
         dataBase = new DB();
         //adding to vector
-        System.err.println("new client ip:"+ip);
+        System.err.println("new client ip:" + ip);
         clientslist.add(this);
         setDaemon(true);
         start();
@@ -61,12 +61,14 @@ public class TicTacToeServer extends Thread {
                 requestHandler(request);
             } catch (IOException ex) {
                 clientslist.remove(this);
+                if(this.name!=null)
+                    System.err.println("client "+this.name+" left");
+                return;
             } catch (ClassNotFoundException ex) {
-                System.out.println(ex);
+                Logger.getLogger(TicTacToeServer.class.getName()).log(Level.SEVERE, null, ex);
             } catch (SQLException ex) {
-                System.out.println(ex);
+                Logger.getLogger(TicTacToeServer.class.getName()).log(Level.SEVERE, null, ex);
             }
-          
         }
     }
 
@@ -92,8 +94,7 @@ public class TicTacToeServer extends Thread {
             case NAMES:
                 askfornamesHandler(req);
                 break;
-            
-               
+
         }
     }
 
@@ -154,7 +155,7 @@ public class TicTacToeServer extends Thread {
         }
 
     }
-    
+
     private void acceptHandler(Request req) {
 
         for (TicTacToeServer t1 : clientslist) {
@@ -182,23 +183,26 @@ public class TicTacToeServer extends Thread {
             }
         }
     }
-    
-    
+
     //ramy
     private void askfornamesHandler(Request req) {
         List<String> names = Collections.synchronizedList(new ArrayList<String>());
         for (TicTacToeServer t1 : clientslist) {
-            if (!t1.name.equals(req.getData("myname"))) {
-                names.add(t1.name);
+            if (t1.name != null) {
+                if (!t1.name.equals(req.getData("myname"))) {
+                    names.add(t1.name);
+                }
             }
         }
         for (TicTacToeServer t1 : clientslist) {
-            if (t1.name.equals(req.getData("myname"))) {
-                try {
-                    req.setNames("names", names);
-                    t1.goingStream.writeObject(req);
-                } catch (IOException ex) {
-                    Logger.getLogger(TicTacToeServer.class.getName()).log(Level.SEVERE, null, ex);
+            if (t1.name != null) {
+                if (t1.name.equals(req.getData("myname"))) {
+                    try {
+                        req.setNames("names", names);
+                        t1.goingStream.writeObject(req);
+                    } catch (IOException ex) {
+                        Logger.getLogger(TicTacToeServer.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 }
             }
         }
