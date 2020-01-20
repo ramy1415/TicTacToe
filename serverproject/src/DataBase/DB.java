@@ -53,6 +53,7 @@ public class DB {
         
         int val;
         boolean valid=true;
+        System.out.println(fullname+age+username+password);
         if (Integer.parseInt(age) < 100 && Integer.parseInt(age) > 0 && password.length() > 6) {
             pst = con.prepareStatement("insert into player values(?,?,?,?)");
             pst.setString(1, username);
