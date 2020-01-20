@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tictactoe.GameController">
+   <center>
+      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="SinglePlayerBtn" mnemonicParsing="false" onAction="#singlePlayerPressed" prefHeight="52.0" prefWidth="306.0" text="Single Player" />
+            <Button fx:id="MultiPlayerBtn" mnemonicParsing="false" onAction="#multiPlayerPressed" prefHeight="51.0" prefWidth="307.0" text="MultiPlayer" />
+            <Button fx:id="PlayOnlineBtn" mnemonicParsing="false" onAction="#playOnlinePressed" prefHeight="54.0" prefWidth="306.0" text="Play Online" />
+            <Button fx:id="AboutBtn" mnemonicParsing="false" onAction="#aboutPressed" prefHeight="60.0" prefWidth="305.0" text="About" />
+            <Button fx:id="ExitBtn" mnemonicParsing="false" onAction="#exitPressed" prefHeight="57.0" prefWidth="305.0" text="Exit" />
+         </children>
+      </VBox>
+   </center>
+</BorderPane>
