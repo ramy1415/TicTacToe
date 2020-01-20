@@ -7,6 +7,7 @@ package TicTacTocClient;
 
 import Facilities.Request;
 import Facilities.RequestType;
+import OnlinePlay.XoOnlineController;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -30,6 +31,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import javax.swing.JOptionPane;
 
@@ -43,6 +45,7 @@ public class TicTacTocClient extends Thread {
     public ObjectInputStream comingStream;
     public ObjectOutputStream goingStream;
     Request request;
+
     public static String response;
 
     //ramy
@@ -56,7 +59,8 @@ public class TicTacTocClient extends Thread {
     public String hisSympol;
     ObservableList<String> clients = FXCollections.observableArrayList();
     private static Stage onlineStage;
-
+    private final String lose = "Sorry! You lost!";
+    private final String tie = "It was a tie!";
     public TicTacTocClient(Socket playerSocket, ActionEvent _event) throws IOException {
 
         //getting ip for this machine
@@ -71,7 +75,6 @@ public class TicTacTocClient extends Thread {
         comingStream = new ObjectInputStream(serverSocket.getInputStream());
         goingStream = new ObjectOutputStream(serverSocket.getOutputStream());
         setDaemon(true);
-
         start();
     }
 
@@ -97,11 +100,9 @@ public class TicTacTocClient extends Thread {
         switch (req.getType()) {
             case LOGIN_SUCCESS:
                 response = "success";
-              
                 break;
             case LOGIN_FAILURE:
-                response = "failure";
-                
+                response = "failure"; 
                 break;
             case REGISTER_SUCCESS:
                 response = "success";
@@ -116,26 +117,32 @@ public class TicTacTocClient extends Thread {
                     Alert a1 = new Alert(Alert.AlertType.CONFIRMATION, req.getData("myname") + " sent you a request .. Do you want to play ?!", ButtonType.YES, ButtonType.NO);
                     Optional<ButtonType> result = a1.showAndWait();
                     if (result.get() == ButtonType.YES) {
-                        mySympol="X";
-                        hisSympol="O";
-                        OnlinePlay.XoOnlineController.myturn=false;
+                        mySympol = "X";
+                        hisSympol = "O";
+                        OnlinePlay.XoOnlineController.myturn = false;
+                        
                         oponent = req.getData("myname");
                         Request acceptrequest = new Request(RequestType.ACCEPT);
                         acceptrequest.setData("targetname", req.getData("myname"));
+  
                         acceptrequest.setData("myname", req.getData("targetname"));
                         try {
                             goingStream.writeObject(acceptrequest);
                             //temporary testing
                             Platform.runLater(() -> {
+                               
                                 try {
                                     root = FXMLLoader.load(getClass().getResource("/OnlinePlay/XoOnlineView.fxml"));
+ 
                                 } catch (IOException ex) {
                                     Logger.getLogger(TicTacTocClient.class.getName()).log(Level.SEVERE, null, ex);
                                 }
                                 Scene singleScene = new Scene(root);
                                 mystage.setScene(singleScene);
-                                onlineStage=mystage;
+                                onlineStage = mystage;
+                                changeTurn(req.getData("myname"));
                                 mystage.show();
+
                             });
                         } catch (IOException ex) {
                             Logger.getLogger(TicTacTocClient.class.getName()).log(Level.SEVERE, null, ex);
@@ -158,16 +165,18 @@ public class TicTacTocClient extends Thread {
 //                    Alert a1 = new Alert(Alert.AlertType.CONFIRMATION, "He Accepted", ButtonType.OK);
 //                    a1.show();
                     try {
-                        mySympol="X";
-                        hisSympol="O";
-                        OnlinePlay.XoOnlineController.myturn=true;
+                        mySympol = "X";
+                        hisSympol = "O";
+                        OnlinePlay.XoOnlineController.myturn = true;
                         oponent = req.getData("myname");
                         root = FXMLLoader.load(getClass().getResource("/OnlinePlay/XoOnlineView.fxml"));
                         Scene singleScene = new Scene(root);
                         window = (Stage) ((Node) event.getSource()).getScene().getWindow();
                         window.setScene(singleScene);
-                        onlineStage=window;
+                        onlineStage = window;
                         window.show();
+                        changeTurn(req.getData("targetname"));
+
                     } catch (IOException ex) {
                         Logger.getLogger(TicTacTocClient.class.getName()).log(Level.SEVERE, null, ex);
                     }
@@ -195,11 +204,30 @@ public class TicTacTocClient extends Thread {
             case MOVE:
                 moveHandler(req);
                 break;
+            case LOSE:
+                Platform.runLater(() -> {
+                    loseAlert();
+                    changeTurn("Game Over!");
+                });
+                break;
+            case TIE:
+                Platform.runLater(() -> {
+                    tieAlert();
+                    changeTurn("Game Over!");
+                });
+
+                break;
+            case CHANGETURN:
+                Platform.runLater(() -> {
+                    changeTurn(req.getData("oponent"));
+                });
+
+                break;
         }
+
     }
 
     public void login(String username, String password, ActionEvent _event) throws IOException {
-        
         event = _event;
         Request loginRequest = new Request(RequestType.LOGIN);
         loginRequest.setData("username", username);
@@ -217,8 +245,8 @@ public class TicTacTocClient extends Thread {
     }
 
     public void asktoplay(String myname, String targetname, ActionEvent _event) throws IOException {
-        mySympol="X";
-        hisSympol="O";
+        mySympol = "X";
+        hisSympol = "O";
         Request asktoplayRequest = new Request(RequestType.ASKTOPLAY);
         asktoplayRequest.setData("myname", myname);
         asktoplayRequest.setData("targetname", targetname);
@@ -304,6 +332,44 @@ public class TicTacTocClient extends Thread {
     public static Stage getOnlineStage() {
         return onlineStage;
     }
-    
-    
+
+    private void disableAllButtons(Button[] btns) {
+        for (int i = 0; i < 9; i++) {
+            btns[i].setDisable(true);
+        }
+    }
+
+    private Button[] getAllButtons() {
+        Button[] buttons = new Button[9];
+        buttons[0] = (Button) TicTacTocClient.getOnlineStage().getScene().lookup("#btnOne");
+        buttons[1] = (Button) TicTacTocClient.getOnlineStage().getScene().lookup("#btnTwo");
+        buttons[2] = (Button) TicTacTocClient.getOnlineStage().getScene().lookup("#btnThree");
+        buttons[3] = (Button) TicTacTocClient.getOnlineStage().getScene().lookup("#btnFour");
+        buttons[4] = (Button) TicTacTocClient.getOnlineStage().getScene().lookup("#btnFive");
+        buttons[5] = (Button) TicTacTocClient.getOnlineStage().getScene().lookup("#btnSix");
+        buttons[6] = (Button) TicTacTocClient.getOnlineStage().getScene().lookup("#btnSeven");
+        buttons[7] = (Button) TicTacTocClient.getOnlineStage().getScene().lookup("#btnEight");
+        buttons[8] = (Button) TicTacTocClient.getOnlineStage().getScene().lookup("#btnNine");
+        return buttons;
+    }
+
+    private void loseAlert() {
+        JOptionPane.showMessageDialog(null, lose);
+        disableAllButtons(getAllButtons());
+        // playeroneLabelScore.setText("player One Score : " + (++xscore));
+    }
+
+    private void tieAlert() {
+        
+        disableAllButtons(getAllButtons());
+        JOptionPane.showMessageDialog(null, tie);
+        // playeroneLabelScore.setText("player One Score : " + (++xscore));
+    }
+
+    private void changeTurn(String nowTurnName) {
+        Label nowTurn = (Label) TicTacTocClient.getOnlineStage().getScene().lookup("#turnLabel");
+        System.out.println("TurnName:" + nowTurnName);
+        nowTurn.setText(nowTurnName);
+
+    }
 }

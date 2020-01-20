@@ -34,6 +34,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+import javafx.stage.FileChooser;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
@@ -93,6 +94,7 @@ public class XoSingleController implements Initializable {
     private Button btnResetGame;
     @FXML
     private Button btnHome;
+
     @FXML
     private MediaView mediaView;
 
@@ -233,6 +235,7 @@ public class XoSingleController implements Initializable {
     public void recordPressed(ActionEvent e) {
         Date date = new Date();
         Instant instant = date.toInstant();
+
         StringTokenizer inst = new StringTokenizer(instant.toString(), ".");
         String name = "username";
         File file = new File("C:\\records\\" + name + inst.nextToken().replace(":", "-") + ".txt");
@@ -255,6 +258,7 @@ public class XoSingleController implements Initializable {
     }
 
     private void xWon() {
+
         PauseTransition pause = new PauseTransition(Duration.millis(20));
         pause.setOnFinished(event
                 -> {
@@ -287,6 +291,7 @@ public class XoSingleController implements Initializable {
     }
 
     private void oWon() {
+
         PauseTransition pause = new PauseTransition(Duration.millis(20));
         pause.setOnFinished(event
                 -> {

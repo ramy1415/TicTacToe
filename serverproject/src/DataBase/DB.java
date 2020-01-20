@@ -28,7 +28,7 @@ public class DB {
         try {
             DriverManager.registerDriver(new Driver());
             con = DriverManager.getConnection(
-                    "jdbc:mysql://127.0.0.1:3306/xogame", "root", "mnwraea");
+                    "jdbc:mysql://127.0.0.1:3306/xogame", "root", "123456789");
         } catch (SQLException ex) {
             System.out.println(ex);
             ex.printStackTrace();
@@ -50,26 +50,24 @@ public class DB {
     }
 
     public boolean checkForValidation(String fullname, String age, String username, String password) throws SQLException {
-        
+
         int val;
-        boolean valid=true;
-        System.out.println(fullname+age+username+password);
-        if (Integer.parseInt(age) < 100 && Integer.parseInt(age) > 0 && password.length() > 6 ) {
+        boolean valid = true;
+        System.out.println(fullname + age + username + password);
+        if (Integer.parseInt(age) < 100 && Integer.parseInt(age) > 0 && password.length() > 6) {
             pst = con.prepareStatement("insert into player values(?,?,?,?)");
             pst.setString(1, username);
             pst.setString(2, fullname);
             pst.setString(3, age);
             pst.setString(4, password);
-            val=pst.executeUpdate();
-            if(val!=0){
-                valid=true;
+            val = pst.executeUpdate();
+            if (val != 0) {
+                valid = true;
+            } else {
+                valid = false;
             }
-            else{
-                valid=false;
-            }
-        }
-        else{
-            valid=false;
+        } else {
+            valid = false;
         }
         return valid;
     }

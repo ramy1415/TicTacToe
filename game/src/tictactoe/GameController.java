@@ -236,6 +236,7 @@ public class GameController implements Initializable {
 
     @FXML
     private void registrationConfirmPressed(ActionEvent event) throws IOException, InterruptedException {
+
         if (player == null) {
             socket = new Socket("127.0.0.1", 5005);
             player = new TicTacTocClient(socket, event);
@@ -262,8 +263,7 @@ public class GameController implements Initializable {
 
     @FXML
     private void refreshViewList(ActionEvent e) {
-        File selectedDirectory = new File("C:\\records");
-        
+        File selectedDirectory = new File("C:\\records");        
             File[] flist = selectedDirectory.listFiles();
             if (flist != null) {
                 for (int i = 0; i < flist.length; i++) {
@@ -273,12 +273,10 @@ public class GameController implements Initializable {
                  Alert a = new Alert(Alert.AlertType.ERROR, "there are no games recorded!", ButtonType.OK);
                 a.show();
             }      
-        
     }
 
     @FXML
     private void viewGamesBtn(ActionEvent e) {
-
         if (gamesRecordedList.getSelectionModel().getSelectedItem() != null) {
             String game = gamesRecordedList.getSelectionModel().getSelectedItem().toString();
             //we should here put the name of the game
@@ -333,6 +331,7 @@ public class GameController implements Initializable {
     mapper={
     "1":
     }*/
+
     public void PlayBtnPressed(ActionEvent e) {
         for (int i = 1; i < player.viewRes.size(); i++) {
             System.out.println(player.viewRes.get(i));
