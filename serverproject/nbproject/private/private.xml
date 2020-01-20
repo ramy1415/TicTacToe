@@ -3,8 +3,15 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
             <file>file:/F:/ramyMerge/TicTacToe-master/serverproject/src/tictactoeserver/TicTacToeServer.java</file>
             <file>file:/F:/ramyMerge/TicTacToe-master/serverproject/src/Facilities/RequestType.java</file>
+=======
+            <file>file:/F:/ITI/Java/project2/serverproject/src/DataBase/DB.java</file>
+            <file>file:/F:/ITI/Java/project2/serverproject/src/tictactoeserver/Server.java</file>
+            <file>file:/F:/ITI/Java/project2/serverproject/src/tictactoeserver/ServerMode.java</file>
+            <file>file:/F:/ITI/Java/project2/serverproject/src/tictactoeserver/TicTacToeServer.java</file>
+>>>>>>> 781e1095a0f2a900e2520765a919bcdb766c6481
         </group>
     </open-files>
 </project-private>

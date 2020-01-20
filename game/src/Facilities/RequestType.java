@@ -19,5 +19,9 @@ public enum RequestType {
     ASKTOPLAY,
     ACCEPT, 
     REJECT,
+<<<<<<< HEAD
     MOVE, NAMES,NOTFOUND,LOSE,TIE,CHANGETURN
+=======
+    MOVE, NAMES,NOTFOUND
+>>>>>>> 781e1095a0f2a900e2520765a919bcdb766c6481
 }

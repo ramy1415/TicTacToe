@@ -52,6 +52,7 @@ public class XoSingleModel {
         
         return false;
     }
+<<<<<<< HEAD
      public void printCurrentBoard()
     {
         for(int i=0;i<3;i++){
@@ -60,6 +61,8 @@ public class XoSingleModel {
             }
         }
     }
+=======
+>>>>>>> 781e1095a0f2a900e2520765a919bcdb766c6481
     
     
     

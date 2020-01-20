@@ -27,13 +27,25 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+<<<<<<< HEAD
+=======
+import javafx.scene.Group;
+>>>>>>> 781e1095a0f2a900e2520765a919bcdb766c6481
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+<<<<<<< HEAD
 import javafx.stage.FileChooser;
+=======
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.MediaView;
+import javafx.stage.FileChooser;
+import javafx.stage.Modality;
+>>>>>>> 781e1095a0f2a900e2520765a919bcdb766c6481
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import javax.swing.JOptionPane;
@@ -88,6 +100,11 @@ public class XoSingleController implements Initializable {
     private Button btnResetGame;
     @FXML
     private Button btnHome;
+<<<<<<< HEAD
+=======
+    @FXML
+    private MediaView mediaView;
+>>>>>>> 781e1095a0f2a900e2520765a919bcdb766c6481
 
     public XoSingleController() {
 
@@ -226,9 +243,15 @@ public class XoSingleController implements Initializable {
     public void recordPressed(ActionEvent e) {
         Date date = new Date();
         Instant instant = date.toInstant();
+<<<<<<< HEAD
         StringTokenizer inst=new StringTokenizer(instant.toString(),".");
         String name = "username";
         File file = new File("C:\\records\\" + name +inst.nextToken().replace(":","-") + ".txt");
+=======
+        StringTokenizer inst = new StringTokenizer(instant.toString(), ".");
+        String name = "username";
+        File file = new File("C:\\records\\" + name + inst.nextToken().replace(":", "-") + ".txt");
+>>>>>>> 781e1095a0f2a900e2520765a919bcdb766c6481
         Path records = Paths.get("C:\\records");
         if (file != null) {
             byte[] b2 = recordd.getBytes();
@@ -248,11 +271,39 @@ public class XoSingleController implements Initializable {
     }
 
     private void xWon() {
+<<<<<<< HEAD
         PauseTransition pause = new PauseTransition(Duration.millis(100));
 
         pause.setOnFinished(event
                 -> {
             JOptionPane.showMessageDialog(null, xwin);
+=======
+        PauseTransition pause = new PauseTransition(Duration.millis(20));
+        pause.setOnFinished(event
+                -> {
+            // JOptionPane.showMessageDialog(null, xwin);
+            String path = "F:\\ITI\\Java\\project2\\win.mp4";
+            Media media = new Media(new File(path).toURI().toString());
+            MediaPlayer mediaPlayer = new MediaPlayer(media);
+            mediaPlayer.setAutoPlay(true);
+            mediaView = new MediaView();
+            mediaView.setMediaPlayer(mediaPlayer);
+            Group root1 = new Group();
+            root1.getChildren().add(mediaView);
+            Scene multiScene = new Scene(root1);
+            Stage stage1 = new Stage();
+            stage1.setScene(multiScene);
+            stage1.initModality(Modality.APPLICATION_MODAL);
+            stage1.setMinWidth(550);
+            stage1.setMinHeight(450);
+            stage1.setMaxHeight(450);
+            stage1.setMaxWidth(550);
+            stage1.centerOnScreen();
+            mediaPlayer.setOnEndOfMedia(() -> {
+                stage1.close();
+            });
+            stage1.show();
+>>>>>>> 781e1095a0f2a900e2520765a919bcdb766c6481
         });
         pause.play();
         disableAllbtns();
@@ -260,8 +311,12 @@ public class XoSingleController implements Initializable {
     }
 
     private void oWon() {
+<<<<<<< HEAD
         PauseTransition pause = new PauseTransition(Duration.millis(100));
 
+=======
+        PauseTransition pause = new PauseTransition(Duration.millis(20));
+>>>>>>> 781e1095a0f2a900e2520765a919bcdb766c6481
         pause.setOnFinished(event
                 -> {
             JOptionPane.showMessageDialog(null, owin);

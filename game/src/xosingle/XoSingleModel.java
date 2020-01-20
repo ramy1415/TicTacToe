@@ -53,7 +53,12 @@ public class XoSingleModel {
         return false;
     }
     
+<<<<<<< HEAD
    
+=======
+    
+    
+>>>>>>> 781e1095a0f2a900e2520765a919bcdb766c6481
     
     
 //    public static void main(String [] args){
