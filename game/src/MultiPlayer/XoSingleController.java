@@ -27,13 +27,18 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.MediaView;
 import javafx.stage.FileChooser;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import javax.swing.JOptionPane;
@@ -88,6 +93,8 @@ public class XoSingleController implements Initializable {
     private Button btnResetGame;
     @FXML
     private Button btnHome;
+    @FXML
+    private MediaView mediaView;
 
     public XoSingleController() {
 
@@ -251,7 +258,28 @@ public class XoSingleController implements Initializable {
         PauseTransition pause = new PauseTransition(Duration.millis(20));
         pause.setOnFinished(event
                 -> {
-            JOptionPane.showMessageDialog(null, xwin);
+            // JOptionPane.showMessageDialog(null, xwin);
+            String path = "F:\\ITI\\Java\\project2\\win.mp4";
+            Media media = new Media(new File(path).toURI().toString());
+            MediaPlayer mediaPlayer = new MediaPlayer(media);
+            mediaPlayer.setAutoPlay(true);
+            mediaView = new MediaView();
+            mediaView.setMediaPlayer(mediaPlayer);
+            Group root1 = new Group();
+            root1.getChildren().add(mediaView);
+            Scene multiScene = new Scene(root1);
+            Stage stage1 = new Stage();
+            stage1.setScene(multiScene);
+            stage1.initModality(Modality.APPLICATION_MODAL);
+            stage1.setMinWidth(550);
+            stage1.setMinHeight(450);
+            stage1.setMaxHeight(450);
+            stage1.setMaxWidth(550);
+            stage1.centerOnScreen();
+            mediaPlayer.setOnEndOfMedia(() -> {
+                stage1.close();
+            });
+            stage1.show();
         });
         pause.play();
         disableAllbtns();
