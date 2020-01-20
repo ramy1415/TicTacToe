@@ -276,6 +276,7 @@ public class GameController implements Initializable {
     @FXML
     private void viewGamesBtn(ActionEvent e) {
 
+        if(gamesRecordedList.getSelectionModel().getSelectedItem()!=null){    
         String game = gamesRecordedList.getSelectionModel().getSelectedItem().toString();
         //we should here put the name of the game
         File selectedFile = new File(game);
@@ -293,7 +294,7 @@ public class GameController implements Initializable {
                 ex.printStackTrace();
             }
         }
-
+        
         viewgames(view);
 
         try {
@@ -305,7 +306,12 @@ public class GameController implements Initializable {
         window = (Stage) ((Node) e.getSource()).getScene().getWindow();
         window.setScene(NewUserScene);
         window.show();
-
+        }
+        else{
+            Alert a= new Alert(Alert.AlertType.ERROR, "please refresh the games list"
+                            + " and try again!", ButtonType.OK);
+                    a.show();
+        }
     }
 
     public static TicTacTocClient getPlayer() {
