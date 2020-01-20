@@ -53,18 +53,5 @@ public class XoSingleModel {
         return false;
     }
     
-<<<<<<< HEAD
-   
-=======
-    
-    
->>>>>>> 781e1095a0f2a900e2520765a919bcdb766c6481
-    
-    
-//    public static void main(String [] args){
-//        XoSingleModel s1=new XoSingleModel();
-//        s1.setarr(0,2,"Hello");
-//        System.out.println(""+s1.arr[0][2]);
-//    }
     
 }

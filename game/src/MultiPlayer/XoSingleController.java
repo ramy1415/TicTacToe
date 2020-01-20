@@ -27,25 +27,19 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-<<<<<<< HEAD
-=======
 import javafx.scene.Group;
->>>>>>> 781e1095a0f2a900e2520765a919bcdb766c6481
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
-<<<<<<< HEAD
 import javafx.stage.FileChooser;
-=======
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
->>>>>>> 781e1095a0f2a900e2520765a919bcdb766c6481
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import javax.swing.JOptionPane;
@@ -100,11 +94,9 @@ public class XoSingleController implements Initializable {
     private Button btnResetGame;
     @FXML
     private Button btnHome;
-<<<<<<< HEAD
-=======
+
     @FXML
     private MediaView mediaView;
->>>>>>> 781e1095a0f2a900e2520765a919bcdb766c6481
 
     public XoSingleController() {
 
