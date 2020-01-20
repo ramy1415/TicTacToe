@@ -198,14 +198,14 @@ public class GameController implements Initializable {
     }
 
     @FXML
-    private void inLoginPressed(ActionEvent event){
+    private void inLoginPressed(ActionEvent event) {
         try {
             if (player == null) {
                 try {
                     socket = new Socket("10.140.200.195", 5005);
                     player = new TicTacTocClient(socket, event);
                 } catch (IOException ex) {
-                    Alert a= new Alert(Alert.AlertType.ERROR, "the server is disconnected"
+                    Alert a = new Alert(Alert.AlertType.ERROR, "the server is disconnected"
                             + " please try again later!", ButtonType.OK);
                     a.show();
                     return;
@@ -230,7 +230,7 @@ public class GameController implements Initializable {
         } catch (IOException ex) {
             Logger.getLogger(GameController.class.getName()).log(Level.SEVERE, null, ex);
         } catch (InterruptedException ex) {
-        Logger.getLogger(GameController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GameController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -263,54 +263,56 @@ public class GameController implements Initializable {
     @FXML
     private void refreshViewList(ActionEvent e) {
         File selectedDirectory = new File("C:\\records");
-        File[] flist = selectedDirectory.listFiles();
-        if (selectedDirectory != null) {
-            for (int i = 0; i < flist.length; i++) {
-                gamesRecordedList.getItems().add(flist[i]);
-            }
-        } else {
-            System.out.println("File is not Valid");
-        }
+        
+            File[] flist = selectedDirectory.listFiles();
+            if (flist != null) {
+                for (int i = 0; i < flist.length; i++) {
+                    gamesRecordedList.getItems().add(flist[i]);
+                }
+            } else {
+                 Alert a = new Alert(Alert.AlertType.ERROR, "there are no games recorded!", ButtonType.OK);
+                a.show();
+            }      
+        
     }
 
     @FXML
     private void viewGamesBtn(ActionEvent e) {
 
-        if(gamesRecordedList.getSelectionModel().getSelectedItem()!=null){    
-        String game = gamesRecordedList.getSelectionModel().getSelectedItem().toString();
-        //we should here put the name of the game
-        File selectedFile = new File(game);
-        byte[] b = new byte[(int) selectedFile.length()];
-        if (selectedFile != null) {
-            try {
-                FileInputStream fis = new FileInputStream(selectedFile);
-                fis.read(b);
-                view = new String(b);
-                System.out.println(view);
-                fis.close();
-            } catch (FileNotFoundException ex) {
-                ex.printStackTrace();
-            } catch (IOException ex) {
-                ex.printStackTrace();
+        if (gamesRecordedList.getSelectionModel().getSelectedItem() != null) {
+            String game = gamesRecordedList.getSelectionModel().getSelectedItem().toString();
+            //we should here put the name of the game
+            File selectedFile = new File(game);
+            byte[] b = new byte[(int) selectedFile.length()];
+            if (selectedFile != null) {
+                try {
+                    FileInputStream fis = new FileInputStream(selectedFile);
+                    fis.read(b);
+                    view = new String(b);
+                    System.out.println(view);
+                    fis.close();
+                } catch (FileNotFoundException ex) {
+                    ex.printStackTrace();
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
             }
-        }
-        
-        viewgames(view);
 
-        try {
-            root = FXMLLoader.load(getClass().getResource("viewGames.fxml"));
-        } catch (IOException ex) {
-            Logger.getLogger(GameController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        Scene NewUserScene = new Scene(root);
-        window = (Stage) ((Node) e.getSource()).getScene().getWindow();
-        window.setScene(NewUserScene);
-        window.show();
-        }
-        else{
-            Alert a= new Alert(Alert.AlertType.ERROR, "please refresh the games list"
-                            + " and try again!", ButtonType.OK);
-                    a.show();
+            viewgames(view);
+
+            try {
+                root = FXMLLoader.load(getClass().getResource("viewGames.fxml"));
+            } catch (IOException ex) {
+                Logger.getLogger(GameController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            Scene NewUserScene = new Scene(root);
+            window = (Stage) ((Node) e.getSource()).getScene().getWindow();
+            window.setScene(NewUserScene);
+            window.show();
+        } else {
+            Alert a = new Alert(Alert.AlertType.ERROR, "please refresh the games list"
+                    + " and try again!", ButtonType.OK);
+            a.show();
         }
     }
 
