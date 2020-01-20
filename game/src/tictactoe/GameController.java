@@ -58,7 +58,7 @@ public class GameController implements Initializable {
     static TicTacTocClient player;
     static Socket socket;
     static String myip;
-    static String myname;
+    public static String myname;
     @FXML
     Button btnOne1;
     @FXML

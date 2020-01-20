@@ -80,8 +80,6 @@ public class TicTacToeServer extends Thread {
             case REGISTER:
                 registerHandler(req);
                 break;
-
-            //new cases
             case ASKTOPLAY:
                 asktoplayHandler(req);
                 break;
@@ -93,6 +91,9 @@ public class TicTacToeServer extends Thread {
                 break;
             case NAMES:
                 askfornamesHandler(req);
+                break;
+            case MOVE:
+                moveHandler(req);
                 break;
 
         }
@@ -203,6 +204,22 @@ public class TicTacToeServer extends Thread {
                     } catch (IOException ex) {
                         Logger.getLogger(TicTacToeServer.class.getName()).log(Level.SEVERE, null, ex);
                     }
+                }
+            }
+        }
+    }
+
+    private void moveHandler(Request req) {
+        for (TicTacToeServer t1 : clientslist) {
+            System.err.println("hi");
+            System.err.println(t1.name);
+            System.err.println(req.getData("oponent"));
+            if (t1.name != null)
+            if (t1.name.equals(req.getData("oponent"))) {
+                try {
+                    t1.goingStream.writeObject(req);
+                } catch (IOException ex) {
+                    Logger.getLogger(TicTacToeServer.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         }
