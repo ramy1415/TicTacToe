@@ -85,9 +85,11 @@ public class XoOnlineController implements Initializable {
 
     }
 
+    @FXML
     private void btnOnePressed(ActionEvent event) {
         if (myturn) {
             btnOne.setText(mySympol);
+            board.setarr(0, 0, mySympol);
             boolean check = checkWinning();
             Request moverequest = new Request(RequestType.MOVE);
             moverequest.setData("oponent", oponent);
