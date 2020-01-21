@@ -8,6 +8,7 @@ package TicTacTocClient;
 import Facilities.Request;
 import Facilities.RequestType;
 import OnlinePlay.XoOnlineController;
+import java.io.File;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -20,11 +21,14 @@ import java.util.Optional;
 import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -32,7 +36,12 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.MediaView;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import javax.swing.JOptionPane;
 
 /**
@@ -61,6 +70,8 @@ public class TicTacTocClient extends Thread {
     private static Stage onlineStage;
     private final String lose = "Sorry! You lost!";
     private final String tie = "It was a tie!";
+    @FXML
+    private MediaView mediaView;
     public TicTacTocClient(Socket playerSocket, ActionEvent _event) throws IOException {
 
         //getting ip for this machine
@@ -224,7 +235,6 @@ public class TicTacTocClient extends Thread {
                 Platform.runLater(() -> {
                     changeTurn(req.getData("oponent"));
                 });
-
                 break;
         }
 
@@ -308,24 +318,54 @@ public class TicTacTocClient extends Thread {
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-                if(req.getData("moveplace").equals("1"))
-                    btnone.setText(hisSympol);OnlinePlay.XoOnlineController.myturn=true;
-                if(req.getData("moveplace").equals("2"))
-                    btnTwo.setText(hisSympol);OnlinePlay.XoOnlineController.myturn=true;
-                if(req.getData("moveplace").equals("3"))
-                    btnThree.setText(hisSympol);OnlinePlay.XoOnlineController.myturn=true;
-                if(req.getData("moveplace").equals("4"))
-                    btnFour.setText(hisSympol);OnlinePlay.XoOnlineController.myturn=true;
-                if(req.getData("moveplace").equals("5"))
-                    btnFive.setText(hisSympol);OnlinePlay.XoOnlineController.myturn=true;
-                if(req.getData("moveplace").equals("6"))
-                    btnSix.setText(hisSympol);OnlinePlay.XoOnlineController.myturn=true;
-                if(req.getData("moveplace").equals("7"))
-                    btnSeven.setText(hisSympol);OnlinePlay.XoOnlineController.myturn=true;
-                if(req.getData("moveplace").equals("8"))
-                    btnEight.setText(hisSympol);OnlinePlay.XoOnlineController.myturn=true;
-                if(req.getData("moveplace").equals("9"))
-                    btnNine.setText(hisSympol);OnlinePlay.XoOnlineController.myturn=true;
+                switch(req.getData("moveplace")){
+                    case "1":
+                        btnone.setText(hisSympol);OnlinePlay.XoOnlineController.myturn=true;btnone.setDisable(true);
+                        break;
+                    case "2":
+                        btnTwo.setText(hisSympol);OnlinePlay.XoOnlineController.myturn=true;btnTwo.setDisable(true);
+                        break;
+                    case "3":
+                        btnThree.setText(hisSympol);OnlinePlay.XoOnlineController.myturn=true;btnThree.setDisable(true);
+                        break;
+                    case "4":
+                        btnFour.setText(hisSympol);OnlinePlay.XoOnlineController.myturn=true;btnFour.setDisable(true);
+                        break;
+                    case "5":
+                        btnFive.setText(hisSympol);OnlinePlay.XoOnlineController.myturn=true;btnFive.setDisable(true);
+                        break;
+                    case "6":
+                        btnSix.setText(hisSympol);OnlinePlay.XoOnlineController.myturn=true;btnSix.setDisable(true);
+                        break;
+                    case "7":
+                        btnSeven.setText(hisSympol);OnlinePlay.XoOnlineController.myturn=true;btnSeven.setDisable(true);
+                        break;
+                    case "8":
+                        btnEight.setText(hisSympol);OnlinePlay.XoOnlineController.myturn=true;btnEight.setDisable(true);
+                        break;
+                    case "9":
+                        btnNine.setText(hisSympol);OnlinePlay.XoOnlineController.myturn=true;btnNine.setDisable(true);
+                        break;
+                }
+                    
+//                if(req.getData("moveplace").equals("1")){
+//                    btnone.setText(hisSympol);OnlinePlay.XoOnlineController.myturn=true;btnone.setDisable(true);}
+//                if(req.getData("moveplace").equals("2")){
+//                    btnTwo.setText(hisSympol);OnlinePlay.XoOnlineController.myturn=true;btnTwo.setDisable(true);}
+//                if(req.getData("moveplace").equals("3")){
+//                    btnThree.setText(hisSympol);OnlinePlay.XoOnlineController.myturn=true;btnThree.setDisable(true);}
+//                if(req.getData("moveplace").equals("4")){
+//                    btnFour.setText(hisSympol);OnlinePlay.XoOnlineController.myturn=true;btnFour.setDisable(true);}
+//                if(req.getData("moveplace").equals("5")){
+//                    btnFive.setText(hisSympol);OnlinePlay.XoOnlineController.myturn=true;btnFive.setDisable(true);}
+//                if(req.getData("moveplace").equals("6"))
+//                    btnSix.setText(hisSympol);OnlinePlay.XoOnlineController.myturn=true;btnSix.setDisable(true);
+//                if(req.getData("moveplace").equals("7")){
+//                    btnSeven.setText(hisSympol);OnlinePlay.XoOnlineController.myturn=true;btnSeven.setDisable(true);}
+//                if(req.getData("moveplace").equals("8")){
+//                    btnEight.setText(hisSympol);OnlinePlay.XoOnlineController.myturn=true;btnEight.setDisable(true);}
+//                if(req.getData("moveplace").equals("9")){
+//                    btnNine.setText(hisSympol);OnlinePlay.XoOnlineController.myturn=true;btnNine.setDisable(true);}
                 
             }
         });
@@ -357,7 +397,33 @@ public class TicTacTocClient extends Thread {
     }
 
     private void loseAlert() {
-        JOptionPane.showMessageDialog(null, lose);
+        PauseTransition pause = new PauseTransition(Duration.millis(20));
+        pause.setOnFinished(event
+                -> {
+            // JOptionPane.showMessageDialog(null, xwin);
+            String path = "C:\\Users\\ramy1\\Desktop\\javaproject\\xogame\\win.mp4";
+            Media media = new Media(new File(path).toURI().toString());
+            MediaPlayer mediaPlayer = new MediaPlayer(media);
+            mediaPlayer.setAutoPlay(true);
+            mediaView = new MediaView();
+            mediaView.setMediaPlayer(mediaPlayer);
+            Group root1 = new Group();
+            root1.getChildren().add(mediaView);
+            Scene multiScene = new Scene(root1);
+            Stage stage1 = new Stage();
+            stage1.setScene(multiScene);
+            stage1.initModality(Modality.APPLICATION_MODAL);
+            stage1.setMinWidth(550);
+            stage1.setMinHeight(450);
+            stage1.setMaxHeight(450);
+            stage1.setMaxWidth(550);
+            stage1.centerOnScreen();
+            mediaPlayer.setOnEndOfMedia(() -> {
+                stage1.close();
+            });
+            stage1.show();
+        });
+        pause.play();
         disableAllButtons(getAllButtons());
         // playeroneLabelScore.setText("player One Score : " + (++xscore));
     }

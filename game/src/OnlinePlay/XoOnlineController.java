@@ -31,11 +31,16 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.MediaView;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import javax.swing.JOptionPane;
@@ -72,6 +77,8 @@ public class XoOnlineController implements Initializable {
     private Label playertwoLabelScore;
     @FXML
     private Label turnLabel;
+    @FXML
+    private MediaView mediaView;
 
     Parent root;
     Stage window;
@@ -106,6 +113,7 @@ public class XoOnlineController implements Initializable {
     private void btnOnePressed(ActionEvent event) {
         if (myturn) {
             btnOne.setText(mySympol);
+            btnOne.setDisable(true);
             board.setarr(0, 0, mySympol);
             boolean check = checkWinning();
             Request moverequest = new Request(RequestType.MOVE);
@@ -130,6 +138,7 @@ public class XoOnlineController implements Initializable {
 
         if (myturn) {
             btnTwo.setText(mySympol);
+            btnTwo.setDisable(true);
             board.setarr(0, 1, mySympol);
             boolean check = checkWinning();
             Request moverequest = new Request(RequestType.MOVE);
@@ -154,6 +163,7 @@ public class XoOnlineController implements Initializable {
     private void btnThreePressed(ActionEvent event) {
         if (myturn) {
             btnThree.setText(mySympol);
+            btnThree.setDisable(true);
             board.setarr(0, 2, mySympol);
             boolean check = checkWinning();
             Request moverequest = new Request(RequestType.MOVE);
@@ -178,6 +188,7 @@ public class XoOnlineController implements Initializable {
     private void btnFourPressed(ActionEvent event) {
         if (myturn) {
             btnFour.setText(mySympol);
+            btnFour.setDisable(true);
             board.setarr(1, 0, mySympol);
             boolean check = checkWinning();
             Request moverequest = new Request(RequestType.MOVE);
@@ -204,6 +215,7 @@ public class XoOnlineController implements Initializable {
     private void btnFivePressed(ActionEvent event) {
         if (myturn) {
             btnFive.setText(mySympol);
+            btnFive.setDisable(true);
             board.setarr(1, 1, mySympol);
             boolean check = checkWinning();
             Request moverequest = new Request(RequestType.MOVE);
@@ -229,6 +241,7 @@ public class XoOnlineController implements Initializable {
     private void btnSixPressed(ActionEvent event) {
         if (myturn) {
             btnSix.setText(mySympol);
+            btnSix.setDisable(true);
             board.setarr(1, 2, mySympol);
             boolean check = checkWinning();
             Request moverequest = new Request(RequestType.MOVE);
@@ -254,6 +267,7 @@ public class XoOnlineController implements Initializable {
     private void btnSevenPressed(ActionEvent event) {
         if (myturn) {
             btnSeven.setText(mySympol);
+            btnSeven.setDisable(true);
             board.setarr(2, 0, mySympol);
             boolean check = checkWinning();
             Request moverequest = new Request(RequestType.MOVE);
@@ -279,6 +293,7 @@ public class XoOnlineController implements Initializable {
     private void btnEightPressed(ActionEvent event) {
         if (myturn) {
             btnEight.setText(mySympol);
+            btnEight.setDisable(true);
             board.setarr(2, 1, mySympol);
             boolean check = checkWinning();
             Request moverequest = new Request(RequestType.MOVE);
@@ -304,6 +319,7 @@ public class XoOnlineController implements Initializable {
     private void btnNinePressed(ActionEvent event) {
         if (myturn) {
             btnNine.setText(mySympol);
+            btnNine.setDisable(true);
             board.setarr(2, 2, mySympol);
             boolean check = checkWinning();
             Request moverequest = new Request(RequestType.MOVE);
@@ -349,6 +365,7 @@ public class XoOnlineController implements Initializable {
         }
 
     }
+
     @FXML
     private void profilePressed(ActionEvent event) {
         try {
@@ -361,8 +378,35 @@ public class XoOnlineController implements Initializable {
             Logger.getLogger(XoOnlineController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
     private void winAlert() {
-        JOptionPane.showMessageDialog(null, win);
+        PauseTransition pause = new PauseTransition(Duration.millis(20));
+        pause.setOnFinished(event
+                -> {
+            // JOptionPane.showMessageDialog(null, xwin);
+            String path = "C:\\Users\\ramy1\\Desktop\\javaproject\\xogame\\win.mp4";
+            Media media = new Media(new File(path).toURI().toString());
+            MediaPlayer mediaPlayer = new MediaPlayer(media);
+            mediaPlayer.setAutoPlay(true);
+            mediaView = new MediaView();
+            mediaView.setMediaPlayer(mediaPlayer);
+            Group root1 = new Group();
+            root1.getChildren().add(mediaView);
+            Scene multiScene = new Scene(root1);
+            Stage stage1 = new Stage();
+            stage1.setScene(multiScene);
+            stage1.initModality(Modality.APPLICATION_MODAL);
+            stage1.setMinWidth(550);
+            stage1.setMinHeight(450);
+            stage1.setMaxHeight(450);
+            stage1.setMaxWidth(550);
+            stage1.centerOnScreen();
+            mediaPlayer.setOnEndOfMedia(() -> {
+                stage1.close();
+            });
+            stage1.show();
+        });
+        pause.play();
         disableAllbtns();
         // playeroneLabelScore.setText("player One Score : " + (++xscore));
     }
