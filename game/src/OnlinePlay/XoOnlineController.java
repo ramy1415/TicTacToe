@@ -113,6 +113,7 @@ public class XoOnlineController implements Initializable {
     private void btnOnePressed(ActionEvent event) {
         if (myturn) {
             btnOne.setText(mySympol);
+            btnOne.setDisable(true);
             board.setarr(0, 0, mySympol);
             boolean check = checkWinning();
             Request moverequest = new Request(RequestType.MOVE);
@@ -137,6 +138,7 @@ public class XoOnlineController implements Initializable {
 
         if (myturn) {
             btnTwo.setText(mySympol);
+            btnTwo.setDisable(true);
             board.setarr(0, 1, mySympol);
             boolean check = checkWinning();
             Request moverequest = new Request(RequestType.MOVE);
@@ -161,6 +163,7 @@ public class XoOnlineController implements Initializable {
     private void btnThreePressed(ActionEvent event) {
         if (myturn) {
             btnThree.setText(mySympol);
+            btnThree.setDisable(true);
             board.setarr(0, 2, mySympol);
             boolean check = checkWinning();
             Request moverequest = new Request(RequestType.MOVE);
@@ -185,6 +188,7 @@ public class XoOnlineController implements Initializable {
     private void btnFourPressed(ActionEvent event) {
         if (myturn) {
             btnFour.setText(mySympol);
+            btnFour.setDisable(true);
             board.setarr(1, 0, mySympol);
             boolean check = checkWinning();
             Request moverequest = new Request(RequestType.MOVE);
@@ -211,6 +215,7 @@ public class XoOnlineController implements Initializable {
     private void btnFivePressed(ActionEvent event) {
         if (myturn) {
             btnFive.setText(mySympol);
+            btnFive.setDisable(true);
             board.setarr(1, 1, mySympol);
             boolean check = checkWinning();
             Request moverequest = new Request(RequestType.MOVE);
@@ -236,6 +241,7 @@ public class XoOnlineController implements Initializable {
     private void btnSixPressed(ActionEvent event) {
         if (myturn) {
             btnSix.setText(mySympol);
+            btnSix.setDisable(true);
             board.setarr(1, 2, mySympol);
             boolean check = checkWinning();
             Request moverequest = new Request(RequestType.MOVE);
@@ -261,6 +267,7 @@ public class XoOnlineController implements Initializable {
     private void btnSevenPressed(ActionEvent event) {
         if (myturn) {
             btnSeven.setText(mySympol);
+            btnSeven.setDisable(true);
             board.setarr(2, 0, mySympol);
             boolean check = checkWinning();
             Request moverequest = new Request(RequestType.MOVE);
@@ -286,6 +293,7 @@ public class XoOnlineController implements Initializable {
     private void btnEightPressed(ActionEvent event) {
         if (myturn) {
             btnEight.setText(mySympol);
+            btnEight.setDisable(true);
             board.setarr(2, 1, mySympol);
             boolean check = checkWinning();
             Request moverequest = new Request(RequestType.MOVE);
@@ -311,6 +319,7 @@ public class XoOnlineController implements Initializable {
     private void btnNinePressed(ActionEvent event) {
         if (myturn) {
             btnNine.setText(mySympol);
+            btnNine.setDisable(true);
             board.setarr(2, 2, mySympol);
             boolean check = checkWinning();
             Request moverequest = new Request(RequestType.MOVE);
