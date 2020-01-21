@@ -71,4 +71,14 @@ public class DB {
         }
         return valid;
     }
+    public void addingNewWins(int i,String username){
+        try {
+            pst=con.prepareStatement("insert into player value ? where username = ?");
+            pst.setInt(1, i);
+            pst.setString(2, username);
+        } catch (SQLException ex) {
+            Logger.getLogger(DB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
 }

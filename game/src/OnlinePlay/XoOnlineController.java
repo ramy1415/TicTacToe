@@ -380,6 +380,15 @@ public class XoOnlineController implements Initializable {
     }
 
     private void winAlert() {
+        Request winningGamesRequest = new Request(RequestType.WINNING_GAMES);
+            winningGamesRequest.setData("win","1");
+            winningGamesRequest.setData("username", myname);
+        try {
+            goingStream.writeObject(winningGamesRequest);
+        } catch (IOException ex) {
+            Logger.getLogger(XoOnlineController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+            
         PauseTransition pause = new PauseTransition(Duration.millis(20));
         pause.setOnFinished(event
                 -> {

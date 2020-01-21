@@ -111,6 +111,8 @@ public class TicTacToeServer extends Thread {
             case CHANGETURN:
                 changeTurnHandler(req);
                 break;
+            case WINNING_GAMES:
+                winningGamesHandler(req);
 
         }
     }
@@ -297,5 +299,11 @@ public class TicTacToeServer extends Thread {
             }
 
         }
+    }
+    
+    private void winningGamesHandler(Request req){
+        int i=Integer.parseInt(req.getData("win"));
+        String username=req.getData("username");
+        dataBase.addingNewWins(i,username);
     }
 }
