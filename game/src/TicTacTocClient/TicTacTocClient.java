@@ -110,6 +110,9 @@ public class TicTacTocClient extends Thread {
             case REGISTER_FAILURE:
                 response = "failure";
                 break;
+            case ALREADY_LOGINNED:
+                response= "loginned";
+                break;
 
             //cases i added
             case ASKTOPLAY:

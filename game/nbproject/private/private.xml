@@ -3,17 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-<<<<<<< HEAD
             <file>file:/F:/ITI/Java/project2/game/src/tictactoe/GameController.java</file>
             <file>file:/F:/ITI/Java/project2/game/src/tictactoe/HomePage.java</file>
             <file>file:/F:/ITI/Java/project2/game/src/MultiPlayer/win.fxml</file>
-            <file>file:/F:/ITI/Java/project2/game/src/OnlinePlay/XoOnlineController.java</file>
             <file>file:/F:/ITI/Java/project2/game/src/TicTacTocClient/TicTacTocClient.java</file>
+            <file>file:/F:/ITI/Java/project2/game/src/Facilities/RequestType.java</file>
             <file>file:/F:/ITI/Java/project2/game/src/MultiPlayer/XoSingleController.java</file>
-=======
-            <file>file:/F:/ramyMerge/TicTacToe-master/game/src/tictactoe/Request.java</file>
-            <file>file:/F:/ramyMerge/TicTacToe-master/game/src/tictactoe/GameController.java</file>
->>>>>>> d0332a778f005298a9fea34f105f2c10c839cced
         </group>
     </open-files>
 </project-private>

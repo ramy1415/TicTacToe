@@ -202,7 +202,7 @@ public class GameController implements Initializable {
         try {
             if (player == null) {
                 try {
-                    socket = new Socket("10.140.200.195", 5005);
+                    socket = new Socket("127.0.0.1", 5005);
                     player = new TicTacTocClient(socket, event);
                 } catch (IOException ex) {
                     Alert a = new Alert(Alert.AlertType.ERROR, "the server is disconnected"
@@ -225,6 +225,12 @@ public class GameController implements Initializable {
                 Alert alert;
                 alert = new Alert(Alert.AlertType.ERROR, "Please try again with a valid"
                         + " username and password! ", ButtonType.OK);
+                alert.show();
+            }
+            else if ("loginned".equals(player.response)) {
+                Alert alert;
+                alert = new Alert(Alert.AlertType.ERROR, "You're already loginned on another device! "
+                        , ButtonType.OK);
                 alert.show();
             }
         } catch (IOException ex) {

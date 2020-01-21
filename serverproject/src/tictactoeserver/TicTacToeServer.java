@@ -19,6 +19,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Vector;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 
 /**
  *
@@ -36,6 +38,7 @@ public class TicTacToeServer extends Thread {
     String ip;
     String name;
     static List<TicTacToeServer> clientslist = Collections.synchronizedList(new ArrayList<TicTacToeServer>());
+    static ArrayList<String> onlineNames = new ArrayList<>();
     //static Vector<TicTacToeServer> clientsvector = new Vector<TicTacToeServer>();
 
     public TicTacToeServer(Socket s, ObjectOutputStream oos, ObjectInputStream ois, String _ip) throws IOException {
@@ -115,14 +118,20 @@ public class TicTacToeServer extends Thread {
     public void loginHandler(Request req) throws SQLException, IOException {
         String user_name = req.getData("username");
         String password = req.getData("password");
-        boolean check = dataBase.checkForLogin(user_name, password);
-        if (check == true) {
-            this.name = req.getData("username");
-            Request r = new Request(RequestType.LOGIN_SUCCESS);
-            goingStream.writeObject(r);
+        if (!onlineNames.contains(user_name)) {
+            boolean check = dataBase.checkForLogin(user_name, password);
+            if (check == true) {
+                this.name = req.getData("username");
+                onlineNames.add(user_name);
+                Request r = new Request(RequestType.LOGIN_SUCCESS);
+                goingStream.writeObject(r);
+            } else {
+                Request r = new Request(RequestType.LOGIN_FAILURE);
+                goingStream.writeObject(r);
+            }
         } else {
-            Request r = new Request(RequestType.LOGIN_FAILURE);
-            goingStream.writeObject(r);
+            Request r = new Request(RequestType.ALREADY_LOGINNED);
+                goingStream.writeObject(r);
         }
     }
 
@@ -131,21 +140,22 @@ public class TicTacToeServer extends Thread {
         String age = req.getData("age");
         String username = req.getData("username");
         String password = req.getData("password");
-            if (fullname == null || age == null || username == null || password == null) {
-                boolean valid = dataBase.checkForValidation(fullname, age, username, password);
-                if (valid == true) {
-                    Request r = new Request(RequestType.REGISTER_SUCCESS);
-                    goingStream.writeObject(r);
-                } else {
-                    Request r = new Request(RequestType.REGISTER_FAILURE);
-                    goingStream.writeObject(r);
-                }
+        if (fullname == null || age == null || username == null || password == null) {
+            boolean valid = dataBase.checkForValidation(fullname, age, username, password);
+            if (valid == true) {
+                Request r = new Request(RequestType.REGISTER_SUCCESS);
+                goingStream.writeObject(r);
             } else {
                 Request r = new Request(RequestType.REGISTER_FAILURE);
                 goingStream.writeObject(r);
             }
+        } else {
+            Request r = new Request(RequestType.REGISTER_FAILURE);
+            goingStream.writeObject(r);
         }
-        //new handlers
+    }
+    //new handlers
+
     private void asktoplayHandler(Request req) {
         boolean found = false;
         for (TicTacToeServer t1 : clientslist) {
@@ -203,9 +213,8 @@ public class TicTacToeServer extends Thread {
     }
 
     //ramy
-   
-        synchronized private void askfornamesHandler(Request req) {
-         List <String > names = Collections.synchronizedList(new ArrayList<String>());
+    synchronized private void askfornamesHandler(Request req) {
+        List<String> names = Collections.synchronizedList(new ArrayList<String>());
         for (TicTacToeServer t1 : clientslist) {
             if (t1.name != null) {
                 if (!t1.name.equals(req.getData("myname"))) {
