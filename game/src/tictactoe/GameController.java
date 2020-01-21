@@ -27,6 +27,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -37,6 +38,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import javax.swing.JOptionPane;
@@ -47,7 +49,7 @@ import sun.management.Agent;
  * @author Mahmoud
  */
 public class GameController implements Initializable {
-
+    String serverIp; 
     Parent root;
     Stage window;
     String view = "";
@@ -59,6 +61,10 @@ public class GameController implements Initializable {
     static Socket socket;
     static String myip;
     public static String myname;
+    @FXML
+    Button confirmServerIPBtn;
+    @FXML
+    TextField ipTextField;
     @FXML
     Button btnOne1;
     @FXML
@@ -142,8 +148,8 @@ public class GameController implements Initializable {
     }
 
     @FXML
-    private void playOnlinePressed(ActionEvent event) throws IOException {
-        root = FXMLLoader.load(getClass().getResource("PlayOnline.fxml"));
+    private void playOnlinePressed(ActionEvent event) throws IOException {        
+        root = FXMLLoader.load(getClass().getResource("serverIp.fxml"));
         Scene onlineScene = new Scene(root);
         window = (Stage) ((Node) event.getSource()).getScene().getWindow();
         window.setScene(onlineScene);
@@ -167,7 +173,22 @@ public class GameController implements Initializable {
         alert.showAndWait();
 
     }
-
+    
+    @FXML
+    private void ConfirmServerPressed(ActionEvent event) throws IOException {
+        root = FXMLLoader.load(getClass().getResource("PlayOnline.fxml"));
+        Scene HomeScene = new Scene(root);
+        window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        window.setScene(HomeScene);
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(GameController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        serverIp=ipTextField.getText();
+        window.show();
+    }
+    
     @FXML
     private void exitPressed(ActionEvent event) throws IOException {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to exit now?",
@@ -199,10 +220,11 @@ public class GameController implements Initializable {
 
     @FXML
     private void inLoginPressed(ActionEvent event) {
+        System.err.println(serverIp);
         try {
             if (player == null) {
                 try {
-                    socket = new Socket("127.0.0.1", 5005);
+                    socket = new Socket(serverIp, 5005);
                     player = new TicTacTocClient(socket, event);
                 } catch (IOException ex) {
                     Alert a = new Alert(Alert.AlertType.ERROR, "the server is disconnected"
@@ -424,4 +446,5 @@ public class GameController implements Initializable {
         player.askfornames(myname);
         listViewClients.setItems(player.getClients());
     }
+    
 }
