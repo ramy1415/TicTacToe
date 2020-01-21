@@ -64,7 +64,7 @@ public class TicTacToeServer extends Thread {
                 requestHandler(request);
             } catch (IOException ex) {
                 clientslist.remove(this);
-
+                onlineNames.remove(this.name);
                 if (this.name != null) {
                     System.err.println("client " + this.name + " left");
                 }
