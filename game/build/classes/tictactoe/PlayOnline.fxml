@@ -10,6 +10,7 @@
          <children>
             <Button fx:id="LoginBtn" mnemonicParsing="false" onAction="#loginPressed" prefHeight="46.0" prefWidth="197.0" text="Login" />
             <Button fx:id="RegisterBtn" mnemonicParsing="false" onAction="#registerPressed" prefHeight="43.0" prefWidth="196.0" text="Register" />
+            <Button fx:id="backBtn" mnemonicParsing="false" onAction="#backBtnPressed" prefHeight="46.0" prefWidth="197.0" text="back" />
             <Button fx:id="Home" mnemonicParsing="false" onAction="#homePressed" prefHeight="47.0" prefWidth="194.0" text="home" />
          </children>
       </VBox>

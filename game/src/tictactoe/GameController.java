@@ -49,7 +49,7 @@ import sun.management.Agent;
  * @author Mahmoud
  */
 public class GameController implements Initializable {
-    String serverIp; 
+    public static String serverIp; 
     Parent root;
     Stage window;
     String view = "";
@@ -186,6 +186,7 @@ public class GameController implements Initializable {
             Logger.getLogger(GameController.class.getName()).log(Level.SEVERE, null, ex);
         }
         serverIp=ipTextField.getText();
+        System.err.println(serverIp);
         window.show();
     }
     
@@ -217,6 +218,14 @@ public class GameController implements Initializable {
         window.setScene(RegisterScene);
         window.show();
     }
+    @FXML
+    private void backBtnPressed(ActionEvent event) throws IOException {
+        root = FXMLLoader.load(getClass().getResource("serverIp.fxml"));
+        Scene RegisterScene = new Scene(root);
+        window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        window.setScene(RegisterScene);
+        window.show();
+    } 
 
     @FXML
     private void inLoginPressed(ActionEvent event) {
@@ -228,7 +237,7 @@ public class GameController implements Initializable {
                     player = new TicTacTocClient(socket, event);
                 } catch (IOException ex) {
                     Alert a = new Alert(Alert.AlertType.ERROR, "the server is disconnected"
-                            + " please try again later!", ButtonType.OK);
+                            + " or the server IP you entered is incorrect!", ButtonType.OK);
                     a.show();
                     return;
                 }
