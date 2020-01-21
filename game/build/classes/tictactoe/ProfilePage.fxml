@@ -26,7 +26,7 @@
             <Button fx:id="HomeBtn" layoutX="375.0" layoutY="243.0" mnemonicParsing="false" onAction="#homePressed" text="Home" />
             <Button fx:id="btnOnlinePlay" layoutX="357.0" layoutY="44.0" mnemonicParsing="false" onAction="#btnOnlinePlayPressed" text="onlineplay" />
             <Button fx:id="viewGames" layoutX="147.0" layoutY="76.0" mnemonicParsing="false" onAction="#viewGamesBtn" text="View Games" />
-            <ListView fx:id="gamesRecordedList" layoutX="11.0" layoutY="116.0" prefHeight="252.0" prefWidth="346.0" />
+            <ListView fx:id="gamesRecordedList" layoutX="94.0" layoutY="116.0" prefHeight="61.0" prefWidth="263.0" />
             <Button fx:id="refreshViewListBtn" layoutX="271.0" layoutY="76.0" mnemonicParsing="false" onAction="#refreshViewList" text="refresh" />
             <ListView fx:id="listViewClients" layoutX="424.0" layoutY="76.0" prefHeight="153.0" prefWidth="171.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
             <Button fx:id="btnRefreshnames" layoutX="340.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnRefreshnamesPressed" text="refreshnames" />

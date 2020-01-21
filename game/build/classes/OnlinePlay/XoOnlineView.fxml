@@ -12,6 +12,7 @@
    <children>
       <VBox alignment="CENTER" layoutX="50.0" layoutY="50.0" prefHeight="416.0" prefWidth="513.0" spacing="10.0" AnchorPane.bottomAnchor="46.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="50.0">
          <children>
+            <Button fx:id="record" mnemonicParsing="false" onAction="#recordPressed" text="record" />
             <HBox alignment="CENTER" prefHeight="85.0" prefWidth="241.0" spacing="5.0">
                <children>
                   <Button fx:id="btnOne" mnemonicParsing="false" onAction="#btnOnePressed" prefHeight="81.0" prefWidth="98.0" textFill="#d71212" textOverrun="CLIP">
@@ -130,6 +131,7 @@
                      </font></Label>
                </children>
             </HBox>
+            <Button fx:id="profileBtn" mnemonicParsing="false" onAction="#profilePressed" text="Profile" />
          </children>
       </VBox>
    </children>

@@ -9,20 +9,34 @@ import MultiPlayer.XoSingleModel;
 import Facilities.Request;
 import Facilities.RequestType;
 import TicTacTocClient.TicTacTocClient;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.time.Instant;
+import java.util.Date;
 import java.util.ResourceBundle;
+import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.animation.PauseTransition;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 import javax.swing.JOptionPane;
 import tictactoe.GameController;
@@ -59,6 +73,9 @@ public class XoOnlineController implements Initializable {
     @FXML
     private Label turnLabel;
 
+    Parent root;
+    Stage window;
+    public String recordd = "";
     private ObjectInputStream comingStream;
     private ObjectOutputStream goingStream;
     private String oponent;
@@ -308,6 +325,42 @@ public class XoOnlineController implements Initializable {
         }
     }
 
+    public void recordPressed(ActionEvent e) {
+        Date date = new Date();
+        Instant instant = date.toInstant();
+
+        StringTokenizer inst = new StringTokenizer(instant.toString(), ".");
+        String name = "username";
+        File file = new File("C:\\records\\" + name + inst.nextToken().replace(":", "-") + ".txt");
+        Path records = Paths.get("C:\\records");
+        if (file != null) {
+            byte[] b2 = recordd.getBytes();
+            try {
+                Files.createDirectories(records);
+                FileOutputStream fos = new FileOutputStream(file);
+                fos.write(b2);
+                fos.flush();
+                fos.close();
+            } catch (FileNotFoundException ex) {
+                ex.printStackTrace();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        }
+
+    }
+    @FXML
+    private void profilePressed(ActionEvent event) {
+        try {
+            root = FXMLLoader.load(getClass().getResource("/tictactoe/ProfilePage.fxml"));
+            Scene profileScene = new Scene(root);
+            window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            window.setScene(profileScene);
+            window.show();
+        } catch (IOException ex) {
+            Logger.getLogger(XoOnlineController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     private void winAlert() {
         JOptionPane.showMessageDialog(null, win);
         disableAllbtns();
