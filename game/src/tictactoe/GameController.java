@@ -202,7 +202,7 @@ public class GameController implements Initializable {
         try {
             if (player == null) {
                 try {
-                    socket = new Socket("10.140.200.195", 5005);
+                    socket = new Socket("127.0.0.1", 5005);
                     player = new TicTacTocClient(socket, event);
                 } catch (IOException ex) {
                     Alert a = new Alert(Alert.AlertType.ERROR, "the server is disconnected"
