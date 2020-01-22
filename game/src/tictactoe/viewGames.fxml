@@ -11,7 +11,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" styleClass="pane" stylesheets="@../Styles/css/Homepage.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tictactoe.GameController">
    <children>
-      <VBox alignment="CENTER" layoutX="73.0" layoutY="62.0" prefHeight="412.0" prefWidth="614.0" spacing="10.0" AnchorPane.bottomAnchor="26.0" AnchorPane.leftAnchor="73.0" AnchorPane.rightAnchor="13.0" AnchorPane.topAnchor="62.0">
+      <VBox alignment="CENTER" layoutX="73.0" layoutY="97.0" prefHeight="377.0" prefWidth="617.0" spacing="10.0" AnchorPane.bottomAnchor="26.0" AnchorPane.leftAnchor="73.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="62.0">
          <children>
             <HBox alignment="CENTER" prefHeight="85.0" prefWidth="241.0" spacing="5.0">
                <children>
@@ -152,7 +152,7 @@
             </HBox>
          </children>
       </VBox>
-      <Button fx:id="playBtn" layoutX="57.0" layoutY="181.0" mnemonicParsing="false" onAction="#PlayBtnPressed" prefHeight="43.0" prefWidth="90.0" text="Play">
+      <Button fx:id="playBtn" layoutX="14.0" layoutY="48.0" mnemonicParsing="false" onAction="#PlayBtnPressed" prefHeight="30.0" prefWidth="75.0" text="Play">
          <styleClass>
             <String fx:value="newGame" />
             <String fx:value="greenButton" />
