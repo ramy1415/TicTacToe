@@ -481,6 +481,7 @@ public class TicTacTocClient extends Thread {
                 stage1.close();
             });
             stage1.show();
+            XoOnlineController.firstleave=false;
         });
         pause.play();
         disableAllButtons(getAllButtons());
@@ -491,6 +492,7 @@ public class TicTacTocClient extends Thread {
 
         disableAllButtons(getAllButtons());
         JOptionPane.showMessageDialog(null, tie);
+        XoOnlineController.firstleave=false;
         // playeroneLabelScore.setText("player One Score : " + (++xscore));
     }
 

@@ -107,7 +107,7 @@ public class XoOnlineController implements Initializable {
         mySympol = GameController.getPlayer().mySympol;
         board = new XoSingleModel();
         System.err.println("my s= " + mySympol);
-
+        draw=0;
     }
 
     @FXML
@@ -371,10 +371,16 @@ public class XoOnlineController implements Initializable {
     private void profilePressed(ActionEvent event) {
         try {
             if(firstleave){
-                Request notplayingrequest=new Request(RequestType.NOTPLAYING);
+                Request notplayingrequest=new Request(RequestType.LEAVE);
                 notplayingrequest.setData("myname", myname);
                 notplayingrequest.setData("oponent", oponent);
                 goingStream.writeObject(notplayingrequest);
+            }
+            else{
+                Request leave=new Request(RequestType.NOTPLAYING);
+                leave.setData("myname", myname);
+                leave.setData("oponent", oponent);
+                goingStream.writeObject(leave);
             }
             root = FXMLLoader.load(getClass().getResource("/tictactoe/ProfilePage.fxml"));
             Scene profileScene = new Scene(root);
@@ -386,11 +392,11 @@ public class XoOnlineController implements Initializable {
             Logger.getLogger(XoOnlineController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
     private void winAlert() {
         Request winningGamesRequest = new Request(RequestType.WINNING_GAMES);
             winningGamesRequest.setData("win","1");
             winningGamesRequest.setData("username", myname);
+            firstleave=false;
         try {
             goingStream.writeObject(winningGamesRequest);
         } catch (IOException ex) {
@@ -445,6 +451,7 @@ public class XoOnlineController implements Initializable {
             //board.printCurrentBoard();
 
             winAlert();
+            firstleave=false;
             Request loseRequest = new Request(RequestType.LOSE);
             loseRequest.setData("oponent", oponent);
             loseRequest.setData("myname", myname);
