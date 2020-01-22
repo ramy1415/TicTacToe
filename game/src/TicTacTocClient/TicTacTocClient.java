@@ -136,16 +136,6 @@ public class TicTacTocClient extends Thread {
                     Alert a1 = new Alert(Alert.AlertType.CONFIRMATION, req.getData("myname") + " sent you a request .. Do you want to play ?!", ButtonType.YES, ButtonType.NO);
                     Optional<ButtonType> result = a1.showAndWait();
                     if (result.get() == ButtonType.YES) {
-                        Alert a2 = new Alert(Alert.AlertType.CONFIRMATION, GameController.myname + " Do you want to play X ?", ButtonType.YES, ButtonType.NO);
-                        Optional<ButtonType> result2 = a2.showAndWait();
-                        if (result2.get() == ButtonType.YES) {
-                            mySympol = "X";
-                            hisSympol = "O";
-                        }
-                        if (result2.get() == ButtonType.NO) {
-                            mySympol = "O";
-                            hisSympol = "X";
-                        }
                         Request playingrequest = new Request(RequestType.PLAYING);
                         playingrequest.setData("myname", GameController.myname);
                         try {
@@ -157,10 +147,19 @@ public class TicTacTocClient extends Thread {
                         oponent = req.getData("myname");
                         Request acceptrequest = new Request(RequestType.ACCEPT);
                         acceptrequest.setData("targetname", req.getData("myname"));
-
                         acceptrequest.setData("myname", req.getData("targetname"));
                         try {
                             goingStream.writeObject(acceptrequest);
+                            Alert a2 = new Alert(Alert.AlertType.CONFIRMATION, GameController.myname + " Do you want to play X ?", ButtonType.YES, ButtonType.NO);
+                            Optional<ButtonType> result2 = a2.showAndWait();
+                            if (result2.get() == ButtonType.YES) {
+                                mySympol = "X";
+                                hisSympol = "O";
+                            }
+                            if (result2.get() == ButtonType.NO) {
+                                mySympol = "O";
+                                hisSympol = "X";
+                            }
                             //temporary testing
                             Platform.runLater(() -> {
 
@@ -498,7 +497,7 @@ public class TicTacTocClient extends Thread {
                 stage1.close();
             });
             stage1.show();
-            XoOnlineController.firstleave=false;
+            XoOnlineController.firstleave = false;
         });
         pause.play();
         disableAllButtons(getAllButtons());
@@ -509,7 +508,7 @@ public class TicTacTocClient extends Thread {
 
         disableAllButtons(getAllButtons());
         JOptionPane.showMessageDialog(null, tie);
-        XoOnlineController.firstleave=false;
+        XoOnlineController.firstleave = false;
         // playeroneLabelScore.setText("player One Score : " + (++xscore));
     }
 
@@ -525,7 +524,7 @@ public class TicTacTocClient extends Thread {
             Alert a1 = new Alert(Alert.AlertType.CONFIRMATION, req.getData("leaver") + " left sorry! you won", ButtonType.OK);
             a1.showAndWait();
             disableAllButtons(getAllButtons());
-            XoOnlineController.firstleave=false;
+            XoOnlineController.firstleave = false;
         });
     }
 }
