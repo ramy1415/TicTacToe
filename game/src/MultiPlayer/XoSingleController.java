@@ -197,6 +197,7 @@ public class XoSingleController implements Initializable {
         Button b = (Button) a.getSource();
         if (flag == 0) {
             m1.setarr(x, y, player1);
+            b.setStyle("-fx-text-fill: red;");
             b.setText(player1);
             recordd = recordd + m1.getarr(x, y) + ";" + Integer.toString(buttonNum) + ";";
 
@@ -263,7 +264,8 @@ public class XoSingleController implements Initializable {
         pause.setOnFinished(event
                 -> {
             // JOptionPane.showMessageDialog(null, xwin);
-            String path = "F:\\ITI\\Java\\project2\\win.mp4";
+            
+             String path ="F:\\ramyMerge\\TicTacToe-master\\win.mp4";
             Media media = new Media(new File(path).toURI().toString());
             MediaPlayer mediaPlayer = new MediaPlayer(media);
             mediaPlayer.setAutoPlay(true);
@@ -283,6 +285,7 @@ public class XoSingleController implements Initializable {
             mediaPlayer.setOnEndOfMedia(() -> {
                 stage1.close();
             });
+            stage1.setResizable(false);
             stage1.show();
         });
         pause.play();
@@ -315,6 +318,15 @@ public class XoSingleController implements Initializable {
     }
 
     private void resetButtons() {
+        btnOne.setStyle("-fx-text-fill: #ffc200;");
+        btnTwo.setStyle("-fx-text-fill: #ffc200;");
+        btnThree.setStyle("-fx-text-fill: #ffc200;");
+        btnFour.setStyle("-fx-text-fill: #ffc200;");
+        btnFive.setStyle("-fx-text-fill: #ffc200;");
+        btnSix.setStyle("-fx-text-fill: #ffc200;");
+        btnSeven.setStyle("-fx-text-fill: #ffc200;");
+        btnEight.setStyle("-fx-text-fill: #ffc200;");
+        btnNine.setStyle("-fx-text-fill: #ffc200;");
         btnOne.setDisable(false);
         btnTwo.setDisable(false);
         btnThree.setDisable(false);
@@ -350,6 +362,7 @@ public class XoSingleController implements Initializable {
             Scene HomeScene = new Scene(root);
             window = (Stage) ((Node) event.getSource()).getScene().getWindow();
             window.setScene(HomeScene);
+            window.setResizable(false);
             window.show();
         } catch (IOException ex) {
             Logger.getLogger(XoSingleController.class.getName()).log(Level.SEVERE, null, ex);

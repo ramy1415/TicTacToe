@@ -71,4 +71,25 @@ public class DB {
         }
         return valid;
     }
+    public void addingNewWins(String username){
+        try {
+            System.err.println(username+" won");
+            pst=con.prepareStatement("update player set wins=wins+1 where username=? ");
+            pst.setString(1, username);
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(DB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
+    public void addingNewLoses(String username){
+        try {
+            System.err.println(username+" lost");
+            pst=con.prepareStatement("update player set loses=loses+1 where username=?");
+            pst.setString(1, username);
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(DB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }

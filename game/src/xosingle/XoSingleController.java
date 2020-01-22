@@ -16,6 +16,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -55,6 +56,8 @@ public class XoSingleController implements Initializable {
     @FXML
     Button btnEight;
     @FXML
+    Button btnHome;
+    @FXML
     Button btnNine;
     @FXML
     Label playeroneLabelScore;
@@ -62,6 +65,7 @@ public class XoSingleController implements Initializable {
     Label playertwoLabelScore;
     @FXML
     Label turnLabel;
+    
 
     private Button[][] buttons;
 
@@ -138,6 +142,21 @@ public class XoSingleController implements Initializable {
         anyButtonAction(e, 2, 2);
         compMove();
     }
+    @FXML
+    private void btnHomePressed(ActionEvent event) {
+       try {
+            root = FXMLLoader.load(getClass().getResource("/tictactoe/HomePage.fxml"));
+            Scene HomeScene = new Scene(root);
+            s1 = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            s1.setScene(HomeScene);
+            s1.setResizable(false);
+            s1.show();
+            System.out.println("Home");
+        } catch (IOException ex) {
+            Logger.getLogger(MultiPlayer.XoSingleController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
 
     @FXML
     private void btnResetGamePressed(ActionEvent e) {
@@ -267,7 +286,15 @@ public class XoSingleController implements Initializable {
     }
 
     private void resetButtons() {
-
+        btnOne.setStyle("-fx-text-fill: #ffc200;");
+        btnTwo.setStyle("-fx-text-fill: #ffc200;");
+        btnThree.setStyle("-fx-text-fill: #ffc200;");
+        btnFour.setStyle("-fx-text-fill: #ffc200;");
+        btnFive.setStyle("-fx-text-fill: #ffc200;");
+        btnSix.setStyle("-fx-text-fill: #ffc200;");
+        btnSeven.setStyle("-fx-text-fill: #ffc200;");
+        btnEight.setStyle("-fx-text-fill: #ffc200;");
+        btnNine.setStyle("-fx-text-fill: #ffc200;");
         btnOne.setDisable(false);
         btnTwo.setDisable(false);
         btnThree.setDisable(false);

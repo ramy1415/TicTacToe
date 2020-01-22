@@ -27,6 +27,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -35,8 +36,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import javax.swing.JOptionPane;
@@ -48,6 +51,7 @@ import sun.management.Agent;
  */
 public class GameController implements Initializable {
 
+    public static String serverIp;
     Parent root;
     Stage window;
     String view = "";
@@ -59,6 +63,12 @@ public class GameController implements Initializable {
     static Socket socket;
     static String myip;
     public static String myname;
+    @FXML
+    Button confirmServerIPBtn;
+    @FXML
+    Button btnHome;
+    @FXML
+    TextField ipTextField;
     @FXML
     Button btnOne1;
     @FXML
@@ -82,7 +92,7 @@ public class GameController implements Initializable {
     @FXML
     private TextField usernameTextField;
     @FXML
-    private TextField passwordTextField;
+    private PasswordField passwordTextField;
     @FXML
     private TextField fullNameTextField;
     @FXML
@@ -90,7 +100,7 @@ public class GameController implements Initializable {
     @FXML
     private TextField registerUsernameTextField;
     @FXML
-    private TextField registerPasswordTextField;
+    private PasswordField registerPasswordTextField;
 
     //new putton and handler for test
     @FXML
@@ -129,24 +139,39 @@ public class GameController implements Initializable {
         Scene singleScene = new Scene(root);
         window = (Stage) ((Node) event.getSource()).getScene().getWindow();
         window.setScene(singleScene);
+        window.setResizable(false);
         window.show();
     }
-
+    @FXML
+    private void btnHomePressed(ActionEvent event) {
+       try {
+            root = FXMLLoader.load(getClass().getResource("/tictactoe/HomePage.fxml"));
+            Scene HomeScene = new Scene(root);
+            window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            window.setScene(HomeScene);
+            window.setResizable(false);
+            window.show();
+        } catch (IOException ex) {
+            Logger.getLogger(MultiPlayer.XoSingleController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     @FXML
     private void multiPlayerPressed(ActionEvent event) throws IOException {
         root = FXMLLoader.load(getClass().getResource("/MultiPlayer/XoSingleView.fxml"));
         Scene multiScene = new Scene(root);
         window = (Stage) ((Node) event.getSource()).getScene().getWindow();
         window.setScene(multiScene);
+        window.setResizable(false);
         window.show();
     }
 
     @FXML
     private void playOnlinePressed(ActionEvent event) throws IOException {
-        root = FXMLLoader.load(getClass().getResource("PlayOnline.fxml"));
+        root = FXMLLoader.load(getClass().getResource("serverIp.fxml"));
         Scene onlineScene = new Scene(root);
         window = (Stage) ((Node) event.getSource()).getScene().getWindow();
         window.setScene(onlineScene);
+        window.setResizable(false);
         window.show();
     }
 
@@ -156,6 +181,7 @@ public class GameController implements Initializable {
         Scene HomeScene = new Scene(root);
         window = (Stage) ((Node) event.getSource()).getScene().getWindow();
         window.setScene(HomeScene);
+        window.setResizable(false);
         window.show();
     }
 
@@ -166,6 +192,23 @@ public class GameController implements Initializable {
                 + "Open Source group in ITI Mansoura branch in 2020");
         alert.showAndWait();
 
+    }
+
+    @FXML
+    private void ConfirmServerPressed(ActionEvent event) throws IOException {
+        root = FXMLLoader.load(getClass().getResource("PlayOnline.fxml"));
+        Scene HomeScene = new Scene(root);
+        window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        window.setScene(HomeScene);
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(GameController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        serverIp = ipTextField.getText();
+        System.err.println(serverIp);
+        window.setResizable(false);
+        window.show();
     }
 
     @FXML
@@ -184,6 +227,7 @@ public class GameController implements Initializable {
         Scene LoginScene = new Scene(root);
         window = (Stage) ((Node) event.getSource()).getScene().getWindow();
         window.setScene(LoginScene);
+        window.setResizable(false);
         window.show();
 
     }
@@ -194,19 +238,31 @@ public class GameController implements Initializable {
         Scene RegisterScene = new Scene(root);
         window = (Stage) ((Node) event.getSource()).getScene().getWindow();
         window.setScene(RegisterScene);
+        window.setResizable(false);
+        window.show();
+    }
+
+    @FXML
+    private void backBtnPressed(ActionEvent event) throws IOException {
+        root = FXMLLoader.load(getClass().getResource("serverIp.fxml"));
+        Scene RegisterScene = new Scene(root);
+        window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        window.setScene(RegisterScene);
+        window.setResizable(false);
         window.show();
     }
 
     @FXML
     private void inLoginPressed(ActionEvent event) {
+        System.err.println(serverIp);
         try {
             if (player == null) {
                 try {
-                    socket = new Socket("127.0.0.1", 5005);
+                    socket = new Socket(serverIp, 5005);
                     player = new TicTacTocClient(socket, event);
                 } catch (IOException ex) {
                     Alert a = new Alert(Alert.AlertType.ERROR, "the server is disconnected"
-                            + " please try again later!", ButtonType.OK);
+                            + " or the server IP you entered is incorrect!", ButtonType.OK);
                     a.show();
                     return;
                 }
@@ -219,12 +275,18 @@ public class GameController implements Initializable {
                 Scene ProfileScene = new Scene(root);
                 window = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 window.setScene(ProfileScene);
+                window.setResizable(false);
                 window.show();
                 player.passStage(window);
             } else if ("failure".equals(player.response)) {
                 Alert alert;
                 alert = new Alert(Alert.AlertType.ERROR, "Please try again with a valid"
                         + " username and password! ", ButtonType.OK);
+                alert.show();
+            } else if ("loginned".equals(player.response)) {
+                Alert alert;
+                alert = new Alert(Alert.AlertType.ERROR, "You're already loginned on another device! ",
+                         ButtonType.OK);
                 alert.show();
             }
         } catch (IOException ex) {
@@ -252,6 +314,7 @@ public class GameController implements Initializable {
             Scene NewUserScene = new Scene(root);
             window = (Stage) ((Node) event.getSource()).getScene().getWindow();
             window.setScene(NewUserScene);
+            window.setResizable(false);
             window.show();
         } else if ("failure".equals(player.response)) {
             Alert alert;
@@ -263,16 +326,16 @@ public class GameController implements Initializable {
 
     @FXML
     private void refreshViewList(ActionEvent e) {
-        File selectedDirectory = new File("C:\\records");        
-            File[] flist = selectedDirectory.listFiles();
-            if (flist != null) {
-                for (int i = 0; i < flist.length; i++) {
-                    gamesRecordedList.getItems().add(flist[i]);
-                }
-            } else {
-                 Alert a = new Alert(Alert.AlertType.ERROR, "there are no games recorded!", ButtonType.OK);
-                a.show();
-            }      
+        File selectedDirectory = new File("C:\\records");
+        File[] flist = selectedDirectory.listFiles();
+        if (flist != null) {
+            for (int i = 0; i < flist.length; i++) {
+                gamesRecordedList.getItems().add(flist[i]);
+            }
+        } else {
+            Alert a = new Alert(Alert.AlertType.ERROR, "there are no games recorded!", ButtonType.OK);
+            a.show();
+        }
     }
 
     @FXML
@@ -306,6 +369,7 @@ public class GameController implements Initializable {
             Scene NewUserScene = new Scene(root);
             window = (Stage) ((Node) e.getSource()).getScene().getWindow();
             window.setScene(NewUserScene);
+            window.setResizable(false);
             window.show();
         } else {
             Alert a = new Alert(Alert.AlertType.ERROR, "please refresh the games list"
@@ -331,7 +395,6 @@ public class GameController implements Initializable {
     mapper={
     "1":
     }*/
-
     public void PlayBtnPressed(ActionEvent e) {
         for (int i = 1; i < player.viewRes.size(); i++) {
             System.out.println(player.viewRes.get(i));
@@ -418,4 +481,5 @@ public class GameController implements Initializable {
         player.askfornames(myname);
         listViewClients.setItems(player.getClients());
     }
+
 }

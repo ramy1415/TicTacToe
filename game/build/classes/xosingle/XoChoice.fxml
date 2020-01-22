@@ -4,11 +4,11 @@
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="xosingle.XoSingleController">
+<AnchorPane id="AnchorPane" prefHeight="500.0" prefWidth="700.0" styleClass="pane" stylesheets="@../Styles/css/Homepage.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="xosingle.XoSingleController">
    <children>
-      <Button fx:id="ChooseX" layoutX="143.0" layoutY="273.0" mnemonicParsing="false" onAction="#ChooseXPressed" text="Button" />
-      <Button fx:id="ChooseO" layoutX="379.0" layoutY="273.0" mnemonicParsing="false" onAction="#ChooseOPressed" text="Button" />
-      <RadioButton layoutX="181.0" layoutY="144.0" mnemonicParsing="false" text="X" />
-      <RadioButton layoutX="327.0" layoutY="144.0" mnemonicParsing="false" text="O" />
+      <Button fx:id="ChooseX" layoutX="213.0" layoutY="254.0" mnemonicParsing="false" onAction="#ChooseXPressed" prefHeight="50.0" prefWidth="133.0" styleClass="newGame" text="Choose X" />
+      <Button fx:id="ChooseO" layoutX="397.0" layoutY="254.0" mnemonicParsing="false" onAction="#ChooseOPressed" prefHeight="50.0" prefWidth="133.0" styleClass="newGame" text="Choose O" />
+      <RadioButton layoutX="260.0" layoutY="197.0" mnemonicParsing="false" styleClass="labelText-noLine" text="X" textFill="WHITE" />
+      <RadioButton layoutX="434.0" layoutY="193.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="26.0" styleClass="labelText-noLine" text="O" textFill="WHITE" />
    </children>
 </AnchorPane>

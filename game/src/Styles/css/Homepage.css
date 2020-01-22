@@ -13,6 +13,10 @@ src:  url("../fonts/Roboto-Light.ttf");
     -fx-font-size: 15px;
     
 }
+.profile
+{
+    -fx-background-image: url('../images/background2.png');
+}
 .homeButton
 {
     -fx-background-color: 
@@ -41,7 +45,7 @@ src:  url("../fonts/Roboto-Light.ttf");
     -fx-background-insets: 0,1,2,3,0;
     -fx-text-fill: white;
     -fx-font-weight: bold;
-    -fx-font-size: 15px;
+    -fx-font-size: 14.5px;
     -fx-padding: 8 15 8 15; 
 }
 .resetButton
@@ -49,9 +53,11 @@ src:  url("../fonts/Roboto-Light.ttf");
     -fx-background-color: 
         linear-gradient(#ff6060 0%, #ff3131 50%, #f42122 100%),
         linear-gradient(from 0% 0% to 15% 50%, rgba(255,255,255,0.9), rgba(255,255,255,0));
+    -fx-text-fill: white;
 }
-.choosePlayer
+.greenButton
 {
+    -fx-text-fill: white;
     -fx-background-color: 
         linear-gradient(#67d704 0%, #2da920 50%, #0ab11e 100%),
         linear-gradient(from 0% 0% to 15% 50%, rgba(255,255,255,0.9), rgba(255,255,255,0));
@@ -64,3 +70,37 @@ src:  url("../fonts/Roboto-Light.ttf");
 {
   -fx-text-fill: green;  
 }
+.textField
+{
+    -fx-background-radius: 20;
+   -fx-font-size: 20px;
+   
+    
+}
+.labelText
+{
+    -fx-font-size: 16px;
+    -fx-text-align :center;
+    -fx-background-radius:0;
+    -fx-border-color:white;
+    -fx-border-width: 0 0 1 0;
+}
+
+.labelText-noLine
+{
+    -fx-font-size: 16px;
+    -fx-text-align :center;
+
+}
+
+.list-cell:filled:selected:focused, .list-cell:filled:selected {
+    -fx-background-color: linear-gradient(#ffe657 0%, #f8c202 50%, #eea10b 100%);
+    -fx-text-fill: white; /* 5 */
+    -fx-font-size: 16px;
+}
+.list-cell { -fx-text-fill: black; -fx-font-size: 16px; /* 5 */ }
+.list-cell:odd { -fx-background-color: white; /* 1 */ }
+.list-cell:even { -fx-background-color: white; /* for information */ }
+
+
+

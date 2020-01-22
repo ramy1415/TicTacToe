@@ -24,6 +24,7 @@ public class XoSingle extends Application {
         stage.setMinHeight(400);
         stage.setMinWidth(350);
         stage.setScene(scene);
+        stage.setResizable(false);
         stage.show();
     }
 

@@ -9,20 +9,42 @@ import MultiPlayer.XoSingleModel;
 import Facilities.Request;
 import Facilities.RequestType;
 import TicTacTocClient.TicTacTocClient;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.time.Instant;
+import java.util.Date;
+import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.animation.PauseTransition;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Group;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.MediaView;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 import javax.swing.JOptionPane;
 import tictactoe.GameController;
@@ -58,7 +80,12 @@ public class XoOnlineController implements Initializable {
     private Label playertwoLabelScore;
     @FXML
     private Label turnLabel;
+    @FXML
+    private MediaView mediaView;
 
+    Parent root;
+    Stage window;
+    public String recordd = "";
     private ObjectInputStream comingStream;
     private ObjectOutputStream goingStream;
     private String oponent;
@@ -69,6 +96,7 @@ public class XoOnlineController implements Initializable {
     private XoSingleModel board;
     private static int draw = 0;
     private static String nowTurn;
+    public static boolean firstleave=true;
 
     /**
      * Initializes the controller class.
@@ -82,13 +110,14 @@ public class XoOnlineController implements Initializable {
         mySympol = GameController.getPlayer().mySympol;
         board = new XoSingleModel();
         System.err.println("my s= " + mySympol);
-
+        draw=0;
     }
 
     @FXML
     private void btnOnePressed(ActionEvent event) {
         if (myturn) {
             btnOne.setText(mySympol);
+            btnOne.setDisable(true);
             board.setarr(0, 0, mySympol);
             boolean check = checkWinning();
             Request moverequest = new Request(RequestType.MOVE);
@@ -113,6 +142,7 @@ public class XoOnlineController implements Initializable {
 
         if (myturn) {
             btnTwo.setText(mySympol);
+            btnTwo.setDisable(true);
             board.setarr(0, 1, mySympol);
             boolean check = checkWinning();
             Request moverequest = new Request(RequestType.MOVE);
@@ -137,6 +167,7 @@ public class XoOnlineController implements Initializable {
     private void btnThreePressed(ActionEvent event) {
         if (myturn) {
             btnThree.setText(mySympol);
+            btnThree.setDisable(true);
             board.setarr(0, 2, mySympol);
             boolean check = checkWinning();
             Request moverequest = new Request(RequestType.MOVE);
@@ -161,6 +192,7 @@ public class XoOnlineController implements Initializable {
     private void btnFourPressed(ActionEvent event) {
         if (myturn) {
             btnFour.setText(mySympol);
+            btnFour.setDisable(true);
             board.setarr(1, 0, mySympol);
             boolean check = checkWinning();
             Request moverequest = new Request(RequestType.MOVE);
@@ -187,6 +219,7 @@ public class XoOnlineController implements Initializable {
     private void btnFivePressed(ActionEvent event) {
         if (myturn) {
             btnFive.setText(mySympol);
+            btnFive.setDisable(true);
             board.setarr(1, 1, mySympol);
             boolean check = checkWinning();
             Request moverequest = new Request(RequestType.MOVE);
@@ -212,6 +245,7 @@ public class XoOnlineController implements Initializable {
     private void btnSixPressed(ActionEvent event) {
         if (myturn) {
             btnSix.setText(mySympol);
+            btnSix.setDisable(true);
             board.setarr(1, 2, mySympol);
             boolean check = checkWinning();
             Request moverequest = new Request(RequestType.MOVE);
@@ -237,6 +271,7 @@ public class XoOnlineController implements Initializable {
     private void btnSevenPressed(ActionEvent event) {
         if (myturn) {
             btnSeven.setText(mySympol);
+            btnSeven.setDisable(true);
             board.setarr(2, 0, mySympol);
             boolean check = checkWinning();
             Request moverequest = new Request(RequestType.MOVE);
@@ -262,6 +297,7 @@ public class XoOnlineController implements Initializable {
     private void btnEightPressed(ActionEvent event) {
         if (myturn) {
             btnEight.setText(mySympol);
+            btnEight.setDisable(true);
             board.setarr(2, 1, mySympol);
             boolean check = checkWinning();
             Request moverequest = new Request(RequestType.MOVE);
@@ -287,6 +323,7 @@ public class XoOnlineController implements Initializable {
     private void btnNinePressed(ActionEvent event) {
         if (myturn) {
             btnNine.setText(mySympol);
+            btnNine.setDisable(true);
             board.setarr(2, 2, mySympol);
             boolean check = checkWinning();
             Request moverequest = new Request(RequestType.MOVE);
@@ -308,8 +345,100 @@ public class XoOnlineController implements Initializable {
         }
     }
 
+    public void recordPressed(ActionEvent e) {
+        Date date = new Date();
+        Instant instant = date.toInstant();
+
+        StringTokenizer inst = new StringTokenizer(instant.toString(), ".");
+        String name = "username";
+        File file = new File("C:\\records\\" + name + inst.nextToken().replace(":", "-") + ".txt");
+        Path records = Paths.get("C:\\records");
+        if (file != null) {
+            byte[] b2 = recordd.getBytes();
+            try {
+                Files.createDirectories(records);
+                FileOutputStream fos = new FileOutputStream(file);
+                fos.write(b2);
+                fos.flush();
+                fos.close();
+            } catch (FileNotFoundException ex) {
+                ex.printStackTrace();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        }
+
+    }
+
+    @FXML
+    private void profilePressed(ActionEvent event) {
+        try {
+            if(firstleave){
+                Alert a2 = new Alert(Alert.AlertType.CONFIRMATION, GameController.myname + " you will lose if you leave during the game!", ButtonType.YES, ButtonType.NO);
+                Optional<ButtonType> result2 = a2.showAndWait();
+                if (result2.get() == ButtonType.YES) {
+                Request notplayingrequest=new Request(RequestType.LEAVE);
+                notplayingrequest.setData("myname", myname);
+                notplayingrequest.setData("oponent", oponent);
+                goingStream.writeObject(notplayingrequest);}
+                else if (result2.get() == ButtonType.NO) {return;}
+            }
+            else{
+                Request leave=new Request(RequestType.NOTPLAYING);
+                leave.setData("myname", myname);
+                leave.setData("oponent", oponent);
+                goingStream.writeObject(leave);
+            }
+            root = FXMLLoader.load(getClass().getResource("/tictactoe/ProfilePage.fxml"));
+            Scene profileScene = new Scene(root);
+            window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            window.setScene(profileScene);
+            window.setResizable(false);
+            window.show();
+            firstleave=true;
+        } catch (IOException ex) {
+            Logger.getLogger(XoOnlineController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     private void winAlert() {
-        JOptionPane.showMessageDialog(null, win);
+        Request winningGamesRequest = new Request(RequestType.WINNING_GAMES);
+            winningGamesRequest.setData("win","1");
+            winningGamesRequest.setData("username", myname);
+            firstleave=false;
+        try {
+            goingStream.writeObject(winningGamesRequest);
+        } catch (IOException ex) {
+            Logger.getLogger(XoOnlineController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+            
+        PauseTransition pause = new PauseTransition(Duration.millis(20));
+        pause.setOnFinished(event
+                -> {
+            // JOptionPane.showMessageDialog(null, xwin);
+            String path = "‪F:\\ramyMerge\\TicTacToe-master\\win.mp4";
+            Media media = new Media(new File(path).toURI().toString());
+            MediaPlayer mediaPlayer = new MediaPlayer(media);
+            mediaPlayer.setAutoPlay(true);
+            mediaView = new MediaView();
+            mediaView.setMediaPlayer(mediaPlayer);
+            Group root1 = new Group();
+            root1.getChildren().add(mediaView);
+            Scene multiScene = new Scene(root1);
+            Stage stage1 = new Stage();
+            stage1.setScene(multiScene);
+            stage1.initModality(Modality.APPLICATION_MODAL);
+            stage1.setMinWidth(550);
+            stage1.setMinHeight(450);
+            stage1.setMaxHeight(450);
+            stage1.setMaxWidth(550);
+            stage1.centerOnScreen();
+            mediaPlayer.setOnEndOfMedia(() -> {
+                stage1.close();
+            });
+            stage1.setResizable(false);
+            stage1.show();
+        });
+        pause.play();
         disableAllbtns();
         // playeroneLabelScore.setText("player One Score : " + (++xscore));
     }
@@ -331,6 +460,7 @@ public class XoOnlineController implements Initializable {
             //board.printCurrentBoard();
 
             winAlert();
+            firstleave=false;
             Request loseRequest = new Request(RequestType.LOSE);
             loseRequest.setData("oponent", oponent);
             loseRequest.setData("myname", myname);
