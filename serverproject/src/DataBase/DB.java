@@ -28,7 +28,7 @@ public class DB {
         try {
             DriverManager.registerDriver(new Driver());
             con = DriverManager.getConnection(
-                    "jdbc:mysql://127.0.0.1:3306/xogame", "root", "mnwraea");
+                    "jdbc:mysql://127.0.0.1:3306/xogame", "root", "12345");
         } catch (SQLException ex) {
             System.out.println(ex);
             ex.printStackTrace();
@@ -71,11 +71,23 @@ public class DB {
         }
         return valid;
     }
-    public void addingNewWins(int i,String username){
+    public void addingNewWins(String username){
         try {
-            pst=con.prepareStatement("insert into player value ? where username = ?");
-            pst.setInt(1, i);
-            pst.setString(2, username);
+            System.err.println(username+" won");
+            pst=con.prepareStatement("update player set wins=wins+1 where username=? ");
+            pst.setString(1, username);
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(DB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
+    public void addingNewLoses(String username){
+        try {
+            System.err.println(username+" lost");
+            pst=con.prepareStatement("update player set loses=loses+1 where username=?");
+            pst.setString(1, username);
+            pst.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(DB.class.getName()).log(Level.SEVERE, null, ex);
         }

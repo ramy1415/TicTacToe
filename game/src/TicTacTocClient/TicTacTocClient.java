@@ -43,6 +43,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import javax.swing.JOptionPane;
+import tictactoe.GameController;
 
 /**
  *
@@ -219,6 +220,15 @@ public class TicTacTocClient extends Thread {
                 moveHandler(req);
                 break;
             case LOSE:
+                Request losingGamesRequest = new Request(RequestType.LOSING_GAMES);
+                losingGamesRequest.setData("username",GameController.myname);
+        {
+            try {
+                goingStream.writeObject(losingGamesRequest);
+            } catch (IOException ex) {
+                Logger.getLogger(TicTacTocClient.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
                 Platform.runLater(() -> {
                     loseAlert();
                     changeTurn("Game Over!");
