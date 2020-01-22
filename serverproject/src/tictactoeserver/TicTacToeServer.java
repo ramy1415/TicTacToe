@@ -143,6 +143,9 @@ public class TicTacToeServer extends Thread {
         String username = req.getData("username");
         String password = req.getData("password");
         if (fullname == null || age == null || username == null || password == null) {
+            Request r = new Request(RequestType.REGISTER_FAILURE);
+            goingStream.writeObject(r);
+        } else {
             boolean valid = dataBase.checkForValidation(fullname, age, username, password);
             if (valid == true) {
                 Request r = new Request(RequestType.REGISTER_SUCCESS);
@@ -151,9 +154,6 @@ public class TicTacToeServer extends Thread {
                 Request r = new Request(RequestType.REGISTER_FAILURE);
                 goingStream.writeObject(r);
             }
-        } else {
-            Request r = new Request(RequestType.REGISTER_FAILURE);
-            goingStream.writeObject(r);
         }
     }
     //new handlers
