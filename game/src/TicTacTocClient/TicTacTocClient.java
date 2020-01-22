@@ -487,7 +487,7 @@ public class TicTacTocClient extends Thread {
         pause.setOnFinished(event
                 -> {
             // JOptionPane.showMessageDialog(null, xwin);
-            String path = "‪F:\\ramyMerge\\TicTacToe-master\\win.mp4";
+            String path = "src\\Media\\win.mp4";
             Media media = new Media(new File(path).toURI().toString());
             MediaPlayer mediaPlayer = new MediaPlayer(media);
             mediaPlayer.setAutoPlay(true);

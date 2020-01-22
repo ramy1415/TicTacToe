@@ -29,7 +29,7 @@ public class DB {
             DriverManager.registerDriver(new Driver());
             con = DriverManager.getConnection(
 
-                    "jdbc:mysql://127.0.0.1:3306/xogame", "root", "123456789");
+                    "jdbc:mysql://127.0.0.1:3306/xogame", "root", "12345");
 
         } catch (SQLException ex) {
             System.out.println(ex);
