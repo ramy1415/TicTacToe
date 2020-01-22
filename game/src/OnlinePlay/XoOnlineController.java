@@ -93,6 +93,7 @@ public class XoOnlineController implements Initializable {
     private XoSingleModel board;
     private static int draw = 0;
     private static String nowTurn;
+    public static boolean firstleave=true;
 
     /**
      * Initializes the controller class.
@@ -369,11 +370,18 @@ public class XoOnlineController implements Initializable {
     @FXML
     private void profilePressed(ActionEvent event) {
         try {
+            if(firstleave){
+                Request notplayingrequest=new Request(RequestType.NOTPLAYING);
+                notplayingrequest.setData("myname", myname);
+                notplayingrequest.setData("oponent", oponent);
+                goingStream.writeObject(notplayingrequest);
+            }
             root = FXMLLoader.load(getClass().getResource("/tictactoe/ProfilePage.fxml"));
             Scene profileScene = new Scene(root);
             window = (Stage) ((Node) event.getSource()).getScene().getWindow();
             window.setScene(profileScene);
             window.show();
+            firstleave=true;
         } catch (IOException ex) {
             Logger.getLogger(XoOnlineController.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -275,6 +275,9 @@ public class TicTacTocClient extends Thread {
                     a1.show();
                 });
                 break;
+            case LEAVE:
+                leaveHandler(req);
+                break;
         }
 
     }
@@ -496,5 +499,14 @@ public class TicTacTocClient extends Thread {
         System.out.println("TurnName:" + nowTurnName);
         nowTurn.setText(nowTurnName);
 
+    }
+
+    private void leaveHandler(Request req) {
+        Platform.runLater(() -> {
+            Alert a1 = new Alert(Alert.AlertType.CONFIRMATION, req.getData("leaver") + " left sorry! you won", ButtonType.OK);
+            a1.showAndWait();
+            disableAllButtons(getAllButtons());
+            XoOnlineController.firstleave=false;
+        });
     }
 }

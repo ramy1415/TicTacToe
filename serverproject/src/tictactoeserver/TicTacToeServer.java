@@ -121,6 +121,9 @@ public class TicTacToeServer extends Thread {
             case PLAYING:
                 playingHandler(req);
                 break;
+            case NOTPLAYING:
+                notplayingHandler(req);
+                break;
 
         }
     }
@@ -346,5 +349,26 @@ public class TicTacToeServer extends Thread {
         }
         
         
+    }
+
+    private void notplayingHandler(Request req) {
+        for (TicTacToeServer t1 : clientslist) {
+            if(t1.name.equals(req.getData("myname"))){
+                t1.playing=false;
+                dataBase.addingNewLoses(t1.name);
+            }
+            if(t1.name.equals(req.getData("oponent"))){
+                t1.playing=false;
+                Request left2=new Request(RequestType.LEAVE);
+                left2.setData("leaver", req.getData("myname"));
+                dataBase.addingNewWins(t1.name);
+                try {
+                    t1.goingStream.writeObject(left2);
+                } catch (IOException ex) {
+                    Logger.getLogger(TicTacToeServer.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
+            }
+        }
     }
 }
