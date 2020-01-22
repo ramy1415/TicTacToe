@@ -37,6 +37,7 @@ public class TicTacToeServer extends Thread {
     //passed ip and vector
     String ip;
     String name;
+    boolean playing =false;
     static List<TicTacToeServer> clientslist = Collections.synchronizedList(new ArrayList<TicTacToeServer>());
     static ArrayList<String> onlineNames = new ArrayList<>();
     //static Vector<TicTacToeServer> clientsvector = new Vector<TicTacToeServer>();
@@ -47,6 +48,7 @@ public class TicTacToeServer extends Thread {
         //ip
         comingStream = ois;
         ip = _ip;
+        
         System.err.println("");
         dataBase = new DB();
         //adding to vector
@@ -101,7 +103,6 @@ public class TicTacToeServer extends Thread {
             case MOVE:
                 moveHandler(req);
                 break;
-
             case LOSE:
                 loseHandler(req);
                 break;
@@ -116,6 +117,9 @@ public class TicTacToeServer extends Thread {
                 break;
             case LOSING_GAMES:
                 losingGamesHandler(req);
+                break;
+            case PLAYING:
+                playingHandler(req);
                 break;
 
         }
@@ -167,6 +171,10 @@ public class TicTacToeServer extends Thread {
         for (TicTacToeServer t1 : clientslist) {
             if (t1.name.equals(req.getData("targetname"))) {
                 try {
+                    if(t1.playing==true){
+                        playingNowHandler(req);
+                        return;
+                    }
                     t1.goingStream.writeObject(req);
                     found = true;
                 } catch (IOException ex) {
@@ -196,6 +204,7 @@ public class TicTacToeServer extends Thread {
             if (t1.name.equals(req.getData("targetname"))) {
                 try {
                     t1.goingStream.writeObject(req);
+                    t1.playing=true;
                 } catch (IOException ex) {
                     Logger.getLogger(TicTacToeServer.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -313,5 +322,29 @@ public class TicTacToeServer extends Thread {
     private void losingGamesHandler(Request req) {
         String username=req.getData("username");
         dataBase.addingNewLoses(username);
+    }
+
+    private void playingHandler(Request req) {
+        for (TicTacToeServer t1 : clientslist) {
+            if(t1.name.equals(req.getData("myname"))){
+                t1.playing=true;
+            }
+        }
+    }
+
+    private void playingNowHandler(Request req) {
+        for (TicTacToeServer t1 : clientslist) {
+            if(t1.name.equals(req.getData("myname"))){
+                Request playingnowrequest=new Request(RequestType.PLAYING);
+                playingnowrequest.setData("oponent", req.getData("targetname"));
+                try {
+                    t1.goingStream.writeObject(playingnowrequest);
+                } catch (IOException ex) {
+                    Logger.getLogger(TicTacToeServer.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+        
+        
     }
 }
