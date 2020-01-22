@@ -359,9 +359,6 @@ public class TicTacToeServer extends Thread {
             if(t1.name.equals(req.getData("myname"))){
                 t1.playing=false;
             }
-            if(t1.name.equals(req.getData("oponent"))){
-                t1.playing=false;
-            }
         }
     }
     
@@ -372,7 +369,6 @@ public class TicTacToeServer extends Thread {
                 dataBase.addingNewLoses(t1.name);
             }
             if(t1.name.equals(req.getData("oponent"))){
-                t1.playing=false;
                 Request left2=new Request(RequestType.LEAVE);
                 left2.setData("leaver", req.getData("myname"));
                 dataBase.addingNewWins(t1.name);
