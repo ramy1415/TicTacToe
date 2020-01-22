@@ -21,6 +21,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.Instant;
 import java.util.Date;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.StringTokenizer;
 import java.util.logging.Level;
@@ -35,7 +36,9 @@ import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -371,10 +374,14 @@ public class XoOnlineController implements Initializable {
     private void profilePressed(ActionEvent event) {
         try {
             if(firstleave){
+                Alert a2 = new Alert(Alert.AlertType.CONFIRMATION, GameController.myname + " you will lose if you leave during the game!", ButtonType.YES, ButtonType.NO);
+                Optional<ButtonType> result2 = a2.showAndWait();
+                if (result2.get() == ButtonType.YES) {
                 Request notplayingrequest=new Request(RequestType.LEAVE);
                 notplayingrequest.setData("myname", myname);
                 notplayingrequest.setData("oponent", oponent);
-                goingStream.writeObject(notplayingrequest);
+                goingStream.writeObject(notplayingrequest);}
+                else if (result2.get() == ButtonType.NO) {return;}
             }
             else{
                 Request leave=new Request(RequestType.NOTPLAYING);
