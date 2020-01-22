@@ -139,6 +139,5 @@
             </HBox>
          </children>
       </VBox>
-      <Button fx:id="record" layoutX="28.0" layoutY="14.0" mnemonicParsing="false" onAction="#recordPressed" text="record" />
    </children>
 </AnchorPane>

@@ -76,11 +76,13 @@ public class TicTacToeServer extends Thread {
                 Logger.getLogger(TicTacToeServer.class.getName()).log(Level.SEVERE, null, ex);
             } catch (SQLException ex) {
                 Logger.getLogger(TicTacToeServer.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(TicTacToeServer.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
 
-    public void requestHandler(Request req) throws SQLException, IOException {
+    public void requestHandler(Request req) throws SQLException, IOException, InterruptedException {
         switch (req.getType()) {
             case LOGIN:
                 loginHandler(req);
@@ -127,7 +129,9 @@ public class TicTacToeServer extends Thread {
             case LEAVE:
                 leave(req);
                 break;
-
+            case UPDATE_SCORES:
+                updateScore(req);
+                break;
         }
     }
 
@@ -172,6 +176,21 @@ public class TicTacToeServer extends Thread {
     }
     //new handlers
 
+    private void updateScore(Request req) throws IOException, InterruptedException{
+        int[] scores;
+        try {
+            scores=dataBase.scoresGetter(req.getData("username"));
+            int wins=scores[0];
+            int losses=scores[1];
+            Request r = new Request(RequestType.RETURNNING_SCORES);
+            r.setData("wins",Integer.toString(wins));
+            r.setData("losses",Integer.toString(losses));
+            goingStream.writeObject(r);
+        } catch (SQLException ex) {
+            Logger.getLogger(TicTacToeServer.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+            
     private void asktoplayHandler(Request req) {
         boolean found = false;
         for (TicTacToeServer t1 : clientslist) {
@@ -273,7 +292,6 @@ public class TicTacToeServer extends Thread {
             }
         }
     }
-
     private void loseHandler(Request req) {
         for (TicTacToeServer t1 : clientslist) {
 

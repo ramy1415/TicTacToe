@@ -20,8 +20,8 @@
             </Label>
             <Label layoutX="59.0" layoutY="255.0" prefHeight="46.0" prefWidth="108.0" text="Games Won" />
             <Label layoutX="186.0" layoutY="255.0" prefHeight="46.0" prefWidth="108.0" text="Games Lost" />
-            <Label alignment="CENTER" layoutX="93.0" layoutY="311.0" text="0" />
-            <Label alignment="CENTER" layoutX="222.0" layoutY="311.0" text="0" />
+            <Label fx:id="winScore" alignment="CENTER" layoutX="93.0" layoutY="311.0" text="0" />
+            <Label fx:id="lossScore" alignment="CENTER" layoutX="222.0" layoutY="311.0" text="0" />
             <Label alignment="CENTER" layoutX="160.0" layoutY="14.0" prefHeight="42.0" prefWidth="125.0" text="Username" />
             <Button fx:id="HomeBtn" layoutX="375.0" layoutY="243.0" mnemonicParsing="false" onAction="#homePressed" text="Home" />
             <Button fx:id="btnOnlinePlay" layoutX="357.0" layoutY="44.0" mnemonicParsing="false" onAction="#btnOnlinePlayPressed" text="onlineplay" />
@@ -30,6 +30,7 @@
             <Button fx:id="refreshViewListBtn" layoutX="271.0" layoutY="76.0" mnemonicParsing="false" onAction="#refreshViewList" text="refresh" />
             <ListView fx:id="listViewClients" layoutX="424.0" layoutY="76.0" prefHeight="153.0" prefWidth="171.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
             <Button fx:id="btnRefreshnames" layoutX="340.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnRefreshnamesPressed" text="refreshnames" />
+            <Button fx:id="updateScoreBtn" layoutX="128.0" layoutY="215.0" mnemonicParsing="false" onAction="#updateScoreBtnPressed" text="update your scores" />
          </children>
       </AnchorPane>
    </center>

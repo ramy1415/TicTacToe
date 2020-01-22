@@ -28,7 +28,7 @@ public class DB {
         try {
             DriverManager.registerDriver(new Driver());
             con = DriverManager.getConnection(
-                    "jdbc:mysql://127.0.0.1:3306/xogame", "root", "12345");
+                    "jdbc:mysql://127.0.0.1:3306/xogame", "root", "mnwraea");
         } catch (SQLException ex) {
             System.out.println(ex);
             ex.printStackTrace();
@@ -72,6 +72,18 @@ public class DB {
             valid = false;
         }
         return valid;
+    }
+    public int[] scoresGetter(String name) throws SQLException, InterruptedException{       
+            pst=con.prepareStatement("select wins , loses from player where username=? ");
+            pst.setString(1,name);
+            rs=pst.executeQuery();
+            rs.next();
+            Thread.sleep(3000);
+            
+            int wins=rs.getInt("wins");
+            int loses=rs.getInt("loses");
+            int[] arr={wins,loses};
+        return arr;
     }
     public void addingNewWins(String username){
         try {

@@ -5,6 +5,7 @@
  */
 package tictactoe;
 
+import Facilities.RequestType;
 import TicTacTocClient.TicTacTocClient;
 import java.io.File;
 import java.io.FileInputStream;
@@ -61,6 +62,12 @@ public class GameController implements Initializable {
     static Socket socket;
     static String myip;
     public static String myname;
+    @FXML
+    Label winScore;
+    @FXML
+    Label lossScore;
+    @FXML
+    Button updateScoreBtn;
     @FXML
     Button confirmServerIPBtn;
     @FXML
@@ -275,7 +282,7 @@ public class GameController implements Initializable {
     private void registrationConfirmPressed(ActionEvent event) throws IOException, InterruptedException {
 
         if (player == null) {
-            socket = new Socket("127.0.0.1", 5005);
+            socket = new Socket(serverIp, 5005);
             player = new TicTacTocClient(socket, event);
         }
         String fullname = fullNameTextField.getText().toString();
@@ -446,7 +453,7 @@ public class GameController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+
     }
 
     @FXML
@@ -456,4 +463,17 @@ public class GameController implements Initializable {
         listViewClients.setItems(player.getClients());
     }
     
+    @FXML 
+   private void updateScoreBtnPressed(ActionEvent event) {
+        player.updateScores(myname);
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(GameController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        Platform.runLater(() -> {
+        winScore.setText(player.winScores);
+        lossScore.setText(player.lossScores);
+        });
+   }   
 }
