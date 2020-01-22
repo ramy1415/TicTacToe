@@ -37,6 +37,7 @@ public class TicTacToeServer extends Thread {
     //passed ip and vector
     String ip;
     String name;
+    boolean playing =false;
     static List<TicTacToeServer> clientslist = Collections.synchronizedList(new ArrayList<TicTacToeServer>());
     static ArrayList<String> onlineNames = new ArrayList<>();
     //static Vector<TicTacToeServer> clientsvector = new Vector<TicTacToeServer>();
@@ -47,6 +48,7 @@ public class TicTacToeServer extends Thread {
         //ip
         comingStream = ois;
         ip = _ip;
+        
         System.err.println("");
         dataBase = new DB();
         //adding to vector
@@ -101,7 +103,6 @@ public class TicTacToeServer extends Thread {
             case MOVE:
                 moveHandler(req);
                 break;
-
             case LOSE:
                 loseHandler(req);
                 break;
@@ -113,6 +114,19 @@ public class TicTacToeServer extends Thread {
                 break;
             case WINNING_GAMES:
                 winningGamesHandler(req);
+                break;
+            case LOSING_GAMES:
+                losingGamesHandler(req);
+                break;
+            case PLAYING:
+                playingHandler(req);
+                break;
+            case NOTPLAYING:
+                notplayingHandler(req);
+                break;
+            case LEAVE:
+                leave(req);
+                break;
 
         }
     }
@@ -163,6 +177,10 @@ public class TicTacToeServer extends Thread {
         for (TicTacToeServer t1 : clientslist) {
             if (t1.name.equals(req.getData("targetname"))) {
                 try {
+                    if(t1.playing==true){
+                        playingNowHandler(req);
+                        return;
+                    }
                     t1.goingStream.writeObject(req);
                     found = true;
                 } catch (IOException ex) {
@@ -192,6 +210,7 @@ public class TicTacToeServer extends Thread {
             if (t1.name.equals(req.getData("targetname"))) {
                 try {
                     t1.goingStream.writeObject(req);
+                    t1.playing=true;
                 } catch (IOException ex) {
                     Logger.getLogger(TicTacToeServer.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -302,8 +321,63 @@ public class TicTacToeServer extends Thread {
     }
     
     private void winningGamesHandler(Request req){
-        int i=Integer.parseInt(req.getData("win"));
         String username=req.getData("username");
-        dataBase.addingNewWins(i,username);
+        dataBase.addingNewWins(username);
+    }
+
+    private void losingGamesHandler(Request req) {
+        String username=req.getData("username");
+        dataBase.addingNewLoses(username);
+    }
+
+    private void playingHandler(Request req) {
+        for (TicTacToeServer t1 : clientslist) {
+            if(t1.name.equals(req.getData("myname"))){
+                t1.playing=true;
+            }
+        }
+    }
+
+    private void playingNowHandler(Request req) {
+        for (TicTacToeServer t1 : clientslist) {
+            if(t1.name.equals(req.getData("myname"))){
+                Request playingnowrequest=new Request(RequestType.PLAYING);
+                playingnowrequest.setData("oponent", req.getData("targetname"));
+                try {
+                    t1.goingStream.writeObject(playingnowrequest);
+                } catch (IOException ex) {
+                    Logger.getLogger(TicTacToeServer.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+        
+        
+    }
+
+    private void notplayingHandler(Request req) {
+        for (TicTacToeServer t1 : clientslist) {
+            if(t1.name.equals(req.getData("myname"))){
+                t1.playing=false;
+            }
+        }
+    }
+    
+    private void leave(Request req) {
+        for (TicTacToeServer t1 : clientslist) {
+            if(t1.name.equals(req.getData("myname"))){
+                t1.playing=false;
+                dataBase.addingNewLoses(t1.name);
+            }
+            if(t1.name.equals(req.getData("oponent"))){
+                Request left2=new Request(RequestType.LEAVE);
+                left2.setData("leaver", req.getData("myname"));
+                dataBase.addingNewWins(t1.name);
+                try {
+                    t1.goingStream.writeObject(left2);
+                } catch (IOException ex) {
+                    Logger.getLogger(TicTacToeServer.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
     }
 }
