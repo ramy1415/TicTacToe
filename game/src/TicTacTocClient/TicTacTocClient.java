@@ -381,56 +381,55 @@ public class TicTacTocClient extends Thread {
             public void run() {
                 switch (req.getData("moveplace")) {
                     case "1":
-                        btnone.setStyle("-fx-text-fill: #ffc200;");
+                       // btnone.setStyle("-fx-text-fill: #ffc200;");
                         btnone.setText(hisSympol);
                         OnlinePlay.XoOnlineController.myturn = true;
                         btnone.setDisable(true);
                         break;
                     case "2":
-                        btnone.setStyle("-fx-text-fill: #ffc200;");
+                        //btnone.setStyle("-fx-text-fill: #ffc200;");
                         btnTwo.setText(hisSympol);
                         OnlinePlay.XoOnlineController.myturn = true;
                         btnTwo.setDisable(true);
                         break;
                     case "3":
-                        btnone.setStyle("-fx-text-fill: #ffc200;");
-                        btnone.setStyle("-fx-text-fill: red;");
+                        //btnone.setStyle("-fx-text-fill: #ffc200;");
                         btnThree.setText(hisSympol);
                         OnlinePlay.XoOnlineController.myturn = true;
                         btnThree.setDisable(true);
                         break;
                     case "4":
-                        btnone.setStyle("-fx-text-fill: #ffc200;");
+                        //btnone.setStyle("-fx-text-fill: #ffc200;");
                         btnFour.setText(hisSympol);
                         OnlinePlay.XoOnlineController.myturn = true;
                         btnFour.setDisable(true);
                         break;
                     case "5":
-                        btnone.setStyle("-fx-text-fill: #ffc200;");
+                        //btnone.setStyle("-fx-text-fill: #ffc200;");
                         btnFive.setText(hisSympol);
                         OnlinePlay.XoOnlineController.myturn = true;
                         btnFive.setDisable(true);
                         break;
                     case "6":
-                        btnone.setStyle("-fx-text-fill: #ffc200;");
+                        //btnone.setStyle("-fx-text-fill: #ffc200;");
                         btnSix.setText(hisSympol);
                         OnlinePlay.XoOnlineController.myturn = true;
                         btnSix.setDisable(true);
                         break;
                     case "7":
-                        btnone.setStyle("-fx-text-fill: #ffc200;");
+                        //btnone.setStyle("-fx-text-fill: #ffc200;");
                         btnSeven.setText(hisSympol);
                         OnlinePlay.XoOnlineController.myturn = true;
                         btnSeven.setDisable(true);
                         break;
                     case "8":
-                        btnone.setStyle("-fx-text-fill: #ffc200;");
+                        //btnone.setStyle("-fx-text-fill: #ffc200;");
                         btnEight.setText(hisSympol);
                         OnlinePlay.XoOnlineController.myturn = true;
                         btnEight.setDisable(true);
                         break;
                     case "9":
-                        btnone.setStyle("-fx-text-fill: #ffc200;");
+                        //btnone.setStyle("-fx-text-fill: #ffc200;");
                         btnNine.setText(hisSympol);
                         OnlinePlay.XoOnlineController.myturn = true;
                         btnNine.setDisable(true);
