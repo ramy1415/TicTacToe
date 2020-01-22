@@ -151,7 +151,6 @@ public class XoSingleController implements Initializable {
             s1.setScene(HomeScene);
             s1.setResizable(false);
             s1.show();
-            System.out.println("Home");
         } catch (IOException ex) {
             Logger.getLogger(MultiPlayer.XoSingleController.class.getName()).log(Level.SEVERE, null, ex);
         }

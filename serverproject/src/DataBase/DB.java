@@ -50,16 +50,18 @@ public class DB {
     }
 
     public boolean checkForValidation(String fullname, String age, String username, String password) throws SQLException {
-
+        
         int val;
         boolean valid = true;
         System.out.println(fullname + age + username + password);
         if (Integer.parseInt(age) < 100 && Integer.parseInt(age) > 0 && password.length() > 6) {
-            pst = con.prepareStatement("insert into player values(?,?,?,?)");
+            pst = con.prepareStatement("insert into player values(?,?,?,?,?,?)");
             pst.setString(1, username);
             pst.setString(2, fullname);
             pst.setString(3, age);
             pst.setString(4, password);
+            pst.setInt(5,0);
+            pst.setInt(6,0);
             val = pst.executeUpdate();
             if (val != 0) {
                 valid = true;
