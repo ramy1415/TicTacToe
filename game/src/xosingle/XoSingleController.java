@@ -226,6 +226,7 @@ public class XoSingleController implements Initializable {
     private void anyButtonAction(ActionEvent a, int x, int y) {
         Button b = (Button) a.getSource();
         m1.setarr(x, y, player1);
+        b.setStyle("-fx-text-fill: red;");
         b.setText(player1);
         if (m1.checkwinner()) {
             xWon();
