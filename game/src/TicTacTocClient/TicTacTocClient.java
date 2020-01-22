@@ -63,17 +63,20 @@ public class TicTacTocClient extends Thread {
     static String myip;
     static ActionEvent event;
     static Stage window;
-    private Stage mystage;
+    static Stage mystage;
     static String oponent;
+    public static String winScores;
+    public static String lossScores;
     public String mySympol;
     public String hisSympol;
     ObservableList<String> clients = FXCollections.observableArrayList();
     private static Stage onlineStage;
+
     private final String lose = "Sorry! You lost!";
     private final String tie = "It was a tie!";
     @FXML
     private MediaView mediaView;
-
+    
     public TicTacTocClient(Socket playerSocket, ActionEvent _event) throws IOException {
 
         //getting ip for this machine
@@ -109,7 +112,7 @@ public class TicTacTocClient extends Thread {
         }
     }
 
-    public void clientrequestHandler(Request req) {
+    public void clientrequestHandler(Request req) throws IOException {
         switch (req.getType()) {
             case LOGIN_SUCCESS:
                 response = "success";
@@ -265,22 +268,28 @@ public class TicTacTocClient extends Thread {
                 });
 
                 break;
-            case CHANGETURN:
+                case CHANGETURN:
                 Platform.runLater(() -> {
-                    changeTurn(req.getData("oponent"));
+                changeTurn(req.getData("oponent"));
                 });
                 break;
-            case PLAYING:
+                case PLAYING:
                 Platform.runLater(() -> {
-                    Alert a1 = new Alert(Alert.AlertType.CONFIRMATION, req.getData("oponent") + " is playing now", ButtonType.OK);
-                    a1.show();
+                Alert a1 = new Alert(Alert.AlertType.CONFIRMATION, req.getData("oponent") + " is playing now", ButtonType.OK);
+                a1.show();
                 });
                 break;
-            case LEAVE:
+                case LEAVE:
                 leaveHandler(req);
-                break;
+                break;    
+            case RETURNNING_SCORES:
+                System.out.println(request.getData("wins"));
+                Platform.runLater(() -> {
+                winScores=request.getData("wins");
+                lossScores=request.getData("losses");
+                });
+                break;         
         }
-
     }
 
     public void login(String username, String password, ActionEvent _event) throws IOException {
@@ -298,6 +307,15 @@ public class TicTacTocClient extends Thread {
         registerationRequest.setData("username", username);
         registerationRequest.setData("password", password);
         goingStream.writeObject(registerationRequest);
+    }
+    public void updateScores(String name) {
+        try {
+            Request updateScoreRequest=new Request(RequestType.UPDATE_SCORES);
+            updateScoreRequest.setData("username", name);
+            goingStream.writeObject(updateScoreRequest);
+        } catch (IOException ex) {
+            Logger.getLogger(TicTacTocClient.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public void asktoplay(String myname, String targetname, ActionEvent _event) throws IOException {
@@ -445,7 +463,6 @@ public class TicTacTocClient extends Thread {
     public static Stage getOnlineStage() {
         return onlineStage;
     }
-
     private void disableAllButtons(Button[] btns) {
         for (int i = 0; i < 9; i++) {
             btns[i].setDisable(true);

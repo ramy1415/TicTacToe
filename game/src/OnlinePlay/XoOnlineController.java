@@ -111,6 +111,15 @@ public class XoOnlineController implements Initializable {
         board = new XoSingleModel();
         System.err.println("my s= " + mySympol);
         draw=0;
+         btnOne.setStyle("-fx-text-fill: #ffc200;");
+        btnTwo.setStyle("-fx-text-fill: #ffc200;");
+        btnThree.setStyle("-fx-text-fill: #ffc200;");
+        btnFour.setStyle("-fx-text-fill: #ffc200;");
+        btnFive.setStyle("-fx-text-fill: #ffc200;");
+        btnSix.setStyle("-fx-text-fill: #ffc200;");
+        btnSeven.setStyle("-fx-text-fill: #ffc200;");
+        btnEight.setStyle("-fx-text-fill: #ffc200;");
+        btnNine.setStyle("-fx-text-fill: #ffc200;");
     }
 
     @FXML

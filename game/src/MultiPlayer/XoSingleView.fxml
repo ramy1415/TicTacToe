@@ -180,11 +180,14 @@
             </HBox>
          </children>
       </VBox>
+<<<<<<< HEAD
       <Button fx:id="record" layoutX="17.0" layoutY="41.0" mnemonicParsing="false" onAction="#recordPressed" text="record">
          <styleClass>
             <String fx:value="homeButton" />
             <String fx:value="greenButton" />
          </styleClass>
       </Button>
+=======
+>>>>>>> a13835bfca9f8fd5e4a10c9cc9ca112869871507
    </children>
 </AnchorPane>

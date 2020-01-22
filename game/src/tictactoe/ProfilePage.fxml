@@ -21,13 +21,13 @@
             </Label>
             <Label layoutX="33.0" layoutY="304.0" prefHeight="46.0" prefWidth="108.0" styleClass="labelText" text="Games Won" textFill="#14ff1d" />
             <Label layoutX="33.0" layoutY="353.0" prefHeight="46.0" prefWidth="108.0" styleClass="labelText" text="Games Lost" textFill="#ff0404" />
-            <Label alignment="CENTER" layoutX="147.0" layoutY="307.0" prefHeight="41.0" prefWidth="47.0" text="0" textFill="WHITE">
+            <Label fx:id="winScore" alignment="CENTER" layoutX="147.0" layoutY="307.0" prefHeight="41.0" prefWidth="47.0" text="0" textFill="WHITE">
                <styleClass>
                   <String fx:value="labelText-noLine" />
                   <String fx:value="newGame" />
                   <String fx:value="greenButton" />
                </styleClass></Label>
-            <Label alignment="CENTER" layoutX="146.0" layoutY="363.0" prefHeight="41.0" prefWidth="47.0" text="0" textFill="WHITE">
+            <Label fx:id="lossScore" alignment="CENTER" layoutX="146.0" layoutY="363.0" prefHeight="41.0" prefWidth="47.0" text="0" textFill="WHITE">
                <styleClass>
                   <String fx:value="labelText-noLine" />
                   <String fx:value="newGame" />
@@ -49,6 +49,11 @@
             <Button fx:id="refreshViewListBtn" layoutX="331.0" layoutY="168.0" mnemonicParsing="false" onAction="#refreshViewList" styleClass="newGame" text="Refresh Records" />
             <ListView fx:id="listViewClients" layoutX="476.0" layoutY="125.0" prefHeight="283.0" prefWidth="184.0" AnchorPane.bottomAnchor="92.0" AnchorPane.rightAnchor="13.0" AnchorPane.topAnchor="125.0" />
             <Button fx:id="btnRefreshnames" layoutX="476.0" layoutY="423.0" mnemonicParsing="false" onAction="#btnRefreshnamesPressed" prefHeight="37.0" prefWidth="88.0" styleClass="newGame" text="Refresh" />
+            <Label alignment="CENTER" layoutX="93.0" layoutY="311.0" text="0" />
+            <Label alignment="CENTER" layoutX="160.0" layoutY="14.0" prefHeight="42.0" prefWidth="125.0" text="Username" />
+            
+            <Button fx:id="updateScoreBtn" layoutX="36.0" layoutY="417.0" mnemonicParsing="false" onAction="#updateScoreBtnPressed" styleClass="newGame" text="Update my score" />
+
          </children>
       </AnchorPane>
    </center>
