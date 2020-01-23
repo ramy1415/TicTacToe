@@ -421,6 +421,8 @@ public class XoOnlineController implements Initializable {
             window.setScene(profileScene);
             window.setResizable(false);
             window.show();
+            Label a1=(Label) window.getScene().lookup("#labelUsername");
+            a1.setText(myname);
             ListView<String> a = (ListView<String>) window.getScene().lookup("#listViewClients");
             a.setItems(null);
             GameController.getPlayer().askfornames(GameController.myname);
