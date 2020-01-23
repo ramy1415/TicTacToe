@@ -424,10 +424,7 @@ public class GameController implements Initializable {
             Logger.getLogger(GameController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    /*public HashMap<String,Button> mapper=new HashMap<>();
-    mapper={
-    "1":
-    }*/
+    
     public void PlayBtnPressed(ActionEvent e) {
         System.out.println("playbtnpressed");
         for (int i = 1; i < player.viewRes.size(); i++) {

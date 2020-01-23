@@ -146,7 +146,7 @@
             </HBox>
          </children>
       </VBox>
-      <Button fx:id="record" layoutX="48.0" layoutY="180.0" mnemonicParsing="false" onAction="#recordPressed" prefHeight="47.0" prefWidth="98.0" text="record">
+      <Button fx:id="record" disable="true" layoutX="48.0" layoutY="180.0" mnemonicParsing="false" onAction="#recordPressed" prefHeight="47.0" prefWidth="98.0" text="record">
          <styleClass>
             <String fx:value="newGame" />
             <String fx:value="resetButton" />

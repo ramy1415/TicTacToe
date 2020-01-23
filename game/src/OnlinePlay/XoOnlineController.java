@@ -86,10 +86,12 @@ public class XoOnlineController implements Initializable {
     private Label turnLabel;
     @FXML
     private MediaView mediaView;
+    @FXML
+    private Button record;
     
     Parent root;
     Stage window;
-    public static String recordd = "";
+    public static String recordd ="";
     public static int myscore;
     public static int hisscore;
     private ObjectInputStream comingStream;
@@ -414,6 +416,7 @@ public class XoOnlineController implements Initializable {
     
     @FXML
     private void profilePressed(ActionEvent event) {
+        recordd="";
         try {
             if (firstleave) {
                 Alert a2 = new Alert(Alert.AlertType.CONFIRMATION, GameController.myname + " you will lose if you leave during the game!", ButtonType.YES, ButtonType.NO);
@@ -460,7 +463,9 @@ public class XoOnlineController implements Initializable {
         winningGamesRequest.setData("username", myname);
         firstleave = false;
         TicTacTocClient.nowplaying=false;
+        record.setDisable(false);
         btnRematch.setDisable(false);
+        
         try {
             goingStream.writeObject(winningGamesRequest);
         } catch (IOException ex) {

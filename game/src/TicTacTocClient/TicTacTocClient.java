@@ -366,6 +366,7 @@ public class TicTacTocClient extends Thread {
                 });
                 break;
             case REMATCH:
+                
                 Platform.runLater(() -> {
                     Alert a2 = new Alert(Alert.AlertType.CONFIRMATION, GameController.myname + " Do you want A rematch ?", ButtonType.YES, ButtonType.NO);
                     Optional<ButtonType> result2 = a2.showAndWait();
@@ -416,7 +417,9 @@ public class TicTacTocClient extends Thread {
                     XoOnlineController.firstleave = true;
                     Button btnrematch = (Button) TicTacTocClient.getOnlineStage().getScene().lookup("#btnRematch");
                     btnrematch.setDisable(true);
-
+                    Button record = (Button) TicTacTocClient.getOnlineStage().getScene().lookup("#record");
+                    record.setDisable(true);
+                    XoOnlineController.recordd="";
                     nowplaying=true;
 
 
@@ -676,7 +679,8 @@ public class TicTacTocClient extends Thread {
             stage1.show();
             Button btnrematch = (Button) TicTacTocClient.getOnlineStage().getScene().lookup("#btnRematch");
             btnrematch.setDisable(false);
-
+            Button record = (Button) TicTacTocClient.getOnlineStage().getScene().lookup("#record");
+                record.setDisable(false);
             nowplaying=false;
 
 
@@ -695,7 +699,8 @@ public class TicTacTocClient extends Thread {
         XoOnlineController.firstleave = false;
         Button btnrematch = (Button) TicTacTocClient.getOnlineStage().getScene().lookup("#btnRematch");
         btnrematch.setDisable(false);
-
+        Button record = (Button) TicTacTocClient.getOnlineStage().getScene().lookup("#record");
+            record.setDisable(false);
         nowplaying = false;
         // playeroneLabelScore.setText("player One Score : " + (++xscore));
     }
@@ -715,6 +720,8 @@ public class TicTacTocClient extends Thread {
             Button rematch = (Button) TicTacTocClient.getOnlineStage().getScene().lookup("#btnRematch");
             rematch.setDisable(true);
             XoOnlineController.firstleave = false;
+            Button record = (Button) TicTacTocClient.getOnlineStage().getScene().lookup("#record");
+                record.setDisable(true);
         });
     }
 }
