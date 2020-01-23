@@ -51,6 +51,10 @@ public class NamesModalController implements Initializable {
 //            name2.setText(textPlayertwo.getText());
             XoSingleController.player1name=textPlayerOne.getText();
             XoSingleController.player2name=textPlayertwo.getText();
+            name1.setText(XoSingleController.player1name+" Score : 0");
+            name2.setText(XoSingleController.player2name+" Score : 0");
+
+            
             window= (Stage) ((Node) event.getSource()).getScene().getWindow();
             window.close();
         }else{

@@ -403,6 +403,7 @@ public class XoOnlineController implements Initializable {
                     notplayingrequest.setData("oponent", oponent);
                     goingStream.writeObject(notplayingrequest);
                     TicTacTocClient.someoneleft = true;
+                    TicTacTocClient.nowplaying=false;
                 } else if (result2.get() == ButtonType.NO) {
                     return;
                 }
@@ -412,6 +413,7 @@ public class XoOnlineController implements Initializable {
                 leave.setData("oponent", oponent);
                 goingStream.writeObject(leave);
                 TicTacTocClient.someoneleft = true;
+                TicTacTocClient.nowplaying=false;
             }
             root = FXMLLoader.load(getClass().getResource("/tictactoe/ProfilePage.fxml"));
             Scene profileScene = new Scene(root);
@@ -434,6 +436,7 @@ public class XoOnlineController implements Initializable {
         winningGamesRequest.setData("win", "1");
         winningGamesRequest.setData("username", myname);
         firstleave = false;
+        TicTacTocClient.nowplaying=false;
         btnRematch.setDisable(false);
         try {
             goingStream.writeObject(winningGamesRequest);

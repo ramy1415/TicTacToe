@@ -100,7 +100,8 @@ public class XoSingleController implements Initializable {
     private MediaView mediaView;
 
     public XoSingleController() {
-
+        player1name="Player 1";
+        player2name="Player 2";
     }
 
     @FXML
