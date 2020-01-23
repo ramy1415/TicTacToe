@@ -401,6 +401,7 @@ public class XoOnlineController implements Initializable {
     
     @FXML
     private void btnRematchPressed(ActionEvent event) {
+        recordd="";
         Request rematchRequest = new Request(RequestType.REMATCH);
         rematchRequest.setData("targetname", oponent);
         rematchRequest.setData("myname", myname);
