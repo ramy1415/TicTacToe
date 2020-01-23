@@ -236,14 +236,13 @@ public class TicTacTocClient extends Thread {
                     } catch (IOException ex) {
                         Logger.getLogger(TicTacTocClient.class.getName()).log(Level.SEVERE, null, ex);
                     }
-
                 });
                 break;
 
             case REJECT:
                 Platform.runLater(() -> {
                     Alert a1 = new Alert(Alert.AlertType.CONFIRMATION, req.getData("myname") + " declined!", ButtonType.OK);
-                    a1.show();
+                    a1.showAndWait();
                     busy=false;
                 });
                 break;
