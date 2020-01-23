@@ -28,7 +28,9 @@ public class DB {
         try {
             DriverManager.registerDriver(new Driver());
             con = DriverManager.getConnection(
+
                     "jdbc:mysql://127.0.0.1:3306/xogame", "root", "mnwraea");
+
         } catch (SQLException ex) {
             System.out.println(ex);
             ex.printStackTrace();

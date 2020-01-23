@@ -37,6 +37,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
@@ -50,7 +51,8 @@ import sun.management.Agent;
  * @author Mahmoud
  */
 public class GameController implements Initializable {
-    public static String serverIp; 
+
+    public static String serverIp;
     Parent root;
     Stage window;
     String view = "";
@@ -70,6 +72,8 @@ public class GameController implements Initializable {
     Button updateScoreBtn;
     @FXML
     Button confirmServerIPBtn;
+    @FXML
+    Button btnHome;
     @FXML
     TextField ipTextField;
     @FXML
@@ -95,7 +99,7 @@ public class GameController implements Initializable {
     @FXML
     private TextField usernameTextField;
     @FXML
-    private TextField passwordTextField;
+    private PasswordField passwordTextField;
     @FXML
     private TextField fullNameTextField;
     @FXML
@@ -103,7 +107,7 @@ public class GameController implements Initializable {
     @FXML
     private TextField registerUsernameTextField;
     @FXML
-    private TextField registerPasswordTextField;
+    private PasswordField registerPasswordTextField;
 
     //new putton and handler for test
     @FXML
@@ -142,24 +146,39 @@ public class GameController implements Initializable {
         Scene singleScene = new Scene(root);
         window = (Stage) ((Node) event.getSource()).getScene().getWindow();
         window.setScene(singleScene);
+        window.setResizable(false);
         window.show();
     }
-
+    @FXML
+    private void btnHomePressed(ActionEvent event) {
+       try {
+            root = FXMLLoader.load(getClass().getResource("/tictactoe/HomePage.fxml"));
+            Scene HomeScene = new Scene(root);
+            window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            window.setScene(HomeScene);
+            window.setResizable(false);
+            window.show();
+        } catch (IOException ex) {
+            Logger.getLogger(MultiPlayer.XoSingleController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     @FXML
     private void multiPlayerPressed(ActionEvent event) throws IOException {
         root = FXMLLoader.load(getClass().getResource("/MultiPlayer/XoSingleView.fxml"));
         Scene multiScene = new Scene(root);
         window = (Stage) ((Node) event.getSource()).getScene().getWindow();
         window.setScene(multiScene);
+        window.setResizable(false);
         window.show();
     }
 
     @FXML
-    private void playOnlinePressed(ActionEvent event) throws IOException {        
+    private void playOnlinePressed(ActionEvent event) throws IOException {
         root = FXMLLoader.load(getClass().getResource("serverIp.fxml"));
         Scene onlineScene = new Scene(root);
         window = (Stage) ((Node) event.getSource()).getScene().getWindow();
         window.setScene(onlineScene);
+        window.setResizable(false);
         window.show();
     }
 
@@ -169,6 +188,7 @@ public class GameController implements Initializable {
         Scene HomeScene = new Scene(root);
         window = (Stage) ((Node) event.getSource()).getScene().getWindow();
         window.setScene(HomeScene);
+        window.setResizable(false);
         window.show();
     }
 
@@ -180,7 +200,7 @@ public class GameController implements Initializable {
         alert.showAndWait();
 
     }
-    
+
     @FXML
     private void ConfirmServerPressed(ActionEvent event) throws IOException {
         root = FXMLLoader.load(getClass().getResource("PlayOnline.fxml"));
@@ -192,11 +212,12 @@ public class GameController implements Initializable {
         } catch (InterruptedException ex) {
             Logger.getLogger(GameController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        serverIp=ipTextField.getText();
+        serverIp = ipTextField.getText();
         System.err.println(serverIp);
+        window.setResizable(false);
         window.show();
     }
-    
+
     @FXML
     private void exitPressed(ActionEvent event) throws IOException {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to exit now?",
@@ -213,6 +234,7 @@ public class GameController implements Initializable {
         Scene LoginScene = new Scene(root);
         window = (Stage) ((Node) event.getSource()).getScene().getWindow();
         window.setScene(LoginScene);
+        window.setResizable(false);
         window.show();
 
     }
@@ -223,16 +245,19 @@ public class GameController implements Initializable {
         Scene RegisterScene = new Scene(root);
         window = (Stage) ((Node) event.getSource()).getScene().getWindow();
         window.setScene(RegisterScene);
+        window.setResizable(false);
         window.show();
     }
+
     @FXML
     private void backBtnPressed(ActionEvent event) throws IOException {
         root = FXMLLoader.load(getClass().getResource("serverIp.fxml"));
         Scene RegisterScene = new Scene(root);
         window = (Stage) ((Node) event.getSource()).getScene().getWindow();
         window.setScene(RegisterScene);
+        window.setResizable(false);
         window.show();
-    } 
+    }
 
     @FXML
     private void inLoginPressed(ActionEvent event) {
@@ -257,6 +282,7 @@ public class GameController implements Initializable {
                 Scene ProfileScene = new Scene(root);
                 window = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 window.setScene(ProfileScene);
+                window.setResizable(false);
                 window.show();
                 player.passStage(window);
             } else if ("failure".equals(player.response)) {
@@ -264,11 +290,10 @@ public class GameController implements Initializable {
                 alert = new Alert(Alert.AlertType.ERROR, "Please try again with a valid"
                         + " username and password! ", ButtonType.OK);
                 alert.show();
-            }
-            else if ("loginned".equals(player.response)) {
+            } else if ("loginned".equals(player.response)) {
                 Alert alert;
-                alert = new Alert(Alert.AlertType.ERROR, "You're already loginned on another device! "
-                        , ButtonType.OK);
+                alert = new Alert(Alert.AlertType.ERROR, "You're already loginned on another device! ",
+                         ButtonType.OK);
                 alert.show();
             }
         } catch (IOException ex) {
@@ -296,6 +321,7 @@ public class GameController implements Initializable {
             Scene NewUserScene = new Scene(root);
             window = (Stage) ((Node) event.getSource()).getScene().getWindow();
             window.setScene(NewUserScene);
+            window.setResizable(false);
             window.show();
         } else if ("failure".equals(player.response)) {
             Alert alert;
@@ -307,16 +333,16 @@ public class GameController implements Initializable {
 
     @FXML
     private void refreshViewList(ActionEvent e) {
-        File selectedDirectory = new File("C:\\records");        
-            File[] flist = selectedDirectory.listFiles();
-            if (flist != null) {
-                for (int i = 0; i < flist.length; i++) {
-                    gamesRecordedList.getItems().add(flist[i]);
-                }
-            } else {
-                 Alert a = new Alert(Alert.AlertType.ERROR, "there are no games recorded!", ButtonType.OK);
-                a.show();
-            }      
+        File selectedDirectory = new File("C:\\records");
+        File[] flist = selectedDirectory.listFiles();
+        if (flist != null) {
+            for (int i = 0; i < flist.length; i++) {
+                gamesRecordedList.getItems().add(flist[i]);
+            }
+        } else {
+            Alert a = new Alert(Alert.AlertType.ERROR, "there are no games recorded!", ButtonType.OK);
+            a.show();
+        }
     }
 
     @FXML
@@ -350,6 +376,7 @@ public class GameController implements Initializable {
             Scene NewUserScene = new Scene(root);
             window = (Stage) ((Node) e.getSource()).getScene().getWindow();
             window.setScene(NewUserScene);
+            window.setResizable(false);
             window.show();
         } else {
             Alert a = new Alert(Alert.AlertType.ERROR, "please refresh the games list"
@@ -365,7 +392,7 @@ public class GameController implements Initializable {
     public void viewgames(String _view) {
         _view = view;
         views = _view.split(";");
-        for (int i = 0; i < views.length; i++) {
+        for (int i=0; i < views.length; i++) {
             player.viewRes.add(views[i]);
             //System.out.println(views[i]);
         }
@@ -375,8 +402,8 @@ public class GameController implements Initializable {
     mapper={
     "1":
     }*/
-
     public void PlayBtnPressed(ActionEvent e) {
+        System.out.println("playbtnpressed");
         for (int i = 1; i < player.viewRes.size(); i++) {
             System.out.println(player.viewRes.get(i));
             if (null != player.viewRes.get(i)) {
@@ -476,4 +503,5 @@ public class GameController implements Initializable {
         lossScore.setText(player.lossScores);
         });
    }   
+
 }

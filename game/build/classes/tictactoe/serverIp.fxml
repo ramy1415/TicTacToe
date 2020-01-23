@@ -1,18 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="342.0" prefWidth="501.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tictactoe.GameController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" styleClass="pane" stylesheets="@../Styles/css/Homepage.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tictactoe.GameController">
    <center>
       <AnchorPane prefHeight="130.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="confirmServerIPBtn" layoutX="219.0" layoutY="220.0" mnemonicParsing="false" onAction="#ConfirmServerPressed" text="confirm" />
-            <TextField fx:id="ipTextField" layoutX="151.0" layoutY="153.0" prefHeight="0.0" prefWidth="206.0" />
-            <Label layoutX="221.0" layoutY="111.0" text="SERVER IP" />
+            <Button fx:id="confirmServerIPBtn" layoutX="296.0" layoutY="271.0" mnemonicParsing="false" onAction="#ConfirmServerPressed" prefHeight="50.0" prefWidth="128.0" text="confirm">
+               <styleClass>
+                  <String fx:value="newGame" />
+                  <String fx:value="resetButton" />
+               </styleClass></Button>
+            <TextField fx:id="ipTextField" layoutX="210.0" layoutY="211.0" prefHeight="42.0" prefWidth="304.0" styleClass="textField" />
+            <Label layoutX="211.0" layoutY="165.0" styleClass="textField" text="Enter Server IP : " textFill="WHITE" />
+            <Button fx:id="btnHome" layoutX="296.0" layoutY="344.0" mnemonicParsing="false" onAction="#btnHomePressed" prefHeight="47.0" prefWidth="129.0" styleClass="newGame" text="Back Home" />
          </children>
       </AnchorPane>
    </center>

@@ -173,6 +173,7 @@ public class TicTacTocClient extends Thread {
                                 mystage.setScene(singleScene);
                                 onlineStage = mystage;
                                 changeTurn(req.getData("myname"));
+                                mystage.setResizable(false);
                                 mystage.show();
 
                             });
@@ -214,6 +215,7 @@ public class TicTacTocClient extends Thread {
                         window = (Stage) ((Node) event.getSource()).getScene().getWindow();
                         window.setScene(singleScene);
                         onlineStage = window;
+                        window.setResizable(false);
                         window.show();
                         changeTurn(req.getData("targetname"));
 
@@ -379,46 +381,55 @@ public class TicTacTocClient extends Thread {
             public void run() {
                 switch (req.getData("moveplace")) {
                     case "1":
+                       // btnone.setStyle("-fx-text-fill: #ffc200;");
                         btnone.setText(hisSympol);
                         OnlinePlay.XoOnlineController.myturn = true;
                         btnone.setDisable(true);
                         break;
                     case "2":
+                        //btnone.setStyle("-fx-text-fill: #ffc200;");
                         btnTwo.setText(hisSympol);
                         OnlinePlay.XoOnlineController.myturn = true;
                         btnTwo.setDisable(true);
                         break;
                     case "3":
+                        //btnone.setStyle("-fx-text-fill: #ffc200;");
                         btnThree.setText(hisSympol);
                         OnlinePlay.XoOnlineController.myturn = true;
                         btnThree.setDisable(true);
                         break;
                     case "4":
+                        //btnone.setStyle("-fx-text-fill: #ffc200;");
                         btnFour.setText(hisSympol);
                         OnlinePlay.XoOnlineController.myturn = true;
                         btnFour.setDisable(true);
                         break;
                     case "5":
+                        //btnone.setStyle("-fx-text-fill: #ffc200;");
                         btnFive.setText(hisSympol);
                         OnlinePlay.XoOnlineController.myturn = true;
                         btnFive.setDisable(true);
                         break;
                     case "6":
+                        //btnone.setStyle("-fx-text-fill: #ffc200;");
                         btnSix.setText(hisSympol);
                         OnlinePlay.XoOnlineController.myturn = true;
                         btnSix.setDisable(true);
                         break;
                     case "7":
+                        //btnone.setStyle("-fx-text-fill: #ffc200;");
                         btnSeven.setText(hisSympol);
                         OnlinePlay.XoOnlineController.myturn = true;
                         btnSeven.setDisable(true);
                         break;
                     case "8":
+                        //btnone.setStyle("-fx-text-fill: #ffc200;");
                         btnEight.setText(hisSympol);
                         OnlinePlay.XoOnlineController.myturn = true;
                         btnEight.setDisable(true);
                         break;
                     case "9":
+                        //btnone.setStyle("-fx-text-fill: #ffc200;");
                         btnNine.setText(hisSympol);
                         OnlinePlay.XoOnlineController.myturn = true;
                         btnNine.setDisable(true);
@@ -476,7 +487,7 @@ public class TicTacTocClient extends Thread {
         pause.setOnFinished(event
                 -> {
             // JOptionPane.showMessageDialog(null, xwin);
-            String path = "C:\\Users\\ramy1\\Desktop\\javaproject\\xogame\\win.mp4";
+            String path = "‪F:\\ramyMerge\\TicTacToe-master\\win.mp4";
             Media media = new Media(new File(path).toURI().toString());
             MediaPlayer mediaPlayer = new MediaPlayer(media);
             mediaPlayer.setAutoPlay(true);
@@ -496,6 +507,7 @@ public class TicTacTocClient extends Thread {
             mediaPlayer.setOnEndOfMedia(() -> {
                 stage1.close();
             });
+            stage1.setResizable(false);
             stage1.show();
             XoOnlineController.firstleave = false;
         });

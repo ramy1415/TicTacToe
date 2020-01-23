@@ -393,6 +393,7 @@ public class XoOnlineController implements Initializable {
             Scene profileScene = new Scene(root);
             window = (Stage) ((Node) event.getSource()).getScene().getWindow();
             window.setScene(profileScene);
+            window.setResizable(false);
             window.show();
             firstleave=true;
         } catch (IOException ex) {
@@ -414,7 +415,7 @@ public class XoOnlineController implements Initializable {
         pause.setOnFinished(event
                 -> {
             // JOptionPane.showMessageDialog(null, xwin);
-            String path = "C:\\Users\\ramy1\\Desktop\\javaproject\\xogame\\win.mp4";
+            String path = "F:\\ITI\\Java\\project2\\win.mp4";
             Media media = new Media(new File(path).toURI().toString());
             MediaPlayer mediaPlayer = new MediaPlayer(media);
             mediaPlayer.setAutoPlay(true);
@@ -434,6 +435,7 @@ public class XoOnlineController implements Initializable {
             mediaPlayer.setOnEndOfMedia(() -> {
                 stage1.close();
             });
+            stage1.setResizable(false);
             stage1.show();
         });
         pause.play();
