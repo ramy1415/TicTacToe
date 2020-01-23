@@ -631,7 +631,7 @@ public class TicTacTocClient extends Thread {
         pause.setOnFinished(event
                 -> {
             // JOptionPane.showMessageDialog(null, xwin);
-            String path = "src\\Media\\win.mp4";
+            String path = "src\\Media\\lose.mp4";
             Media media = new Media(new File(path).toURI().toString());
             MediaPlayer mediaPlayer = new MediaPlayer(media);
             mediaPlayer.setAutoPlay(true);
@@ -643,10 +643,10 @@ public class TicTacTocClient extends Thread {
             Stage stage1 = new Stage();
             stage1.setScene(multiScene);
             stage1.initModality(Modality.APPLICATION_MODAL);
-            stage1.setMinWidth(550);
-            stage1.setMinHeight(450);
-            stage1.setMaxHeight(450);
-            stage1.setMaxWidth(550);
+             stage1.setMinWidth(700);
+            stage1.setMinHeight(500);
+            stage1.setMaxHeight(500);
+            stage1.setMaxWidth(700);
             stage1.centerOnScreen();
             mediaPlayer.setOnEndOfMedia(() -> {
                 stage1.close();

@@ -6,14 +6,12 @@
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" styleClass="profile" stylesheets="@../Styles/css/Homepage.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tictactoe.GameController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" styleClass="profilePic" stylesheets="@../Styles/css/Homepage.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tictactoe.GameController">
    <center>
       <AnchorPane prefHeight="368.0" prefWidth="548.0" BorderPane.alignment="CENTER">
          <children>
-            <Circle fill="#868686" layoutX="98.0" layoutY="154.0" radius="62.0" stroke="BLACK" strokeType="INSIDE" />
             <Label alignment="CENTER" layoutX="-10.0" layoutY="250.0" prefHeight="66.0" prefWidth="183.0" styleClass="labelText-noLine" text="Your Score" textFill="WHITE">
                <font>
                   <Font size="34.0" />
@@ -33,8 +31,12 @@
                   <String fx:value="newGame" />
                   <String fx:value="resetButton" />
                </styleClass></Label>
-            <Label alignment="CENTER" layoutX="34.0" layoutY="219.0" prefHeight="42.0" prefWidth="125.0" styleClass="labelText" text="Username" textFill="WHITE" />
-            <Button fx:id="HomeBtn" layoutX="256.0" layoutY="423.0" mnemonicParsing="false" onAction="#homePressed" prefHeight="37.0" prefWidth="145.0" text="Return Home">
+            <Label alignment="CENTER" layoutX="34.0" layoutY="219.0" prefHeight="42.0" prefWidth="135.0" text="Username" textFill="#eea10b">
+               <styleClass>
+                  <String fx:value="labelText" />
+                  <String fx:value="username" />
+               </styleClass></Label>
+            <Button fx:id="HomeBtn" layoutX="259.0" layoutY="417.0" mnemonicParsing="false" onAction="#homePressed" prefHeight="37.0" prefWidth="145.0" text="Return Home">
                <styleClass>
                   <String fx:value="newGame" />
                   <String fx:value="resetButton" />
@@ -44,10 +46,10 @@
                   <String fx:value="newGame" />
                   <String fx:value="greenButton" />
                </styleClass></Button>
-            <Button fx:id="viewGames" layoutX="207.0" layoutY="168.0" mnemonicParsing="false" onAction="#viewGamesBtn" styleClass="newGame" text="View Games" />
-            <ListView fx:id="gamesRecordedList" layoutX="203.0" layoutY="228.0" prefHeight="176.0" prefWidth="272.0" />
-            <Button fx:id="refreshViewListBtn" layoutX="331.0" layoutY="168.0" mnemonicParsing="false" onAction="#refreshViewList" styleClass="newGame" text="Refresh Records" />
-            <ListView fx:id="listViewClients" layoutX="476.0" layoutY="125.0" prefHeight="283.0" prefWidth="184.0" AnchorPane.bottomAnchor="92.0" AnchorPane.rightAnchor="13.0" AnchorPane.topAnchor="125.0" />
+            <Button fx:id="viewGames" layoutX="218.0" layoutY="363.0" mnemonicParsing="false" onAction="#viewGamesBtn" prefHeight="38.0" prefWidth="104.0" styleClass="newGame" text="View " />
+            <ListView fx:id="gamesRecordedList" layoutX="214.0" layoutY="155.0" prefHeight="196.0" prefWidth="272.0" />
+            <Button fx:id="refreshViewListBtn" layoutX="346.0" layoutY="363.0" mnemonicParsing="false" onAction="#refreshViewList" styleClass="newGame" text="Refresh Records" />
+            <ListView fx:id="listViewClients" layoutX="476.0" layoutY="151.0" prefHeight="257.0" prefWidth="184.0" AnchorPane.bottomAnchor="92.0" AnchorPane.rightAnchor="13.0" AnchorPane.topAnchor="151.0" />
             <Button fx:id="btnRefreshnames" layoutX="476.0" layoutY="423.0" mnemonicParsing="false" onAction="#btnRefreshnamesPressed" prefHeight="37.0" prefWidth="88.0" styleClass="newGame" text="Refresh" />
             
             <Button fx:id="updateScoreBtn" layoutX="36.0" layoutY="417.0" mnemonicParsing="false" onAction="#updateScoreBtnPressed" styleClass="newGame" text="Update my score" />

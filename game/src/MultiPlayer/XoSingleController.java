@@ -282,10 +282,10 @@ public class XoSingleController implements Initializable {
             Stage stage1 = new Stage();
             stage1.setScene(multiScene);
             stage1.initModality(Modality.APPLICATION_MODAL);
-            stage1.setMinWidth(550);
-            stage1.setMinHeight(450);
-            stage1.setMaxHeight(450);
-            stage1.setMaxWidth(550);
+            stage1.setMinWidth(700);
+            stage1.setMinHeight(500);
+            stage1.setMaxHeight(500);
+            stage1.setMaxWidth(700);
             stage1.centerOnScreen();
             mediaPlayer.setOnEndOfMedia(() -> {
                 stage1.close();
