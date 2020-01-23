@@ -281,7 +281,8 @@ public class TicTacTocClient extends Thread {
             case NOTFOUND:
                 Platform.runLater(() -> {
                     Alert a1 = new Alert(Alert.AlertType.CONFIRMATION, req.getData("targetname") + " went offline please refresh!", ButtonType.OK);
-                    a1.show();
+                    a1.showAndWait();
+                    busy=false;
                 });
                 break;
             case MOVE:
