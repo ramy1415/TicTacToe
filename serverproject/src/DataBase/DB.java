@@ -31,6 +31,7 @@ public class DB {
 
                     "jdbc:mysql://127.0.0.1:3306/xogame", "root", "123456789");
 
+
         } catch (SQLException ex) {
             System.out.println(ex);
             ex.printStackTrace();
