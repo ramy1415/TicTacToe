@@ -32,13 +32,11 @@
                   <String fx:value="resetButton" />
                </styleClass></Label>
 
-            <Label alignment="CENTER" layoutX="34.0" layoutY="219.0" prefHeight="42.0" prefWidth="135.0" text="Username" textFill="#eea10b">
+            <Label fx:id="labelUsername" alignment="CENTER" layoutX="34.0" layoutY="219.0" prefHeight="42.0" prefWidth="135.0" text="Username" textFill="#eea10b">
                <styleClass>
                   <String fx:value="labelText" />
                   <String fx:value="username" />
                </styleClass></Label>
-
-            <Label fx:id="labelUsername" alignment="CENTER" layoutX="34.0" layoutY="219.0" prefHeight="42.0" prefWidth="125.0" styleClass="labelText" text="Username" textFill="WHITE" />
             <Button fx:id="HomeBtn" layoutX="256.0" layoutY="423.0" mnemonicParsing="false" onAction="#homePressed" prefHeight="37.0" prefWidth="145.0" text="Return Home">
 
                <styleClass>
