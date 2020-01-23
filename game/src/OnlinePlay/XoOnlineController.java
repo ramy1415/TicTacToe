@@ -434,6 +434,7 @@ public class XoOnlineController implements Initializable {
         winningGamesRequest.setData("win", "1");
         winningGamesRequest.setData("username", myname);
         firstleave = false;
+        TicTacTocClient.nowplaying=false;
         btnRematch.setDisable(false);
         try {
             goingStream.writeObject(winningGamesRequest);
