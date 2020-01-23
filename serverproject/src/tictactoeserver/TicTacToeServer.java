@@ -381,6 +381,15 @@ public class TicTacToeServer extends Thread {
                 t1.playing=false;
             }
         }
+        for (TicTacToeServer t1 : clientslist) {
+            if(t1.name.equals(req.getData("oponent"))){
+                try {
+                    t1.goingStream.writeObject(req);
+                } catch (IOException ex) {
+                    Logger.getLogger(TicTacToeServer.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
     }
     
     private void leave(Request req) {

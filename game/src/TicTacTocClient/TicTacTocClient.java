@@ -59,6 +59,7 @@ public class TicTacTocClient extends Thread {
     public static String response;
 
     //ramy
+    public static boolean someoneleft=false;
     static Parent root;
     static String myip;
     static ActionEvent event;
@@ -168,6 +169,7 @@ public class TicTacTocClient extends Thread {
                                 changeTurn(req.getData("myname"));
                                 mystage.setResizable(false);
                                 mystage.show();
+                                TicTacTocClient.someoneleft=false;
                                 Alert a2 = new Alert(Alert.AlertType.CONFIRMATION, GameController.myname + " Do you want to play X ?", ButtonType.YES, ButtonType.NO);
                                 Optional<ButtonType> result2 = a2.showAndWait();
                                 if (result2.get() == ButtonType.YES) {
@@ -210,6 +212,7 @@ public class TicTacTocClient extends Thread {
                         onlineStage = window;
                         window.setResizable(false);
                         window.show();
+                        TicTacTocClient.someoneleft=false;
                         Alert a2 = new Alert(Alert.AlertType.CONFIRMATION, GameController.myname + " Do you want to play X ?", ButtonType.YES, ButtonType.NO);
                         Optional<ButtonType> result2 = a2.showAndWait();
                         if (result2.get() == ButtonType.YES) {
@@ -335,6 +338,11 @@ public class TicTacTocClient extends Thread {
                     XoOnlineController.draw=0;
                     XoOnlineController.firstleave=true;
                 });
+                break;
+            case NOTPLAYING:
+                if(!someoneleft){
+                Button rematch=(Button) TicTacTocClient.getOnlineStage().getScene().lookup("#btnRematch");
+                rematch.setDisable(true);}
                 break;
         }
     }
@@ -594,6 +602,8 @@ public class TicTacTocClient extends Thread {
             Alert a1 = new Alert(Alert.AlertType.CONFIRMATION, req.getData("leaver") + " left sorry! you won", ButtonType.OK);
             a1.showAndWait();
             disableAllButtons(getAllButtons());
+            Button rematch=(Button) TicTacTocClient.getOnlineStage().getScene().lookup("#btnRematch");
+            rematch.setDisable(true);
             XoOnlineController.firstleave = false;
         });
     }

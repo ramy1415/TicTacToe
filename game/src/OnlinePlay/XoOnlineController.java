@@ -400,7 +400,8 @@ public class XoOnlineController implements Initializable {
                 Request notplayingrequest=new Request(RequestType.LEAVE);
                 notplayingrequest.setData("myname", myname);
                 notplayingrequest.setData("oponent", oponent);
-                goingStream.writeObject(notplayingrequest);}
+                goingStream.writeObject(notplayingrequest);
+                TicTacTocClient.someoneleft=true;}
                 else if (result2.get() == ButtonType.NO) {return;}
             }
             else{
@@ -408,6 +409,7 @@ public class XoOnlineController implements Initializable {
                 leave.setData("myname", myname);
                 leave.setData("oponent", oponent);
                 goingStream.writeObject(leave);
+                TicTacTocClient.someoneleft=true;
             }
             root = FXMLLoader.load(getClass().getResource("/tictactoe/ProfilePage.fxml"));
             Scene profileScene = new Scene(root);
