@@ -170,7 +170,9 @@ public class TicTacTocClient extends Thread {
                                     Scene singleScene = new Scene(root);
                                     mystage.setScene(singleScene);
                                     onlineStage = mystage;
+
                                     nowplaying = true;
+
                                     changeTurn(req.getData("myname"));
                                     mystage.setResizable(false);
                                     mystage.show();
@@ -238,7 +240,9 @@ public class TicTacTocClient extends Thread {
                     Request playingrequest = new Request(RequestType.PLAYING);
                     playingrequest.setData("myname", GameController.myname);
                     try {
+
                         nowplaying = true;
+
                         OnlinePlay.XoOnlineController.myturn = true;
                         oponent = req.getData("myname");
                         root = FXMLLoader.load(getClass().getResource("/OnlinePlay/XoOnlineView.fxml"));
@@ -249,6 +253,7 @@ public class TicTacTocClient extends Thread {
                         window.setResizable(false);
                         window.show();
                         window.setOnCloseRequest((event) -> {
+
                                         try {
                                             if (nowplaying) {
                                                 if (XoOnlineController.firstleave) {
@@ -275,6 +280,7 @@ public class TicTacTocClient extends Thread {
                         
                         
                         
+
                         TicTacTocClient.someoneleft = false;
                         Alert a2 = new Alert(Alert.AlertType.CONFIRMATION, GameController.myname + " Do you want to play X ?", ButtonType.YES, ButtonType.NO);
                         Optional<ButtonType> result2 = a2.showAndWait();
@@ -377,7 +383,9 @@ public class TicTacTocClient extends Thread {
                                 XoOnlineController.firstleave = true;
                                 Button btnrematch = (Button) TicTacTocClient.getOnlineStage().getScene().lookup("#btnRematch");
                                 btnrematch.setDisable(true);
+
                                 nowplaying = true;
+
                             });
                         } catch (IOException ex) {
                             Logger.getLogger(TicTacTocClient.class.getName()).log(Level.SEVERE, null, ex);
@@ -407,7 +415,9 @@ public class TicTacTocClient extends Thread {
                     XoOnlineController.firstleave = true;
                     Button btnrematch = (Button) TicTacTocClient.getOnlineStage().getScene().lookup("#btnRematch");
                     btnrematch.setDisable(true);
+
                     nowplaying = true;
+
                 });
                 break;
             case NOTPLAYING:
@@ -664,7 +674,9 @@ public class TicTacTocClient extends Thread {
             stage1.show();
             Button btnrematch = (Button) TicTacTocClient.getOnlineStage().getScene().lookup("#btnRematch");
             btnrematch.setDisable(false);
+
             nowplaying = false;
+
             XoOnlineController.firstleave = false;
         });
         pause.play();
@@ -680,6 +692,7 @@ public class TicTacTocClient extends Thread {
         XoOnlineController.firstleave = false;
         Button btnrematch = (Button) TicTacTocClient.getOnlineStage().getScene().lookup("#btnRematch");
         btnrematch.setDisable(false);
+
         nowplaying = false;
         // playeroneLabelScore.setText("player One Score : " + (++xscore));
     }
