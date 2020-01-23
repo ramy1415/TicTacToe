@@ -64,6 +64,7 @@ public class GameController implements Initializable {
     static Socket socket;
     static String myip;
     public static String myname;
+    public static Stage multiplayerpage;
     @FXML
     Label winScore;
     @FXML
@@ -170,6 +171,7 @@ public class GameController implements Initializable {
         window.setScene(multiScene);
         window.setResizable(false);
         window.show();
+        multiplayerpage = window;
     }
 
     @FXML
@@ -505,5 +507,4 @@ public class GameController implements Initializable {
         lossScore.setText(player.lossScores);
         });
    }   
-
 }
