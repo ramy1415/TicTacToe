@@ -131,7 +131,7 @@
             </HBox>
             <HBox alignment="TOP_CENTER" prefHeight="44.0" prefWidth="614.0" spacing="10.0">
                <children>
-                  <Button fx:id="btnHome" mnemonicParsing="false" onAction="#homePressed" prefHeight="35.0" prefWidth="138.0" text="Return Home">
+                  <Button fx:id="btnHome" mnemonicParsing="false" onAction="#returnHomePressed" prefHeight="35.0" prefWidth="138.0" text="Return Home">
                      <styleClass>
                         <String fx:value="newGame" />
                         <String fx:value="resetButton" />

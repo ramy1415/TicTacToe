@@ -404,6 +404,19 @@ public class GameController implements Initializable {
         }
     }
 
+     @FXML
+    private void returnHomePressed(ActionEvent e){
+        try {
+            root = FXMLLoader.load(getClass().getResource("ProfilePage.fxml"));
+            Scene ProfileScene = new Scene(root);
+            window = (Stage) ((Node) e.getSource()).getScene().getWindow();
+            window.setScene(ProfileScene);
+            window.setResizable(false);
+            window.show();          
+        } catch (IOException ex) {
+            Logger.getLogger(GameController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     /*public HashMap<String,Button> mapper=new HashMap<>();
     mapper={
     "1":
