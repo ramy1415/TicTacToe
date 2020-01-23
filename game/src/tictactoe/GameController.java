@@ -416,7 +416,10 @@ public class GameController implements Initializable {
             window = (Stage) ((Node) e.getSource()).getScene().getWindow();
             window.setScene(ProfileScene);
             window.setResizable(false);
-            window.show();          
+            window.show();   
+            
+            
+            
         } catch (IOException ex) {
             Logger.getLogger(GameController.class.getName()).log(Level.SEVERE, null, ex);
         }
