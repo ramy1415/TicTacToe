@@ -119,6 +119,8 @@ public class GameController implements Initializable {
     @FXML
     private Button refreshViewListBtn;
     @FXML
+    private Label labelUsername;
+    @FXML
     private Button HomeBtn;
     @FXML
     private Button viewGames;
@@ -287,6 +289,8 @@ public class GameController implements Initializable {
                 window.setResizable(false);
                 window.show();
                 ListView<String> a=(ListView<String>) window.getScene().lookup("#listViewClients");
+                Label a1=(Label) window.getScene().lookup("#labelUsername");
+                a1.setText(myname);
                 a.setItems(null);
                 player.askfornames(myname);
                 a.setItems(player.getClients());

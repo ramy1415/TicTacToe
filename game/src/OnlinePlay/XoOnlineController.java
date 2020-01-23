@@ -423,6 +423,7 @@ public class XoOnlineController implements Initializable {
                     notplayingrequest.setData("oponent", oponent);
                     goingStream.writeObject(notplayingrequest);
                     TicTacTocClient.someoneleft = true;
+                    TicTacTocClient.nowplaying=false;
                 } else if (result2.get() == ButtonType.NO) {
                     return;
                 }
@@ -432,6 +433,7 @@ public class XoOnlineController implements Initializable {
                 leave.setData("oponent", oponent);
                 goingStream.writeObject(leave);
                 TicTacTocClient.someoneleft = true;
+                TicTacTocClient.nowplaying=false;
             }
             root = FXMLLoader.load(getClass().getResource("/tictactoe/ProfilePage.fxml"));
             Scene profileScene = new Scene(root);
@@ -439,6 +441,8 @@ public class XoOnlineController implements Initializable {
             window.setScene(profileScene);
             window.setResizable(false);
             window.show();
+            Label a1=(Label) window.getScene().lookup("#labelUsername");
+            a1.setText(myname);
             ListView<String> a = (ListView<String>) window.getScene().lookup("#listViewClients");
             a.setItems(null);
             GameController.getPlayer().askfornames(GameController.myname);
@@ -454,6 +458,7 @@ public class XoOnlineController implements Initializable {
         winningGamesRequest.setData("win", "1");
         winningGamesRequest.setData("username", myname);
         firstleave = false;
+        TicTacTocClient.nowplaying=false;
         btnRematch.setDisable(false);
         try {
             goingStream.writeObject(winningGamesRequest);
@@ -464,9 +469,14 @@ public class XoOnlineController implements Initializable {
         PauseTransition pause = new PauseTransition(Duration.millis(20));
         pause.setOnFinished(event
                 -> {
+<<<<<<< HEAD
 
             String path = "F:\\ITI\\Java\\project2\\win.mp4";
 
+=======
+            // JOptionPane.showMessageDialog(null, xwin);
+            String path = "src\\Media\\win.mp4";
+>>>>>>> bdd75156f7adeba8def52dcc1eb5768478e7994b
             Media media = new Media(new File(path).toURI().toString());
             MediaPlayer mediaPlayer = new MediaPlayer(media);
             mediaPlayer.setAutoPlay(true);
