@@ -28,14 +28,12 @@ public class DB {
         try {
             DriverManager.registerDriver(new Driver());
             con = DriverManager.getConnection(
-<<<<<<< HEAD
-                    "jdbc:mysql://127.0.0.1:3306/xogame", "root", "mnwraea");
-=======
+
 
                     "jdbc:mysql://127.0.0.1:3306/xogame", "root", "123456789");
 
 
->>>>>>> bdd75156f7adeba8def52dcc1eb5768478e7994b
+
         } catch (SQLException ex) {
             System.out.println(ex);
             ex.printStackTrace();
