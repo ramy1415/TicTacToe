@@ -170,7 +170,9 @@ public class TicTacTocClient extends Thread {
                                     Scene singleScene = new Scene(root);
                                     mystage.setScene(singleScene);
                                     onlineStage = mystage;
-                                    nowplaying=true;
+
+
+                                    nowplaying = true;
 
                                     changeTurn(req.getData("myname"));
                                     mystage.setResizable(false);
@@ -241,6 +243,7 @@ public class TicTacTocClient extends Thread {
                     try {
 
                         nowplaying = true;
+
                         OnlinePlay.XoOnlineController.myturn = true;
                         oponent = req.getData("myname");
                         root = FXMLLoader.load(getClass().getResource("/OnlinePlay/XoOnlineView.fxml"));
@@ -380,7 +383,9 @@ public class TicTacTocClient extends Thread {
                                 XoOnlineController.firstleave = true;
                                 Button btnrematch = (Button) TicTacTocClient.getOnlineStage().getScene().lookup("#btnRematch");
                                 btnrematch.setDisable(true);
+
                                 nowplaying=true;
+
 
                             });
                         } catch (IOException ex) {
@@ -411,7 +416,9 @@ public class TicTacTocClient extends Thread {
                     XoOnlineController.firstleave = true;
                     Button btnrematch = (Button) TicTacTocClient.getOnlineStage().getScene().lookup("#btnRematch");
                     btnrematch.setDisable(true);
+
                     nowplaying=true;
+
 
                 });
                 break;
@@ -669,7 +676,9 @@ public class TicTacTocClient extends Thread {
             stage1.show();
             Button btnrematch = (Button) TicTacTocClient.getOnlineStage().getScene().lookup("#btnRematch");
             btnrematch.setDisable(false);
+
             nowplaying=false;
+
 
             XoOnlineController.firstleave = false;
         });
