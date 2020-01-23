@@ -138,6 +138,9 @@ public class TicTacToeServer extends Thread {
             case REMATCHACCEPT:
                 rematchAcceptHandler(req);
                 break;
+            case BUSY:
+                busyHandler(req);
+                break;
         }
     }
 
@@ -426,6 +429,18 @@ public class TicTacToeServer extends Thread {
     private void rematchAcceptHandler(Request req) {
         for (TicTacToeServer t1 : clientslist) {
             if(t1.name.equals(req.getData("targetname"))){
+                try {
+                    t1.goingStream.writeObject(req);
+                } catch (IOException ex) {
+                    Logger.getLogger(TicTacToeServer.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+    }
+
+    private void busyHandler(Request req) {
+        for (TicTacToeServer t1 : clientslist) {
+            if (t1.name.equals(req.getData("targetname"))) {
                 try {
                     t1.goingStream.writeObject(req);
                 } catch (IOException ex) {

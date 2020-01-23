@@ -59,6 +59,7 @@ public class TicTacTocClient extends Thread {
     public static String response;
 
     //ramy
+    private boolean busy=false;
     public static boolean someoneleft=false;
     static Parent root;
     static String myip;
@@ -136,7 +137,9 @@ public class TicTacTocClient extends Thread {
 
             //cases i added
             case ASKTOPLAY:
+                if(!busy){
                 Platform.runLater(() -> {
+                    busy=true;
                     Alert a1 = new Alert(Alert.AlertType.CONFIRMATION, req.getData("myname") + " sent you a request .. Do you want to play ?!", ButtonType.YES, ButtonType.NO);
                     Optional<ButtonType> result = a1.showAndWait();
                     if (result.get() == ButtonType.YES) {
@@ -195,11 +198,16 @@ public class TicTacTocClient extends Thread {
                             Logger.getLogger(TicTacTocClient.class.getName()).log(Level.SEVERE, null, ex);
                         }
                     }
-                });
+                    busy=false;
+                });}else{
+                    Request busyrequest = new Request(RequestType.BUSY);
+                    busyrequest.setData("myname", req.getData("targetname"));
+                    busyrequest.setData("targetname", req.getData("myname"));
+                    goingStream.writeObject(busyrequest);
+                }
                 break;
             case ACCEPT:
                 Platform.runLater(() -> {
-
                     Request playingrequest = new Request(RequestType.PLAYING);
                     playingrequest.setData("myname", GameController.myname);
                     try {
@@ -224,6 +232,7 @@ public class TicTacTocClient extends Thread {
                             TicTacTocClient.hisSympol = "X";
                         }
                         changeTurn(req.getData("targetname"));
+                        busy=false;
                     } catch (IOException ex) {
                         Logger.getLogger(TicTacTocClient.class.getName()).log(Level.SEVERE, null, ex);
                     }
@@ -235,6 +244,7 @@ public class TicTacTocClient extends Thread {
                 Platform.runLater(() -> {
                     Alert a1 = new Alert(Alert.AlertType.CONFIRMATION, req.getData("myname") + " declined!", ButtonType.OK);
                     a1.show();
+                    busy=false;
                 });
                 break;
 
@@ -344,6 +354,12 @@ public class TicTacTocClient extends Thread {
                 Button rematch=(Button) TicTacTocClient.getOnlineStage().getScene().lookup("#btnRematch");
                 rematch.setDisable(true);}
                 break;
+            case BUSY:
+                Platform.runLater(() -> {
+                    Alert a1 = new Alert(Alert.AlertType.CONFIRMATION, req.getData("myname") + " Cant recieve invites now!", ButtonType.OK);
+                    a1.show();
+                });
+                break;
         }
     }
 
@@ -375,6 +391,7 @@ public class TicTacTocClient extends Thread {
     }
 
     public void asktoplay(String myname, String targetname, ActionEvent _event) throws IOException {
+        busy=true;
         Request asktoplayRequest = new Request(RequestType.ASKTOPLAY);
         asktoplayRequest.setData("myname", myname);
         asktoplayRequest.setData("targetname", targetname);
