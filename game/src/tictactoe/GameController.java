@@ -284,6 +284,10 @@ public class GameController implements Initializable {
                 window.setScene(ProfileScene);
                 window.setResizable(false);
                 window.show();
+                ListView<String> a=(ListView<String>) window.getScene().lookup("#listViewClients");
+                a.setItems(null);
+                player.askfornames(myname);
+                a.setItems(player.getClients());
                 player.passStage(window);
             } else if ("failure".equals(player.response)) {
                 Alert alert;
@@ -479,7 +483,6 @@ public class GameController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
     }
 
     @FXML

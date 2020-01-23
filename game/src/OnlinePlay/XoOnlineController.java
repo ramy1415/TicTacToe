@@ -40,6 +40,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
@@ -107,7 +108,7 @@ public class XoOnlineController implements Initializable {
         goingStream = GameController.getPlayer().goingStream;
         oponent = TicTacTocClient.getOponent();
         myname = GameController.myname;
-        mySympol = GameController.getPlayer().mySympol;
+        mySympol = TicTacTocClient.mySympol;
         board = new XoSingleModel();
         System.err.println("my s= " + mySympol);
         draw=0;
@@ -116,9 +117,9 @@ public class XoOnlineController implements Initializable {
     @FXML
     private void btnOnePressed(ActionEvent event) {
         if (myturn) {
-            btnOne.setText(mySympol);
+            btnOne.setText(TicTacTocClient.mySympol);
             btnOne.setDisable(true);
-            board.setarr(0, 0, mySympol);
+            board.setarr(0, 0, TicTacTocClient.mySympol);
             boolean check = checkWinning();
             Request moverequest = new Request(RequestType.MOVE);
             moverequest.setData("oponent", oponent);
@@ -141,9 +142,9 @@ public class XoOnlineController implements Initializable {
     private void btnTwoPressed(ActionEvent event) {
 
         if (myturn) {
-            btnTwo.setText(mySympol);
+            btnTwo.setText(TicTacTocClient.mySympol);
             btnTwo.setDisable(true);
-            board.setarr(0, 1, mySympol);
+            board.setarr(0, 1, TicTacTocClient.mySympol);
             boolean check = checkWinning();
             Request moverequest = new Request(RequestType.MOVE);
             moverequest.setData("oponent", oponent);
@@ -166,9 +167,9 @@ public class XoOnlineController implements Initializable {
     @FXML
     private void btnThreePressed(ActionEvent event) {
         if (myturn) {
-            btnThree.setText(mySympol);
+            btnThree.setText(TicTacTocClient.mySympol);
             btnThree.setDisable(true);
-            board.setarr(0, 2, mySympol);
+            board.setarr(0, 2, TicTacTocClient.mySympol);
             boolean check = checkWinning();
             Request moverequest = new Request(RequestType.MOVE);
             moverequest.setData("oponent", oponent);
@@ -191,9 +192,9 @@ public class XoOnlineController implements Initializable {
     @FXML
     private void btnFourPressed(ActionEvent event) {
         if (myturn) {
-            btnFour.setText(mySympol);
+            btnFour.setText(TicTacTocClient.mySympol);
             btnFour.setDisable(true);
-            board.setarr(1, 0, mySympol);
+            board.setarr(1, 0, TicTacTocClient.mySympol);
             boolean check = checkWinning();
             Request moverequest = new Request(RequestType.MOVE);
             moverequest.setData("oponent", oponent);
@@ -218,9 +219,9 @@ public class XoOnlineController implements Initializable {
     @FXML
     private void btnFivePressed(ActionEvent event) {
         if (myturn) {
-            btnFive.setText(mySympol);
+            btnFive.setText(TicTacTocClient.mySympol);
             btnFive.setDisable(true);
-            board.setarr(1, 1, mySympol);
+            board.setarr(1, 1, TicTacTocClient.mySympol);
             boolean check = checkWinning();
             Request moverequest = new Request(RequestType.MOVE);
             moverequest.setData("oponent", oponent);
@@ -244,9 +245,9 @@ public class XoOnlineController implements Initializable {
     @FXML
     private void btnSixPressed(ActionEvent event) {
         if (myturn) {
-            btnSix.setText(mySympol);
+            btnSix.setText(TicTacTocClient.mySympol);
             btnSix.setDisable(true);
-            board.setarr(1, 2, mySympol);
+            board.setarr(1, 2, TicTacTocClient.mySympol);
             boolean check = checkWinning();
             Request moverequest = new Request(RequestType.MOVE);
             moverequest.setData("oponent", oponent);
@@ -270,9 +271,9 @@ public class XoOnlineController implements Initializable {
     @FXML
     private void btnSevenPressed(ActionEvent event) {
         if (myturn) {
-            btnSeven.setText(mySympol);
+            btnSeven.setText(TicTacTocClient.mySympol);
             btnSeven.setDisable(true);
-            board.setarr(2, 0, mySympol);
+            board.setarr(2, 0, TicTacTocClient.mySympol);
             boolean check = checkWinning();
             Request moverequest = new Request(RequestType.MOVE);
             moverequest.setData("oponent", oponent);
@@ -296,9 +297,9 @@ public class XoOnlineController implements Initializable {
     @FXML
     private void btnEightPressed(ActionEvent event) {
         if (myturn) {
-            btnEight.setText(mySympol);
+            btnEight.setText(TicTacTocClient.mySympol);
             btnEight.setDisable(true);
-            board.setarr(2, 1, mySympol);
+            board.setarr(2, 1, TicTacTocClient.mySympol);
             boolean check = checkWinning();
             Request moverequest = new Request(RequestType.MOVE);
             moverequest.setData("oponent", oponent);
@@ -322,9 +323,9 @@ public class XoOnlineController implements Initializable {
     @FXML
     private void btnNinePressed(ActionEvent event) {
         if (myturn) {
-            btnNine.setText(mySympol);
+            btnNine.setText(TicTacTocClient.mySympol);
             btnNine.setDisable(true);
-            board.setarr(2, 2, mySympol);
+            board.setarr(2, 2, TicTacTocClient.mySympol);
             boolean check = checkWinning();
             Request moverequest = new Request(RequestType.MOVE);
             moverequest.setData("oponent", oponent);
@@ -395,6 +396,10 @@ public class XoOnlineController implements Initializable {
             window.setScene(profileScene);
             window.setResizable(false);
             window.show();
+            ListView<String> a=(ListView<String>) window.getScene().lookup("#listViewClients");
+            a.setItems(null);
+            GameController.getPlayer().askfornames(GameController.myname);
+            a.setItems(GameController.getPlayer().getClients());
             firstleave=true;
         } catch (IOException ex) {
             Logger.getLogger(XoOnlineController.class.getName()).log(Level.SEVERE, null, ex);
