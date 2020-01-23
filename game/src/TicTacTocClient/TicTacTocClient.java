@@ -171,6 +171,7 @@ public class TicTacTocClient extends Thread {
                                     mystage.setScene(singleScene);
                                     onlineStage = mystage;
 
+
                                     nowplaying = true;
 
                                     changeTurn(req.getData("myname"));
@@ -280,7 +281,6 @@ public class TicTacTocClient extends Thread {
                         
                         
                         
-
                         TicTacTocClient.someoneleft = false;
                         Alert a2 = new Alert(Alert.AlertType.CONFIRMATION, GameController.myname + " Do you want to play X ?", ButtonType.YES, ButtonType.NO);
                         Optional<ButtonType> result2 = a2.showAndWait();
@@ -384,7 +384,8 @@ public class TicTacTocClient extends Thread {
                                 Button btnrematch = (Button) TicTacTocClient.getOnlineStage().getScene().lookup("#btnRematch");
                                 btnrematch.setDisable(true);
 
-                                nowplaying = true;
+                                nowplaying=true;
+
 
                             });
                         } catch (IOException ex) {
@@ -416,7 +417,8 @@ public class TicTacTocClient extends Thread {
                     Button btnrematch = (Button) TicTacTocClient.getOnlineStage().getScene().lookup("#btnRematch");
                     btnrematch.setDisable(true);
 
-                    nowplaying = true;
+                    nowplaying=true;
+
 
                 });
                 break;
@@ -433,8 +435,8 @@ public class TicTacTocClient extends Thread {
                 });
                 break;
         }
+    
     }
-
     public void login(String username, String password, ActionEvent _event) throws IOException {
         event = _event;
         Request loginRequest = new Request(RequestType.LOGIN);
@@ -675,7 +677,8 @@ public class TicTacTocClient extends Thread {
             Button btnrematch = (Button) TicTacTocClient.getOnlineStage().getScene().lookup("#btnRematch");
             btnrematch.setDisable(false);
 
-            nowplaying = false;
+            nowplaying=false;
+
 
             XoOnlineController.firstleave = false;
         });
