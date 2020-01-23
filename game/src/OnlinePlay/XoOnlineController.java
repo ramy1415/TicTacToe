@@ -27,6 +27,7 @@ import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.animation.PauseTransition;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -56,7 +57,7 @@ import tictactoe.GameController;
  * @author ramy1
  */
 public class XoOnlineController implements Initializable {
-
+    
     @FXML
     private Button btnOne;
     @FXML
@@ -85,7 +86,7 @@ public class XoOnlineController implements Initializable {
     private Label turnLabel;
     @FXML
     private MediaView mediaView;
-
+    
     Parent root;
     Stage window;
     public String recordd = "";
@@ -101,7 +102,7 @@ public class XoOnlineController implements Initializable {
     public static XoSingleModel board;
     public static int draw = 0;
     private static String nowTurn;
-    public static boolean firstleave=true;
+    public static boolean firstleave = true;
 
     /**
      * Initializes the controller class.
@@ -114,13 +115,13 @@ public class XoOnlineController implements Initializable {
         mySympol = TicTacTocClient.mySympol;
         board = new XoSingleModel();
         System.err.println("my s= " + mySympol);
-        draw=0;
-        myscore=0;
-        hisscore=0;
-        playeroneLabelScore.setText(""+GameController.myname+" : "+(myscore));
-        playertwoLabelScore.setText(""+oponent +" : "+ (myscore));
+        draw = 0;
+        myscore = 0;
+        hisscore = 0;
+        playeroneLabelScore.setText("" + GameController.myname + " : " + (myscore));
+        playertwoLabelScore.setText("" + oponent + " : " + (myscore));
     }
-
+    
     @FXML
     private void btnOnePressed(ActionEvent event) {
         if (myturn) {
@@ -144,10 +145,10 @@ public class XoOnlineController implements Initializable {
             }
         }
     }
-
+    
     @FXML
     private void btnTwoPressed(ActionEvent event) {
-
+        
         if (myturn) {
             btnTwo.setText(TicTacTocClient.mySympol);
             btnTwo.setDisable(true);
@@ -164,13 +165,13 @@ public class XoOnlineController implements Initializable {
                 if (!check && draw < 4) {
                     goingStream.writeObject(changeTurnReq);
                 }
-
+                
             } catch (IOException ex) {
                 Logger.getLogger(XoOnlineController.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
-
+    
     @FXML
     private void btnThreePressed(ActionEvent event) {
         if (myturn) {
@@ -188,14 +189,14 @@ public class XoOnlineController implements Initializable {
                 goingStream.writeObject(moverequest);
                 if (!check && draw < 4) {
                     goingStream.writeObject(changeTurnReq);
-
+                    
                 }
             } catch (IOException ex) {
                 Logger.getLogger(XoOnlineController.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
-
+    
     @FXML
     private void btnFourPressed(ActionEvent event) {
         if (myturn) {
@@ -213,16 +214,16 @@ public class XoOnlineController implements Initializable {
                 goingStream.writeObject(moverequest);
                 if (!check && draw < 4) {
                     goingStream.writeObject(changeTurnReq);
-
+                    
                 }
-
+                
             } catch (IOException ex) {
                 Logger.getLogger(XoOnlineController.class
                         .getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
-
+    
     @FXML
     private void btnFivePressed(ActionEvent event) {
         if (myturn) {
@@ -240,7 +241,7 @@ public class XoOnlineController implements Initializable {
                 goingStream.writeObject(moverequest);
                 if (!check && draw < 4) {
                     goingStream.writeObject(changeTurnReq);
-
+                    
                 }
             } catch (IOException ex) {
                 Logger.getLogger(XoOnlineController.class
@@ -248,7 +249,7 @@ public class XoOnlineController implements Initializable {
             }
         }
     }
-
+    
     @FXML
     private void btnSixPressed(ActionEvent event) {
         if (myturn) {
@@ -266,7 +267,7 @@ public class XoOnlineController implements Initializable {
                 goingStream.writeObject(moverequest);
                 if (!check && draw < 4) {
                     goingStream.writeObject(changeTurnReq);
-
+                    
                 }
             } catch (IOException ex) {
                 Logger.getLogger(XoOnlineController.class
@@ -274,7 +275,7 @@ public class XoOnlineController implements Initializable {
             }
         }
     }
-
+    
     @FXML
     private void btnSevenPressed(ActionEvent event) {
         if (myturn) {
@@ -292,7 +293,7 @@ public class XoOnlineController implements Initializable {
                 goingStream.writeObject(moverequest);
                 if (!check && draw < 4) {
                     goingStream.writeObject(changeTurnReq);
-
+                    
                 }
             } catch (IOException ex) {
                 Logger.getLogger(XoOnlineController.class
@@ -300,7 +301,7 @@ public class XoOnlineController implements Initializable {
             }
         }
     }
-
+    
     @FXML
     private void btnEightPressed(ActionEvent event) {
         if (myturn) {
@@ -318,7 +319,7 @@ public class XoOnlineController implements Initializable {
                 goingStream.writeObject(moverequest);
                 if (!check && draw < 4) {
                     goingStream.writeObject(changeTurnReq);
-
+                    
                 }
             } catch (IOException ex) {
                 Logger.getLogger(XoOnlineController.class
@@ -326,7 +327,7 @@ public class XoOnlineController implements Initializable {
             }
         }
     }
-
+    
     @FXML
     private void btnNinePressed(ActionEvent event) {
         if (myturn) {
@@ -344,7 +345,7 @@ public class XoOnlineController implements Initializable {
                 goingStream.writeObject(moverequest);
                 if (!check && draw < 4) {
                     goingStream.writeObject(changeTurnReq);
-
+                    
                 }
             } catch (IOException ex) {
                 Logger.getLogger(XoOnlineController.class
@@ -352,11 +353,11 @@ public class XoOnlineController implements Initializable {
             }
         }
     }
-
+    
     public void recordPressed(ActionEvent e) {
         Date date = new Date();
         Instant instant = date.toInstant();
-
+        
         StringTokenizer inst = new StringTokenizer(instant.toString(), ".");
         String name = "username";
         File file = new File("C:\\records\\" + name + inst.nextToken().replace(":", "-") + ".txt");
@@ -375,12 +376,12 @@ public class XoOnlineController implements Initializable {
                 ex.printStackTrace();
             }
         }
-
+        
     }
-
+    
     @FXML
     private void btnRematchPressed(ActionEvent event) {
-        Request rematchRequest=new Request(RequestType.REMATCH);
+        Request rematchRequest = new Request(RequestType.REMATCH);
         rematchRequest.setData("targetname", oponent);
         rematchRequest.setData("myname", myname);
         try {
@@ -393,23 +394,24 @@ public class XoOnlineController implements Initializable {
     @FXML
     private void profilePressed(ActionEvent event) {
         try {
-            if(firstleave){
+            if (firstleave) {
                 Alert a2 = new Alert(Alert.AlertType.CONFIRMATION, GameController.myname + " you will lose if you leave during the game!", ButtonType.YES, ButtonType.NO);
                 Optional<ButtonType> result2 = a2.showAndWait();
                 if (result2.get() == ButtonType.YES) {
-                Request notplayingrequest=new Request(RequestType.LEAVE);
-                notplayingrequest.setData("myname", myname);
-                notplayingrequest.setData("oponent", oponent);
-                goingStream.writeObject(notplayingrequest);
-                TicTacTocClient.someoneleft=true;}
-                else if (result2.get() == ButtonType.NO) {return;}
-            }
-            else{
-                Request leave=new Request(RequestType.NOTPLAYING);
+                    Request notplayingrequest = new Request(RequestType.LEAVE);
+                    notplayingrequest.setData("myname", myname);
+                    notplayingrequest.setData("oponent", oponent);
+                    goingStream.writeObject(notplayingrequest);
+                    TicTacTocClient.someoneleft = true;
+                } else if (result2.get() == ButtonType.NO) {
+                    return;
+                }
+            } else {
+                Request leave = new Request(RequestType.NOTPLAYING);
                 leave.setData("myname", myname);
                 leave.setData("oponent", oponent);
                 goingStream.writeObject(leave);
-                TicTacTocClient.someoneleft=true;
+                TicTacTocClient.someoneleft = true;
             }
             root = FXMLLoader.load(getClass().getResource("/tictactoe/ProfilePage.fxml"));
             Scene profileScene = new Scene(root);
@@ -417,26 +419,27 @@ public class XoOnlineController implements Initializable {
             window.setScene(profileScene);
             window.setResizable(false);
             window.show();
-            ListView<String> a=(ListView<String>) window.getScene().lookup("#listViewClients");
+            ListView<String> a = (ListView<String>) window.getScene().lookup("#listViewClients");
             a.setItems(null);
             GameController.getPlayer().askfornames(GameController.myname);
             a.setItems(GameController.getPlayer().getClients());
-            firstleave=true;
+            firstleave = true;
         } catch (IOException ex) {
             Logger.getLogger(XoOnlineController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
     private void winAlert() {
         Request winningGamesRequest = new Request(RequestType.WINNING_GAMES);
-            winningGamesRequest.setData("win","1");
-            winningGamesRequest.setData("username", myname);
-            firstleave=false;
+        winningGamesRequest.setData("win", "1");
+        winningGamesRequest.setData("username", myname);
+        firstleave = false;
         try {
             goingStream.writeObject(winningGamesRequest);
         } catch (IOException ex) {
             Logger.getLogger(XoOnlineController.class.getName()).log(Level.SEVERE, null, ex);
         }
-            
+        
         PauseTransition pause = new PauseTransition(Duration.millis(20));
         pause.setOnFinished(event
                 -> {
@@ -466,9 +469,9 @@ public class XoOnlineController implements Initializable {
         });
         pause.play();
         disableAllbtns();
-        playeroneLabelScore.setText(""+GameController.myname +" : "+ (++myscore));
+        playeroneLabelScore.setText("" + GameController.myname + " : " + (++myscore));
     }
-
+    
     private void disableAllbtns() {
         btnOne.setDisable(true);
         btnTwo.setDisable(true);
@@ -480,19 +483,19 @@ public class XoOnlineController implements Initializable {
         btnEight.setDisable(true);
         btnNine.setDisable(true);
     }
-
+    
     private boolean checkWinning() {
         if (board.checkwinner()) {
             //board.printCurrentBoard();
 
             winAlert();
-            firstleave=false;
+            firstleave = false;
             Request loseRequest = new Request(RequestType.LOSE);
             loseRequest.setData("oponent", oponent);
             loseRequest.setData("myname", myname);
             try {
                 goingStream.writeObject(loseRequest);
-
+                
             } catch (IOException ex) {
                 Logger.getLogger(XoOnlineController.class
                         .getName()).log(Level.SEVERE, null, ex);
@@ -511,7 +514,7 @@ public class XoOnlineController implements Initializable {
             tieRequest.setData("myname", myname);
             try {
                 goingStream.writeObject(tieRequest);
-
+                
             } catch (IOException ex) {
                 Logger.getLogger(XoOnlineController.class
                         .getName()).log(Level.SEVERE, null, ex);
@@ -519,12 +522,14 @@ public class XoOnlineController implements Initializable {
         }
         return false;
     }
+
     private Request changeTurnRequest() {
         Request changeTurnReq = new Request(RequestType.CHANGETURN);
         changeTurnReq.setData("oponent", oponent);
         changeTurnReq.setData("myname", myname);
         return changeTurnReq;
     }
+
     private void changeTurn(String nowTurnName) {
         Label nowTurn = (Label) TicTacTocClient.getOnlineStage().getScene().lookup("#turnLabel");
         System.out.println("TurnName:" + nowTurnName);
