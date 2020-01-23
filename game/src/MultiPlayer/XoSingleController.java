@@ -51,7 +51,8 @@ public class XoSingleController implements Initializable {
     private final String player2 = "O";
     private final String xwin = "The Winner Is X";
     private final String owin = "The Winner Is O";
-
+    public static String player1name;
+    public static String player2name;
     public String recordd = "";
     int buttonNum;
     Stage s1;
@@ -170,12 +171,14 @@ public class XoSingleController implements Initializable {
         resetButtons();
         xscore = 0;
         oscore = 0;
-        playeroneLabelScore.setText("player One Score : " + xscore);
-        playertwoLabelScore.setText("player Two Score : " + oscore);
+        playeroneLabelScore.setText(player1name+" Score : " + xscore);
+        playertwoLabelScore.setText(player2name+" Score : " + oscore);
     }
 
     @FXML
     private void btnNewgamePressed(ActionEvent e) {
+        playeroneLabelScore.setText(player1name+" Score : " + xscore);
+        playertwoLabelScore.setText(player2name+" Score : " + oscore);
         resetButtons();
         recordd = "";
 
@@ -211,7 +214,7 @@ public class XoSingleController implements Initializable {
             }
             b.setDisable(true);
             flag = 1;
-            turnLabel.setText("O");
+            turnLabel.setText(player2name);
         } else {
             m1.setarr(x, y, player2);
 
@@ -230,7 +233,7 @@ public class XoSingleController implements Initializable {
             }
             b.setDisable(true);
             flag = 0;
-            turnLabel.setText("X");
+            turnLabel.setText(player1name);
         }
     }
 
@@ -266,7 +269,7 @@ public class XoSingleController implements Initializable {
                 -> {
             // JOptionPane.showMessageDialog(null, xwin);
             
-             String path ="F:\\ramyMerge\\TicTacToe-master\\win.mp4";
+             String path ="src\\Media\\win.mp4";
             Media media = new Media(new File(path).toURI().toString());
             MediaPlayer mediaPlayer = new MediaPlayer(media);
             mediaPlayer.setAutoPlay(true);
@@ -291,7 +294,8 @@ public class XoSingleController implements Initializable {
         });
         pause.play();
         disableAllbtns();
-        playeroneLabelScore.setText("player One Score : " + (++xscore));
+        
+        playeroneLabelScore.setText(player1name+" Score : " + (++xscore));
     }
 
     private void oWon() {
@@ -299,11 +303,34 @@ public class XoSingleController implements Initializable {
         PauseTransition pause = new PauseTransition(Duration.millis(20));
         pause.setOnFinished(event
                 -> {
-            JOptionPane.showMessageDialog(null, owin);
+            // JOptionPane.showMessageDialog(null, xwin);
+            
+             String path ="src\\Media\\win.mp4";
+            Media media = new Media(new File(path).toURI().toString());
+            MediaPlayer mediaPlayer = new MediaPlayer(media);
+            mediaPlayer.setAutoPlay(true);
+            mediaView = new MediaView();
+            mediaView.setMediaPlayer(mediaPlayer);
+            Group root1 = new Group();
+            root1.getChildren().add(mediaView);
+            Scene multiScene = new Scene(root1);
+            Stage stage1 = new Stage();
+            stage1.setScene(multiScene);
+            stage1.initModality(Modality.APPLICATION_MODAL);
+            stage1.setMinWidth(550);
+            stage1.setMinHeight(450);
+            stage1.setMaxHeight(450);
+            stage1.setMaxWidth(550);
+            stage1.centerOnScreen();
+            mediaPlayer.setOnEndOfMedia(() -> {
+                stage1.close();
+            });
+            stage1.setResizable(false);
+            stage1.show();
         });
         pause.play();
         disableAllbtns();
-        playertwoLabelScore.setText("player Two Score : " + (++oscore));
+        playertwoLabelScore.setText(player2name+" Score : " + (++oscore));
     }
 
     private void disableAllbtns() {
@@ -349,11 +376,22 @@ public class XoSingleController implements Initializable {
         m1.newGame();
         draw = 0;
         flag = 0;
-        turnLabel.setText("X");
+        turnLabel.setText(player1name);
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        try {
+            Stage stage1=new Stage();
+            root = FXMLLoader.load(getClass().getResource("/MultiPlayer/namesModal.fxml"));
+            Scene HomeScene = new Scene(root);
+            stage1.setScene(HomeScene);
+            stage1.setResizable(false);
+            stage1.initModality(Modality.APPLICATION_MODAL);
+            stage1.show();
+        } catch (IOException ex) {
+            Logger.getLogger(XoSingleController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @FXML

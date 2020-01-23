@@ -132,6 +132,15 @@ public class TicTacToeServer extends Thread {
             case UPDATE_SCORES:
                 updateScore(req);
                 break;
+            case REMATCH:
+                remachHandler(req);
+                break;
+            case REMATCHACCEPT:
+                rematchAcceptHandler(req);
+                break;
+            case BUSY:
+                busyHandler(req);
+                break;
         }
     }
 
@@ -238,9 +247,6 @@ public class TicTacToeServer extends Thread {
     }
 
     private void rejectHandler(Request req) {
-        for (TicTacToeServer t1 : clientslist) {
-            System.err.println("reject t1.name :" + t1.name);
-        }
         for (TicTacToeServer t1 : clientslist) {
             if (t1.name.equals(req.getData("targetname"))) {
                 try {
@@ -378,6 +384,15 @@ public class TicTacToeServer extends Thread {
                 t1.playing=false;
             }
         }
+        for (TicTacToeServer t1 : clientslist) {
+            if(t1.name.equals(req.getData("oponent"))){
+                try {
+                    t1.goingStream.writeObject(req);
+                } catch (IOException ex) {
+                    Logger.getLogger(TicTacToeServer.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
     }
     
     private void leave(Request req) {
@@ -392,6 +407,42 @@ public class TicTacToeServer extends Thread {
                 dataBase.addingNewWins(t1.name);
                 try {
                     t1.goingStream.writeObject(left2);
+                } catch (IOException ex) {
+                    Logger.getLogger(TicTacToeServer.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+    }
+
+    private void remachHandler(Request req) {
+        for (TicTacToeServer t1 : clientslist) {
+            if(t1.name.equals(req.getData("targetname"))){
+                try {
+                    t1.goingStream.writeObject(req);
+                } catch (IOException ex) {
+                    Logger.getLogger(TicTacToeServer.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+    }
+
+    private void rematchAcceptHandler(Request req) {
+        for (TicTacToeServer t1 : clientslist) {
+            if(t1.name.equals(req.getData("targetname"))){
+                try {
+                    t1.goingStream.writeObject(req);
+                } catch (IOException ex) {
+                    Logger.getLogger(TicTacToeServer.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+    }
+
+    private void busyHandler(Request req) {
+        for (TicTacToeServer t1 : clientslist) {
+            if (t1.name.equals(req.getData("targetname"))) {
+                try {
+                    t1.goingStream.writeObject(req);
                 } catch (IOException ex) {
                     Logger.getLogger(TicTacToeServer.class.getName()).log(Level.SEVERE, null, ex);
                 }

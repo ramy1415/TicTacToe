@@ -64,6 +64,7 @@ public class GameController implements Initializable {
     static Socket socket;
     static String myip;
     public static String myname;
+    public static Stage multiplayerpage;
     @FXML
     Label winScore;
     @FXML
@@ -170,6 +171,7 @@ public class GameController implements Initializable {
         window.setScene(multiScene);
         window.setResizable(false);
         window.show();
+        multiplayerpage = window;
     }
 
     @FXML
@@ -284,6 +286,10 @@ public class GameController implements Initializable {
                 window.setScene(ProfileScene);
                 window.setResizable(false);
                 window.show();
+                ListView<String> a=(ListView<String>) window.getScene().lookup("#listViewClients");
+                a.setItems(null);
+                player.askfornames(myname);
+                a.setItems(player.getClients());
                 player.passStage(window);
             } else if ("failure".equals(player.response)) {
                 Alert alert;
@@ -480,7 +486,6 @@ public class GameController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
     }
 
     @FXML
@@ -503,5 +508,4 @@ public class GameController implements Initializable {
         lossScore.setText(player.lossScores);
         });
    }   
-
 }
