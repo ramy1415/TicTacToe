@@ -133,8 +133,15 @@
             </HBox>
             <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Button fx:id="profileBtn" mnemonicParsing="false" onAction="#profilePressed" prefHeight="35.0" prefWidth="120.0" styleClass="newGame" text="Leave" />
-                  <Button fx:id="btnRematch" mnemonicParsing="false" onAction="#btnRematchPressed" text="rematch" />
+                  <Button fx:id="profileBtn" mnemonicParsing="false" onAction="#profilePressed" prefHeight="35.0" prefWidth="112.0" styleClass="newGame" text="Leave" />
+                  <Button fx:id="btnRematch" mnemonicParsing="false" onAction="#btnRematchPressed" prefHeight="35.0" prefWidth="119.0" text="rematch">
+                     <styleClass>
+                        <String fx:value="newGame" />
+                        <String fx:value="resetButton" />
+                     </styleClass>
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin></Button>
                </children>
             </HBox>
          </children>
