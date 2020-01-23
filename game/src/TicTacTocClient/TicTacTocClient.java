@@ -170,7 +170,11 @@ public class TicTacTocClient extends Thread {
                                     Scene singleScene = new Scene(root);
                                     mystage.setScene(singleScene);
                                     onlineStage = mystage;
+<<<<<<< HEAD
+                                    nowplaying=true;
+=======
                                     nowplaying = true;
+>>>>>>> 80b9bba440e76a5a1732664de143d76f13c1f5dc
                                     changeTurn(req.getData("myname"));
                                     mystage.setResizable(false);
                                     mystage.show();
@@ -238,7 +242,11 @@ public class TicTacTocClient extends Thread {
                     Request playingrequest = new Request(RequestType.PLAYING);
                     playingrequest.setData("myname", GameController.myname);
                     try {
+<<<<<<< HEAD
+                        nowplaying=true;
+=======
                         nowplaying = true;
+>>>>>>> 80b9bba440e76a5a1732664de143d76f13c1f5dc
                         OnlinePlay.XoOnlineController.myturn = true;
                         oponent = req.getData("myname");
                         root = FXMLLoader.load(getClass().getResource("/OnlinePlay/XoOnlineView.fxml"));
@@ -249,6 +257,34 @@ public class TicTacTocClient extends Thread {
                         window.setResizable(false);
                         window.show();
                         window.setOnCloseRequest((event) -> {
+<<<<<<< HEAD
+                            try {
+                                if(nowplaying){
+                                if (XoOnlineController.firstleave) {
+                                    Alert a2 = new Alert(Alert.AlertType.CONFIRMATION, GameController.myname + " you will lose if you leave during the game!", ButtonType.YES, ButtonType.NO);
+                                    Optional<ButtonType> result2 = a2.showAndWait();
+                                    if (result2.get() == ButtonType.YES) {
+                                        Request notplayingrequest = new Request(RequestType.LEAVE);
+                                        notplayingrequest.setData("myname", GameController.myname);
+                                        notplayingrequest.setData("oponent", oponent);
+                                        goingStream.writeObject(notplayingrequest);
+                                        TicTacTocClient.someoneleft = true;
+                                    } else if (result2.get() == ButtonType.NO) {
+                                        return;
+                                    }
+                                } else {
+                                    Request leave = new Request(RequestType.NOTPLAYING);
+                                    leave.setData("myname", GameController.myname);
+                                    leave.setData("oponent", oponent);
+                                    goingStream.writeObject(leave);
+                                    TicTacTocClient.someoneleft = true;
+                                }}
+                                Platform.exit();
+                            } catch (IOException ex) {
+                                Logger.getLogger(XoOnlineController.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                        });
+=======
                                         try {
                                             if (nowplaying) {
                                                 if (XoOnlineController.firstleave) {
@@ -275,6 +311,7 @@ public class TicTacTocClient extends Thread {
                         
                         
                         
+>>>>>>> 80b9bba440e76a5a1732664de143d76f13c1f5dc
                         TicTacTocClient.someoneleft = false;
                         Alert a2 = new Alert(Alert.AlertType.CONFIRMATION, GameController.myname + " Do you want to play X ?", ButtonType.YES, ButtonType.NO);
                         Optional<ButtonType> result2 = a2.showAndWait();
@@ -377,7 +414,11 @@ public class TicTacTocClient extends Thread {
                                 XoOnlineController.firstleave = true;
                                 Button btnrematch = (Button) TicTacTocClient.getOnlineStage().getScene().lookup("#btnRematch");
                                 btnrematch.setDisable(true);
+<<<<<<< HEAD
+                                nowplaying=true;
+=======
                                 nowplaying = true;
+>>>>>>> 80b9bba440e76a5a1732664de143d76f13c1f5dc
                             });
                         } catch (IOException ex) {
                             Logger.getLogger(TicTacTocClient.class.getName()).log(Level.SEVERE, null, ex);
@@ -407,7 +448,11 @@ public class TicTacTocClient extends Thread {
                     XoOnlineController.firstleave = true;
                     Button btnrematch = (Button) TicTacTocClient.getOnlineStage().getScene().lookup("#btnRematch");
                     btnrematch.setDisable(true);
+<<<<<<< HEAD
+                    nowplaying=true;
+=======
                     nowplaying = true;
+>>>>>>> 80b9bba440e76a5a1732664de143d76f13c1f5dc
                 });
                 break;
             case NOTPLAYING:
@@ -664,7 +709,11 @@ public class TicTacTocClient extends Thread {
             stage1.show();
             Button btnrematch = (Button) TicTacTocClient.getOnlineStage().getScene().lookup("#btnRematch");
             btnrematch.setDisable(false);
+<<<<<<< HEAD
+            nowplaying=false;
+=======
             nowplaying = false;
+>>>>>>> 80b9bba440e76a5a1732664de143d76f13c1f5dc
             XoOnlineController.firstleave = false;
         });
         pause.play();
@@ -680,7 +729,11 @@ public class TicTacTocClient extends Thread {
         XoOnlineController.firstleave = false;
         Button btnrematch = (Button) TicTacTocClient.getOnlineStage().getScene().lookup("#btnRematch");
         btnrematch.setDisable(false);
+<<<<<<< HEAD
+        nowplaying=false;
+=======
         nowplaying = false;
+>>>>>>> 80b9bba440e76a5a1732664de143d76f13c1f5dc
         // playeroneLabelScore.setText("player One Score : " + (++xscore));
     }
 
