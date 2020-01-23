@@ -398,7 +398,7 @@ public class GameController implements Initializable {
     public void viewgames(String _view) {
         _view = view;
         views = _view.split(";");
-        for (int i = 0; i < views.length; i++) {
+        for (int i=0; i < views.length; i++) {
             player.viewRes.add(views[i]);
             //System.out.println(views[i]);
         }
@@ -409,6 +409,7 @@ public class GameController implements Initializable {
     "1":
     }*/
     public void PlayBtnPressed(ActionEvent e) {
+        System.out.println("playbtnpressed");
         for (int i = 1; i < player.viewRes.size(); i++) {
             System.out.println(player.viewRes.get(i));
             if (null != player.viewRes.get(i)) {

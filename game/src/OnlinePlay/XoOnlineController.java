@@ -448,7 +448,9 @@ public class XoOnlineController implements Initializable {
         pause.setOnFinished(event
                 -> {
             // JOptionPane.showMessageDialog(null, xwin);
+
             String path = "src\\Media\\win.mp4";
+
             Media media = new Media(new File(path).toURI().toString());
             MediaPlayer mediaPlayer = new MediaPlayer(media);
             mediaPlayer.setAutoPlay(true);
