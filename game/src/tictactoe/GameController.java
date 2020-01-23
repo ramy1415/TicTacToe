@@ -119,6 +119,8 @@ public class GameController implements Initializable {
     @FXML
     private Button refreshViewListBtn;
     @FXML
+    private Label labelUsername;
+    @FXML
     private Button HomeBtn;
     @FXML
     private Button viewGames;
@@ -287,6 +289,8 @@ public class GameController implements Initializable {
                 window.setResizable(false);
                 window.show();
                 ListView<String> a=(ListView<String>) window.getScene().lookup("#listViewClients");
+                Label a1=(Label) window.getScene().lookup("#labelUsername");
+                a1.setText(myname);
                 a.setItems(null);
                 player.askfornames(myname);
                 a.setItems(player.getClients());
@@ -404,6 +408,19 @@ public class GameController implements Initializable {
         }
     }
 
+     @FXML
+    private void returnHomePressed(ActionEvent e){
+        try {
+            root = FXMLLoader.load(getClass().getResource("ProfilePage.fxml"));
+            Scene ProfileScene = new Scene(root);
+            window = (Stage) ((Node) e.getSource()).getScene().getWindow();
+            window.setScene(ProfileScene);
+            window.setResizable(false);
+            window.show();          
+        } catch (IOException ex) {
+            Logger.getLogger(GameController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     /*public HashMap<String,Button> mapper=new HashMap<>();
     mapper={
     "1":

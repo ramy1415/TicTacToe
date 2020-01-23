@@ -515,54 +515,63 @@ public class TicTacTocClient extends Thread {
                     case "1":
                         // btnone.setStyle("-fx-text-fill: #ffc200;");
                         btnone.setText(TicTacTocClient.hisSympol);
+                        XoOnlineController.recordd=XoOnlineController.recordd+TicTacTocClient.hisSympol+ ";" + "1" + ";";
                         OnlinePlay.XoOnlineController.myturn = true;
                         btnone.setDisable(true);
                         break;
                     case "2":
                         //btnone.setStyle("-fx-text-fill: #ffc200;");
                         btnTwo.setText(TicTacTocClient.hisSympol);
+                        XoOnlineController.recordd=XoOnlineController.recordd+TicTacTocClient.hisSympol+ ";" + "2" + ";";
                         OnlinePlay.XoOnlineController.myturn = true;
                         btnTwo.setDisable(true);
                         break;
                     case "3":
                         //btnone.setStyle("-fx-text-fill: #ffc200;");
                         btnThree.setText(TicTacTocClient.hisSympol);
+                        XoOnlineController.recordd=XoOnlineController.recordd+TicTacTocClient.hisSympol+ ";" + "3" + ";";
                         OnlinePlay.XoOnlineController.myturn = true;
                         btnThree.setDisable(true);
                         break;
                     case "4":
                         //btnone.setStyle("-fx-text-fill: #ffc200;");
                         btnFour.setText(TicTacTocClient.hisSympol);
+                        XoOnlineController.recordd=XoOnlineController.recordd+TicTacTocClient.hisSympol+ ";" + "4" + ";";
                         OnlinePlay.XoOnlineController.myturn = true;
                         btnFour.setDisable(true);
                         break;
                     case "5":
                         //btnone.setStyle("-fx-text-fill: #ffc200;");
                         btnFive.setText(TicTacTocClient.hisSympol);
+                        XoOnlineController.recordd=XoOnlineController.recordd+TicTacTocClient.hisSympol+ ";" + "5" + ";";
                         OnlinePlay.XoOnlineController.myturn = true;
                         btnFive.setDisable(true);
                         break;
                     case "6":
                         //btnone.setStyle("-fx-text-fill: #ffc200;");
                         btnSix.setText(TicTacTocClient.hisSympol);
+                        XoOnlineController.recordd=XoOnlineController.recordd+TicTacTocClient.hisSympol+ ";" + "6" + ";";
                         OnlinePlay.XoOnlineController.myturn = true;
                         btnSix.setDisable(true);
                         break;
                     case "7":
                         //btnone.setStyle("-fx-text-fill: #ffc200;");
                         btnSeven.setText(TicTacTocClient.hisSympol);
+                        XoOnlineController.recordd=XoOnlineController.recordd+TicTacTocClient.hisSympol+ ";" + "7" + ";";
                         OnlinePlay.XoOnlineController.myturn = true;
                         btnSeven.setDisable(true);
                         break;
                     case "8":
                         //btnone.setStyle("-fx-text-fill: #ffc200;");
                         btnEight.setText(TicTacTocClient.hisSympol);
+                        XoOnlineController.recordd=XoOnlineController.recordd+TicTacTocClient.hisSympol+ ";" + "8" + ";";
                         OnlinePlay.XoOnlineController.myturn = true;
                         btnEight.setDisable(true);
                         break;
                     case "9":
                         //btnone.setStyle("-fx-text-fill: #ffc200;");
                         btnNine.setText(TicTacTocClient.hisSympol);
+                        XoOnlineController.recordd=XoOnlineController.recordd+TicTacTocClient.hisSympol+ ";" + "9" + ";";
                         OnlinePlay.XoOnlineController.myturn = true;
                         btnNine.setDisable(true);
                         break;
