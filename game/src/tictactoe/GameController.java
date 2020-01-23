@@ -119,6 +119,8 @@ public class GameController implements Initializable {
     @FXML
     private Button refreshViewListBtn;
     @FXML
+    private Label labelUsername;
+    @FXML
     private Button HomeBtn;
     @FXML
     private Button viewGames;
@@ -287,6 +289,8 @@ public class GameController implements Initializable {
                 window.setResizable(false);
                 window.show();
                 ListView<String> a=(ListView<String>) window.getScene().lookup("#listViewClients");
+                Label a1=(Label) window.getScene().lookup("#labelUsername");
+                a1.setText(myname);
                 a.setItems(null);
                 player.askfornames(myname);
                 a.setItems(player.getClients());
@@ -398,17 +402,31 @@ public class GameController implements Initializable {
     public void viewgames(String _view) {
         _view = view;
         views = _view.split(";");
-        for (int i = 0; i < views.length; i++) {
+        for (int i=0; i < views.length; i++) {
             player.viewRes.add(views[i]);
             //System.out.println(views[i]);
         }
     }
 
+     @FXML
+    private void returnHomePressed(ActionEvent e){
+        try {
+            root = FXMLLoader.load(getClass().getResource("ProfilePage.fxml"));
+            Scene ProfileScene = new Scene(root);
+            window = (Stage) ((Node) e.getSource()).getScene().getWindow();
+            window.setScene(ProfileScene);
+            window.setResizable(false);
+            window.show();          
+        } catch (IOException ex) {
+            Logger.getLogger(GameController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     /*public HashMap<String,Button> mapper=new HashMap<>();
     mapper={
     "1":
     }*/
     public void PlayBtnPressed(ActionEvent e) {
+        System.out.println("playbtnpressed");
         for (int i = 1; i < player.viewRes.size(); i++) {
             System.out.println(player.viewRes.get(i));
             if (null != player.viewRes.get(i)) {

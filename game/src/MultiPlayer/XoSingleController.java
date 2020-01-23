@@ -100,7 +100,8 @@ public class XoSingleController implements Initializable {
     private MediaView mediaView;
 
     public XoSingleController() {
-
+        player1name="Player 1";
+        player2name="Player 2";
     }
 
     @FXML
@@ -200,9 +201,9 @@ public class XoSingleController implements Initializable {
         Button b = (Button) a.getSource();
         if (flag == 0) {
             m1.setarr(x, y, player1);
+            recordd = recordd + m1.getarr(x, y) + ";" + Integer.toString(buttonNum) + ";";
             b.setStyle("-fx-text-fill: red;");
             b.setText(player1);
-            recordd = recordd + m1.getarr(x, y) + ";" + Integer.toString(buttonNum) + ";";
 
             if (m1.checkwinner()) {
                 xWon();
@@ -221,6 +222,7 @@ public class XoSingleController implements Initializable {
             b.setText(player2);
 
             recordd = recordd + m1.getarr(x, y) + ";" + Integer.toString(buttonNum) + ";";
+            System.err.println(recordd);
 
             if (m1.checkwinner()) {
                 oWon();

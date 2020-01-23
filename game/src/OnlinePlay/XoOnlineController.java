@@ -89,7 +89,7 @@ public class XoOnlineController implements Initializable {
     
     Parent root;
     Stage window;
-    public String recordd = "";
+    public static String recordd = "";
     public static int myscore;
     public static int hisscore;
     private ObjectInputStream comingStream;
@@ -126,6 +126,8 @@ public class XoOnlineController implements Initializable {
     private void btnOnePressed(ActionEvent event) {
         if (myturn) {
             btnOne.setText(TicTacTocClient.mySympol);
+            recordd = recordd + TicTacTocClient.mySympol + ";" + "1" + ";";
+           
             btnOne.setDisable(true);
             board.setarr(0, 0, TicTacTocClient.mySympol);
             boolean check = checkWinning();
@@ -144,6 +146,7 @@ public class XoOnlineController implements Initializable {
                 Logger.getLogger(XoOnlineController.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+
     }
     
     @FXML
@@ -151,6 +154,7 @@ public class XoOnlineController implements Initializable {
         
         if (myturn) {
             btnTwo.setText(TicTacTocClient.mySympol);
+            recordd = recordd + TicTacTocClient.mySympol + ";" + "2" + ";";
             btnTwo.setDisable(true);
             board.setarr(0, 1, TicTacTocClient.mySympol);
             boolean check = checkWinning();
@@ -170,12 +174,14 @@ public class XoOnlineController implements Initializable {
                 Logger.getLogger(XoOnlineController.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+
     }
     
     @FXML
     private void btnThreePressed(ActionEvent event) {
         if (myturn) {
             btnThree.setText(TicTacTocClient.mySympol);
+            recordd = recordd + TicTacTocClient.mySympol + ";" + "3" + ";";
             btnThree.setDisable(true);
             board.setarr(0, 2, TicTacTocClient.mySympol);
             boolean check = checkWinning();
@@ -195,12 +201,14 @@ public class XoOnlineController implements Initializable {
                 Logger.getLogger(XoOnlineController.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+
     }
     
     @FXML
     private void btnFourPressed(ActionEvent event) {
         if (myturn) {
             btnFour.setText(TicTacTocClient.mySympol);
+            recordd = recordd + TicTacTocClient.mySympol + ";" + "4" + ";";
             btnFour.setDisable(true);
             board.setarr(1, 0, TicTacTocClient.mySympol);
             boolean check = checkWinning();
@@ -222,12 +230,14 @@ public class XoOnlineController implements Initializable {
                         .getName()).log(Level.SEVERE, null, ex);
             }
         }
+
     }
     
     @FXML
     private void btnFivePressed(ActionEvent event) {
         if (myturn) {
             btnFive.setText(TicTacTocClient.mySympol);
+            recordd = recordd + TicTacTocClient.mySympol + ";" + "5" + ";";
             btnFive.setDisable(true);
             board.setarr(1, 1, TicTacTocClient.mySympol);
             boolean check = checkWinning();
@@ -248,12 +258,14 @@ public class XoOnlineController implements Initializable {
                         .getName()).log(Level.SEVERE, null, ex);
             }
         }
+
     }
     
     @FXML
     private void btnSixPressed(ActionEvent event) {
         if (myturn) {
             btnSix.setText(TicTacTocClient.mySympol);
+            recordd = recordd + TicTacTocClient.mySympol + ";" + "6" + ";";
             btnSix.setDisable(true);
             board.setarr(1, 2, TicTacTocClient.mySympol);
             boolean check = checkWinning();
@@ -274,12 +286,14 @@ public class XoOnlineController implements Initializable {
                         .getName()).log(Level.SEVERE, null, ex);
             }
         }
+
     }
     
     @FXML
     private void btnSevenPressed(ActionEvent event) {
         if (myturn) {
             btnSeven.setText(TicTacTocClient.mySympol);
+            recordd = recordd + TicTacTocClient.mySympol + ";" + "7" + ";";
             btnSeven.setDisable(true);
             board.setarr(2, 0, TicTacTocClient.mySympol);
             boolean check = checkWinning();
@@ -300,12 +314,14 @@ public class XoOnlineController implements Initializable {
                         .getName()).log(Level.SEVERE, null, ex);
             }
         }
+
     }
     
     @FXML
     private void btnEightPressed(ActionEvent event) {
         if (myturn) {
             btnEight.setText(TicTacTocClient.mySympol);
+            recordd = recordd + TicTacTocClient.mySympol + ";" + "8" + ";";
             btnEight.setDisable(true);
             board.setarr(2, 1, TicTacTocClient.mySympol);
             boolean check = checkWinning();
@@ -326,12 +342,15 @@ public class XoOnlineController implements Initializable {
                         .getName()).log(Level.SEVERE, null, ex);
             }
         }
+
+
     }
     
     @FXML
     private void btnNinePressed(ActionEvent event) {
         if (myturn) {
             btnNine.setText(TicTacTocClient.mySympol);
+            recordd = recordd + TicTacTocClient.mySympol + ";" + "9" + ";";
             btnNine.setDisable(true);
             board.setarr(2, 2, TicTacTocClient.mySympol);
             boolean check = checkWinning();
@@ -352,6 +371,7 @@ public class XoOnlineController implements Initializable {
                         .getName()).log(Level.SEVERE, null, ex);
             }
         }
+
     }
     
     public void recordPressed(ActionEvent e) {
@@ -403,6 +423,7 @@ public class XoOnlineController implements Initializable {
                     notplayingrequest.setData("oponent", oponent);
                     goingStream.writeObject(notplayingrequest);
                     TicTacTocClient.someoneleft = true;
+                    TicTacTocClient.nowplaying=false;
                 } else if (result2.get() == ButtonType.NO) {
                     return;
                 }
@@ -412,6 +433,7 @@ public class XoOnlineController implements Initializable {
                 leave.setData("oponent", oponent);
                 goingStream.writeObject(leave);
                 TicTacTocClient.someoneleft = true;
+                TicTacTocClient.nowplaying=false;
             }
             root = FXMLLoader.load(getClass().getResource("/tictactoe/ProfilePage.fxml"));
             Scene profileScene = new Scene(root);
@@ -419,6 +441,8 @@ public class XoOnlineController implements Initializable {
             window.setScene(profileScene);
             window.setResizable(false);
             window.show();
+            Label a1=(Label) window.getScene().lookup("#labelUsername");
+            a1.setText(myname);
             ListView<String> a = (ListView<String>) window.getScene().lookup("#listViewClients");
             a.setItems(null);
             GameController.getPlayer().askfornames(GameController.myname);
@@ -445,8 +469,14 @@ public class XoOnlineController implements Initializable {
         PauseTransition pause = new PauseTransition(Duration.millis(20));
         pause.setOnFinished(event
                 -> {
+<<<<<<< HEAD
+
+            String path = "F:\\ITI\\Java\\project2\\win.mp4";
+
+=======
             // JOptionPane.showMessageDialog(null, xwin);
             String path = "src\\Media\\win.mp4";
+>>>>>>> bdd75156f7adeba8def52dcc1eb5768478e7994b
             Media media = new Media(new File(path).toURI().toString());
             MediaPlayer mediaPlayer = new MediaPlayer(media);
             mediaPlayer.setAutoPlay(true);
