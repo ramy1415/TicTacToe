@@ -76,6 +76,8 @@ public class XoOnlineController implements Initializable {
     @FXML
     private Button btnNine;
     @FXML
+    private Button btnRematch;
+    @FXML
     private Label playeroneLabelScore;
     @FXML
     private Label playertwoLabelScore;
@@ -87,6 +89,8 @@ public class XoOnlineController implements Initializable {
     Parent root;
     Stage window;
     public String recordd = "";
+    public static int myscore;
+    public static int hisscore;
     private ObjectInputStream comingStream;
     private ObjectOutputStream goingStream;
     private String oponent;
@@ -94,8 +98,8 @@ public class XoOnlineController implements Initializable {
     public static boolean myturn;
     private String mySympol;
     private final String win = "Congratulation! You won!";
-    private XoSingleModel board;
-    private static int draw = 0;
+    public static XoSingleModel board;
+    public static int draw = 0;
     private static String nowTurn;
     public static boolean firstleave=true;
 
@@ -104,7 +108,6 @@ public class XoOnlineController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
         goingStream = GameController.getPlayer().goingStream;
         oponent = TicTacTocClient.getOponent();
         myname = GameController.myname;
@@ -112,6 +115,10 @@ public class XoOnlineController implements Initializable {
         board = new XoSingleModel();
         System.err.println("my s= " + mySympol);
         draw=0;
+        myscore=0;
+        hisscore=0;
+        playeroneLabelScore.setText(""+GameController.myname+" : "+(myscore));
+        playertwoLabelScore.setText(""+oponent +" : "+ (myscore));
     }
 
     @FXML
@@ -372,6 +379,18 @@ public class XoOnlineController implements Initializable {
     }
 
     @FXML
+    private void btnRematchPressed(ActionEvent event) {
+        Request rematchRequest=new Request(RequestType.REMATCH);
+        rematchRequest.setData("targetname", oponent);
+        rematchRequest.setData("myname", myname);
+        try {
+            goingStream.writeObject(rematchRequest);
+        } catch (IOException ex) {
+            Logger.getLogger(XoOnlineController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    @FXML
     private void profilePressed(ActionEvent event) {
         try {
             if(firstleave){
@@ -445,7 +464,7 @@ public class XoOnlineController implements Initializable {
         });
         pause.play();
         disableAllbtns();
-        // playeroneLabelScore.setText("player One Score : " + (++xscore));
+        playeroneLabelScore.setText(""+GameController.myname +" : "+ (++myscore));
     }
 
     private void disableAllbtns() {
@@ -482,7 +501,6 @@ public class XoOnlineController implements Initializable {
             return true;
         } else {
             draw++;
-
         }
         if (draw > 4) {
             // System.out.println("draw happend at  : "+draw);
@@ -499,19 +517,15 @@ public class XoOnlineController implements Initializable {
         }
         return false;
     }
-
     private Request changeTurnRequest() {
         Request changeTurnReq = new Request(RequestType.CHANGETURN);
         changeTurnReq.setData("oponent", oponent);
         changeTurnReq.setData("myname", myname);
         return changeTurnReq;
     }
-
     private void changeTurn(String nowTurnName) {
         Label nowTurn = (Label) TicTacTocClient.getOnlineStage().getScene().lookup("#turnLabel");
         System.out.println("TurnName:" + nowTurnName);
         nowTurn.setText(nowTurnName);
-
     }
-
 }

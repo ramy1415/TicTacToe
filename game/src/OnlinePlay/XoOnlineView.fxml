@@ -131,7 +131,12 @@
                      </font></Label>
                </children>
             </HBox>
-            <Button fx:id="profileBtn" mnemonicParsing="false" onAction="#profilePressed" prefHeight="35.0" prefWidth="120.0" styleClass="newGame" text="Profile" />
+            <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Button fx:id="profileBtn" mnemonicParsing="false" onAction="#profilePressed" prefHeight="35.0" prefWidth="120.0" styleClass="newGame" text="Leave" />
+                  <Button fx:id="btnRematch" mnemonicParsing="false" onAction="#btnRematchPressed" text="rematch" />
+               </children>
+            </HBox>
          </children>
       </VBox>
       <Button fx:id="record" layoutX="48.0" layoutY="180.0" mnemonicParsing="false" onAction="#recordPressed" prefHeight="47.0" prefWidth="98.0" text="record">

@@ -103,9 +103,12 @@ public class TicTacTocClient extends Thread {
                 request = (Request) comingStream.readObject();
                 clientrequestHandler(request);
             } catch (IOException ex) {
-
-                System.err.println("server disconnected");
-                break;
+                Platform.runLater(() -> {
+                    Alert a1 = new Alert(Alert.AlertType.ERROR, "Server disconnected please try to log in later!", ButtonType.OK);
+                    a1.showAndWait();
+                    Platform.exit();
+                });
+                return;
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(TicTacTocClient.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -288,6 +291,51 @@ public class TicTacTocClient extends Thread {
                     lossScores = request.getData("losses");
                 });
                 break;
+            case REMATCH:
+                Platform.runLater(() -> {
+                    Alert a2 = new Alert(Alert.AlertType.CONFIRMATION, GameController.myname + " Do you want A rematch ?", ButtonType.YES, ButtonType.NO);
+                    Optional<ButtonType> result2 = a2.showAndWait();
+                    if (result2.get() == ButtonType.YES) {
+                        try {
+                            Request rematchAcceptedRequest = new Request(RequestType.REMATCHACCEPT);
+                            rematchAcceptedRequest.setData("targetname", oponent);
+                            rematchAcceptedRequest.setData("myname", GameController.myname);
+                            goingStream.writeObject(rematchAcceptedRequest);
+                            XoOnlineController.board.newGame();
+                            Platform.runLater(() -> {
+                                enableAllButtons(getAllButtons());
+                                resetAllButtons(getAllButtons());
+                                XoOnlineController.draw=0;
+                                XoOnlineController.firstleave=true;
+                            });
+                        } catch (IOException ex) {
+                            Logger.getLogger(TicTacTocClient.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }
+                    if (result2.get() == ButtonType.NO) {
+                        Request rejectrequest = new Request(RequestType.REJECT);
+                        rejectrequest.setData("myname", GameController.myname);
+                        rejectrequest.setData("targetname", oponent);
+                        try {
+                            goingStream.writeObject(rejectrequest);
+                        } catch (IOException ex) {
+                            Logger.getLogger(TicTacTocClient.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }
+                });
+                break;
+
+            case REMATCHACCEPT:
+                XoOnlineController.board.newGame();
+                Platform.runLater(() -> {
+                    Alert a2 = new Alert(Alert.AlertType.CONFIRMATION, GameController.myname + "! He accepted", ButtonType.OK);
+                    a2.show();
+                    enableAllButtons(getAllButtons());
+                    resetAllButtons(getAllButtons());
+                    XoOnlineController.draw=0;
+                    XoOnlineController.firstleave=true;
+                });
+                break;
         }
     }
 
@@ -465,6 +513,18 @@ public class TicTacTocClient extends Thread {
         }
     }
 
+    private void enableAllButtons(Button[] btns) {
+        for (int i = 0; i < 9; i++) {
+            btns[i].setDisable(false);
+        }
+    }
+
+    private void resetAllButtons(Button[] btns) {
+        for (int i = 0; i < 9; i++) {
+            btns[i].setText("");
+        }
+    }
+
     private Button[] getAllButtons() {
         Button[] buttons = new Button[9];
         buttons[0] = (Button) TicTacTocClient.getOnlineStage().getScene().lookup("#btnOne");
@@ -510,7 +570,8 @@ public class TicTacTocClient extends Thread {
         });
         pause.play();
         disableAllButtons(getAllButtons());
-        // playeroneLabelScore.setText("player One Score : " + (++xscore));
+        Label hisscorelabel = (Label) TicTacTocClient.getOnlineStage().getScene().lookup("#playertwoLabelScore");
+        hisscorelabel.setText(""+oponent +" : "+ (++XoOnlineController.hisscore));
     }
 
     private void tieAlert() {
