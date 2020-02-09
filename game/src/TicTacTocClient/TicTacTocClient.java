@@ -353,6 +353,7 @@ public class TicTacTocClient extends Thread {
                 Platform.runLater(() -> {
                     Alert a1 = new Alert(Alert.AlertType.CONFIRMATION, req.getData("oponent") + " is playing now", ButtonType.OK);
                     a1.show();
+                    busy = false;
                 });
                 break;
             case LEAVE:

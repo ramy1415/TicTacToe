@@ -340,7 +340,6 @@ public class GameController implements Initializable {
             alert.show();
         }
     }
-
     @FXML
     private void refreshViewList(ActionEvent e) {
         File selectedDirectory = new File("C:\\records");
@@ -354,7 +353,6 @@ public class GameController implements Initializable {
             a.show();
         }
     }
-
     @FXML
     private void viewGamesBtn(ActionEvent e) {
         if (gamesRecordedList.getSelectionModel().getSelectedItem() != null) {
@@ -417,6 +415,8 @@ public class GameController implements Initializable {
             window.setScene(ProfileScene);
             window.setResizable(false);
             window.show();   
+            Label a1=(Label) window.getScene().lookup("#labelUsername");
+            a1.setText(myname);
             
             
             
